@@ -13,7 +13,8 @@
         "const.ts",
         "ui.ts",
         "player.ts",
-        "field.ts"
+        "field.ts",
+        "team.ts"
     ],
     "testFiles": [
         "test.ts"
