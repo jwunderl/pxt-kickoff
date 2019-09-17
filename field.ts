@@ -8,7 +8,7 @@ namespace field {
             4 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 8
             4 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 8
             4 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 8
-        `)
+        `);
         // sidelines
         scene.setTile(3, img`
             e e e e e e e e e e e e e e e e
@@ -27,7 +27,7 @@ namespace field {
             e e e e e e e e e e e e e e e e
             e e e e e e e e e e e e e e e e
             e e e e e e e e e e e e e e e e
-        `, true)
+        `, true);
         // grass
         scene.setTile(7, img`
             7 7 7 7 7 7 7 1 7 7 7 7 7 7 7 7
@@ -46,11 +46,11 @@ namespace field {
             7 7 7 7 7 7 7 1 7 7 7 7 7 7 7 7
             7 7 7 7 7 7 7 1 7 7 7 7 7 7 7 7
             7 7 7 7 7 7 7 1 7 7 7 7 7 7 7 7
-        `, false)
+        `, false);
         createLogo();
     }
 
-    export function createLogo() {
+    function createLogo() {
         const output = sprites.create(img`
             6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6
             6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6
@@ -113,9 +113,9 @@ namespace field {
             6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6
             6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6
             6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6
-        `, SpriteKind.Shield)
-        output.setFlag(SpriteFlag.Ghost, true)
-        output.setPosition(10 * 16, 4 * 16)
+        `, SpriteKind.Shield);
+        output.setFlag(SpriteFlag.Ghost, true);
+        output.setPosition(10 * 16, 4 * 16);
         output.z = 0;
         return output;
     }

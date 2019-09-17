@@ -6,7 +6,7 @@ namespace ui.player {
     }
 
     function indicatorImage(dir: IndicatorImage) {
-        if (testRemainingTime % 2) {
+        if (gameClock.secondsRemaining % 2) {
             switch (dir) {
                 case IndicatorImage.Left:
                     return img`
@@ -114,7 +114,6 @@ namespace ui.scoreboard {
         return scene.createRenderable(100, (target, camera) => {
             const FONT = image.font8
             const HEIGHT = 10;
-            const PADDING = 2;
             const TOP = screen.height - HEIGHT;
 
             target.fillRect(
@@ -126,25 +125,25 @@ namespace ui.scoreboard {
             );
             let xPos = 1;
             const printAndUpdate = (data: string) => {
-                target.print(data, xPos, TOP + PADDING, 0x1, FONT);
+                target.print(data, xPos, TOP + 2, 0x1, FONT);
                 xPos += data.length * FONT.charWidth + 1;
             }
 
-            const teamOneText = teamScoreBoard(playerTeam);
+            const teamOneText = playerTeam + "";
             const teamOneWidth = teamOneText.length * FONT.charWidth;
-            const teamTwoText = teamScoreBoard(opposingTeam);
+            const teamTwoText = opposingTeam + "";
             const teamTwoWidth = teamTwoText.length * FONT.charWidth;
 
             target.fillRect(
                 0,
-                TOP,
+                TOP + 1,
                 teamOneWidth,
                 HEIGHT,
                 playerTeam.mainColor
             );
             target.fillRect(
                 teamOneWidth,
-                TOP,
+                TOP + 1,
                 teamTwoWidth,
                 HEIGHT,
                 opposingTeam.mainColor
@@ -152,21 +151,7 @@ namespace ui.scoreboard {
 
             printAndUpdate(teamOneText);
             printAndUpdate(teamTwoText);
-
-            const testQuarter = "2nd "
-            printAndUpdate(testQuarter);
-            printAndUpdate(secondsToDisplay(testRemainingTime));
+            printAndUpdate(gameClock + "");
         });
-    }
-
-    function teamScoreBoard(team: Team) {
-        return `${team.abbrev}:${`  ${team.score}`.slice(-3)} `;
-    }
-
-    function secondsToDisplay(time: number) {
-        const minutes = (testRemainingTime / 60) | 0;
-        const seconds = testRemainingTime % 60;
-        const secondsDisplay = `0${seconds}`.slice(-2);
-        return minutes + ":" + secondsDisplay;
     }
 }

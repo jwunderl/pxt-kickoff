@@ -24,12 +24,12 @@ class Team {
         if (controlled) {
             this.controlledPlayer = 0;
             controller.moveSprite(this.players[this.controlledPlayer]);
-            controller.B.onEvent(ControllerButtonEvent.Pressed, () => {
-                this.controlNextPlayer();
-            });
+            controller.B.onEvent(
+                ControllerButtonEvent.Pressed,
+                () => this.controlNextPlayer()
+            );
         }
     }
-
 
     get activePlayer() {
         return this.players[this.controlledPlayer];
@@ -38,7 +38,11 @@ class Team {
     controlNextPlayer() {
         controller.moveSprite(this.activePlayer, 0, 0);
         this.controlledPlayer = (this.controlledPlayer + 1) % this.players.length;
-        controller.moveSprite(this.activePlayer)
+        controller.moveSprite(this.activePlayer);
+    }
+
+    toString() {
+        return `${this.abbrev}:${`  ${this.score}`.slice(-3)} `;
     }
 }
 
@@ -50,13 +54,12 @@ namespace teams {
         secondaryColor: number,
         controlled: boolean
     ) {
-        const output = new Team(
+        return new Team(
             name,
             abbrev,
             mainColor,
             secondaryColor,
             controlled
         );
-        return output;
     }
 }

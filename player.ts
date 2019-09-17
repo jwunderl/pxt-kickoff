@@ -17,7 +17,7 @@ namespace player {
             . . . . . . . . . 1 . .
             . . . . . . . . . f f .
             . . . . . . . . . f f f
-        `, SpriteKind.Player)
+        `, SpriteKind.Player);
         player.z = 2;
 
         animation.runImageAnimation(player, [img`
@@ -54,7 +54,7 @@ namespace player {
             . . . . f . . 1 . . . .
             . . . . f f . f f . . .
             . . . . f f f f f f . .
-        `], 200, true)
+        `], 200, true);
         return player;
     }
 } 

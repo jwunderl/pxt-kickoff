@@ -1,6 +1,6 @@
 namespace text.util {
     export function showInstruction(text: string, duration: number): void {
-        control.runInParallel(function () {
+        control.runInParallel(() => {
             const renderable = showText(text);
             pause(duration);
             renderable.destroy();
@@ -11,7 +11,7 @@ namespace text.util {
         const largeFont = image.scaledFont(image.font8, 2);
         return scene.createRenderable(
             scene.HUD_Z,
-            function (target: Image, camera: scene.Camera) {
+            (target, camera) => {
                 const x = (target.width - ((text.length - 0.5) * largeFont.charWidth)) / 2;
                 const y = (target.height / 2) - (largeFont.charHeight / 2);
 
