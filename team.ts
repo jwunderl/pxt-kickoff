@@ -11,18 +11,22 @@ class Team {
         controlled?: boolean
     ) {
         this.score = 0;
+        const startX = lineOfScrimmage + (controlled ? -20 : 20);
 
-        this.players = [
-            player.create(),
-            player.create(),
-            player.create()
-        ];
-        this.players[1].y -= 32
-        this.players[2].y += 32
+        this.players = [];
+        for (let i = 0; i < 3; i++) {
+            let p = player.create();
+            p.y += (i - 1) * 32;
+            p.x = startX;
+            this.players[i] = p;
+        }
 
         if (controlled) {
-            this.controlledPlayer = -1;
-            controller.moveSprite(this.players[this.controlledPlayer])
+            this.controlledPlayer = 0;
+            controller.moveSprite(this.players[this.controlledPlayer]);
+            controller.B.onEvent(ControllerButtonEvent.Pressed, () => {
+                this.controlNextPlayer();
+            });
         }
     }
 
@@ -33,12 +37,12 @@ class Team {
 
     controlNextPlayer() {
         controller.moveSprite(this.activePlayer, 0, 0);
-        this.controlledPlayer = (this.controlledPlayer + 1) % players.length;
+        this.controlledPlayer = (this.controlledPlayer + 1) % this.players.length;
         controller.moveSprite(this.activePlayer)
     }
 }
 
-namespace team {
+namespace teams {
     export function create(
         name: string,
         abbrev: string,

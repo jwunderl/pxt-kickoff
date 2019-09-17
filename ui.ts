@@ -71,9 +71,10 @@ namespace ui.player {
     }
 
     export function createIndicator() {
-        // attach to a team later on, select their random player
         return scene.createRenderable(20, (target, camera) => {
-            if (!activePlayer) return
+            const activePlayer = playerTeam.activePlayer;
+            if (!activePlayer)
+                return;
 
             const xPos = activePlayer.x - camera.offsetX;
             const yPos = activePlayer.top - camera.offsetY;
@@ -103,31 +104,62 @@ namespace ui.player {
                     yPos - 5
                 );
             }
-        })
+        });
     }
 }
 
 namespace ui.scoreboard {
-    export function create() {
+    export function create(playerTeam: Team, opposingTeam: Team) {
         return scene.createRenderable(100, (target, camera) => {
+            const FONT = image.font8
             const HEIGHT = 10;
             const PADDING = 2;
             const TOP = screen.height - HEIGHT;
-            // for test
-            const team1 = `CLE:${`  ${testBrownsScore}`.slice(-3)}|`;
-            const team2 = `SEA:${`  ${testSeahawksScore}`.slice(-3)}|`;
-            target.fillRect(0, TOP, screen.width, HEIGHT, 0xD);
+
+            target.fillRect(
+                0,
+                TOP,
+                screen.width,
+                HEIGHT,
+                0xF
+            );
             let xPos = 1;
             const printAndUpdate = (data: string) => {
-                target.print(data, xPos, TOP + PADDING, 0xF, FONT);
+                target.print(data, xPos, TOP + PADDING, 0x1, FONT);
                 xPos += data.length * FONT.charWidth + 1;
             }
-            printAndUpdate(team1);
-            printAndUpdate(team2);
+
+            const teamOneText = teamScoreBoard(playerTeam);
+            const teamOneWidth = teamOneText.length * FONT.charWidth;
+            const teamTwoText = teamScoreBoard(opposingTeam);
+            const teamTwoWidth = teamTwoText.length * FONT.charWidth;
+
+            target.fillRect(
+                0,
+                TOP,
+                teamOneWidth,
+                HEIGHT,
+                playerTeam.mainColor
+            );
+            target.fillRect(
+                teamOneWidth,
+                TOP,
+                teamTwoWidth,
+                HEIGHT,
+                opposingTeam.mainColor
+            );
+
+            printAndUpdate(teamOneText);
+            printAndUpdate(teamTwoText);
+
+            const testQuarter = "2nd "
             printAndUpdate(testQuarter);
             printAndUpdate(secondsToDisplay(testRemainingTime));
         });
+    }
 
+    function teamScoreBoard(team: Team) {
+        return `${team.abbrev}:${`  ${team.score}`.slice(-3)} `;
     }
 
     function secondsToDisplay(time: number) {
