@@ -12,8 +12,8 @@
         "textUtil.ts",
         "const.ts",
         "ui.ts",
-        "fieldLogo.ts",
-        "player.ts"
+        "player.ts",
+        "field.ts"
     ],
     "testFiles": [
         "test.ts"

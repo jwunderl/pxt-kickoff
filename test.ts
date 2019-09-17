@@ -79,53 +79,6 @@ function secondsToDisplay(time: number) {
     return minutes + ":" + secondsDisplay;
 }
 
-scene.setTileMap(img`
-    3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3
-    4 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 8
-    4 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 8
-    4 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 8
-    4 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 8
-    4 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 8
-    4 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 8
-`)
-scene.setTile(3, img`
-    e e e e e e e e e e e e e e e e
-    e e e e e e e e e e e e e e e e
-    e e e e e e e e e e e e e e e e
-    e 1 1 1 e e e e e e e e e e e e
-    e 1 e 1 1 e e e e e e e e e e e
-    e 1 e e 1 e e e e e e e e e e e
-    e 1 e e e e e e e e e e e e e e
-    e 1 e e e e e e e e e e e e e e
-    1 1 1 e 1 1 1 e e 1 e 1 e e e e
-    e 1 e 1 1 e 1 e e 1 1 e 1 e e e
-    e 1 e 1 e 1 1 e e 1 e e 1 e e e
-    e 1 e 1 1 1 e 1 e 1 e e 1 e e e
-    e e e e e e e e e e e e e e e e
-    e e e e e e e e e e e e e e e e
-    e e e e e e e e e e e e e e e e
-    e e e e e e e e e e e e e e e e
-`, true)
-scene.setTile(7, img`
-    7 7 7 7 7 7 7 1 7 7 7 7 7 7 7 7
-    7 7 7 7 7 7 7 1 7 7 7 7 7 7 7 7
-    7 7 7 7 7 7 7 1 7 7 7 7 7 7 7 7
-    7 7 7 7 7 7 7 1 7 7 7 7 7 7 7 7
-    7 7 7 7 7 7 7 1 7 7 7 7 7 7 7 7
-    7 7 7 7 7 7 7 1 7 7 7 7 7 7 7 7
-    7 7 7 7 7 7 7 1 7 7 7 7 7 7 7 7
-    7 7 7 7 7 7 7 1 7 7 7 7 7 7 7 7
-    7 7 7 7 7 7 7 1 7 7 7 7 7 7 7 7
-    7 7 7 7 7 7 7 1 7 7 7 7 7 7 7 7
-    7 7 7 7 7 7 7 1 7 7 7 7 7 7 7 7
-    7 7 7 7 7 7 7 1 7 7 7 7 7 7 7 7
-    7 7 7 7 7 7 7 1 7 7 7 7 7 7 7 7
-    7 7 7 7 7 7 7 1 7 7 7 7 7 7 7 7
-    7 7 7 7 7 7 7 1 7 7 7 7 7 7 7 7
-    7 7 7 7 7 7 7 1 7 7 7 7 7 7 7 7
-`, false)
-
-
 let currentPlayer = 0;
 const players = [
     player.create(),
@@ -198,7 +151,7 @@ shadow.setFlag(SpriteFlag.Ghost, true)
 scene.cameraFollowSprite(football)
 
 ui.player.createIndicator();
-logo.create();
+field.create()
 
 pause(500)
 shadow.setFlag(SpriteFlag.Ghost, false)
