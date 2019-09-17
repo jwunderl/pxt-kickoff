@@ -36,38 +36,39 @@ namespace ui.player {
                         . . . 5 . . .
                     `;
             }
-        } else {
-            switch (dir) {
-                case IndicatorImage.Left:
-                    return img`
-                        . . . 2
-                        . . 2 5
-                        . 2 5 2
-                        2 5 2 2
-                        . 2 5 2
-                        . . 2 5
-                        . . . 2
-                    `;
-                case IndicatorImage.Right:
-                    return img`
-                        2 . . .
-                        5 2 . .
-                        2 5 2 .
-                        2 2 5 2
-                        2 5 2 .
-                        5 2 . .
-                        2 . . .
-                    `;
-                case IndicatorImage.Down:
-                    return img`
-                        2 5 2 2 2 5 2
-                        . 2 5 2 5 2 .
-                        . . 2 5 2 . .
-                        . . . 2 . . .
-                    `;
-            }
         }
-        return undefined; // should never reach here, but ts doesn't like this.
+        // this ought to be in an else branch, but leaving it as 
+        // an implicit else works around the compiler issue of not all branches
+        // having a return / needing to have a default return
+        switch (dir) {
+            case IndicatorImage.Left:
+                return img`
+                    . . . 2
+                    . . 2 5
+                    . 2 5 2
+                    2 5 2 2
+                    . 2 5 2
+                    . . 2 5
+                    . . . 2
+                `;
+            case IndicatorImage.Right:
+                return img`
+                    2 . . .
+                    5 2 . .
+                    2 5 2 .
+                    2 2 5 2
+                    2 5 2 .
+                    5 2 . .
+                    2 . . .
+                `;
+            case IndicatorImage.Down:
+                return img`
+                    2 5 2 2 2 5 2
+                    . 2 5 2 5 2 .
+                    . . 2 5 2 . .
+                    . . . 2 . . .
+                `;
+        }
     }
 
     export function createIndicator() {
