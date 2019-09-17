@@ -14,7 +14,7 @@ class GameClock {
                 if (!this.finished()) {
                     game.splash("Next Quarter!");
                     this.secondsRemaining = secondsPerQuarter;
-                    ball.clear()
+                    ball.toss()
                 } else {
                     game.over();
                 }

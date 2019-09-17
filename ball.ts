@@ -92,6 +92,7 @@ namespace ball {
                 if (playerWhoCaught.right > 19 * 16) {
                     playerScored = true;
                     playerTeam.score += 7;
+                    ball.toss()
                 }
             })
         } else {
