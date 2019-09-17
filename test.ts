@@ -54,31 +54,6 @@ game.onUpdateInterval(1000, function () {
     }
 })
 
-const scoreBoard = scene.createRenderable(100, (target, camera) => {
-    const HEIGHT = 10;
-    const PADDING = 2;
-    const TOP = screen.height - HEIGHT;
-    const team1 = `CLE:${`  ${testBrownsScore}`.slice(-3)}|`;
-    const team2 = `SEA:${`  ${testSeahawksScore}`.slice(-3)}|`;
-    let xPos = 1;
-    target.fillRect(0, TOP, screen.width, HEIGHT, 0xD)
-    const printAndUpdate = (data: string) => {
-        target.print(data, xPos, TOP + PADDING, 0xF, FONT);
-        xPos += data.length * FONT.charWidth + 1;
-    }
-    printAndUpdate(team1);
-    printAndUpdate(team2);
-    printAndUpdate(testQuarter);
-    printAndUpdate(secondsToDisplay(testRemainingTime));
-});
-
-function secondsToDisplay(time: number) {
-    const minutes = (testRemainingTime / 60) | 0;
-    const seconds = testRemainingTime % 60;
-    const secondsDisplay = `0${seconds}`.slice(-2);
-    return minutes + ":" + secondsDisplay;
-}
-
 let currentPlayer = 0;
 const players = [
     player.create(),
@@ -152,10 +127,10 @@ scene.cameraFollowSprite(football)
 
 ui.player.createIndicator();
 field.create()
+ui.scoreboard.create();
 
 pause(500)
 shadow.setFlag(SpriteFlag.Ghost, false)
-
 
 text.util.showInstruction("CATCH!", 1000)
 
