@@ -8,7 +8,12 @@
     },
     "files": [
         "README.md",
-        "main.ts"
+        "main.ts",
+        "textUtil.ts",
+        "const.ts",
+        "ui.ts",
+        "fieldLogo.ts",
+        "player.ts"
     ],
     "testFiles": [
         "test.ts"
