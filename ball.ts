@@ -91,9 +91,9 @@ namespace ball {
                 if (playerWhoCaught.right > 19 * 16) {
                     playerScored = true;
                     playerTeam.score += 7;
-                    ball.toss()
+                    ball.toss();
                 }
-            })
+            });
         } else {
             sprite.vy = sprite.vy * -0.33;
             sprite.vx = sprite.vx * .6;
@@ -110,9 +110,9 @@ namespace ball {
                     sprite.vx = 0;
                     control.runInParallel(() => {
                         text.util.showInstruction("MISS!", 1500);
-                    })
+                    });
                 }
-            })
+            });
         }
-    })
+    });
 }
