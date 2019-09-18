@@ -16,7 +16,7 @@ namespace text.util {
     function showText(text: string): scene.Renderable {
         const largeFont = image.scaledFont(image.font8, 2);
         return scene.createRenderable(
-            scene.HUD_Z,
+            zindex.HUD,
             (target, camera) => {
                 const x = (target.width - ((text.length - 0.5) * largeFont.charWidth)) / 2;
                 const y = (target.height / 2) - (largeFont.charHeight / 2);

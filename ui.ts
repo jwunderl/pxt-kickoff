@@ -72,7 +72,7 @@ namespace ui.player {
     }
 
     export function createIndicator() {
-        return scene.createRenderable(20, (target, camera) => {
+        return scene.createRenderable(zindex.PLAYER_INDICATOR, (target, camera) => {
             const activePlayer = playerTeam.activePlayer;
             if (!activePlayer)
                 return;
@@ -112,7 +112,7 @@ namespace ui.player {
 
 namespace ui.scoreboard {
     export function create(playerTeam: Team, opposingTeam: Team) {
-        return scene.createRenderable(100, (target, camera) => {
+        return scene.createRenderable(zindex.HUD, (target, camera) => {
             const FONT = image.font8
             const HEIGHT = 10;
             const TOP = screen.height - HEIGHT;

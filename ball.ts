@@ -4,6 +4,8 @@ namespace ball {
 
     export function toss() {
         clear();
+        text.util.showInstruction("CATCH!", 1000);
+
         football = sprites.create(img`
             . . . . . . . .
             . . d d d d . .
@@ -17,7 +19,7 @@ namespace ball {
         football.setPosition(20, 100);
         football.setVelocity(60, -70);
         football.ay = 50;
-        football.z = 5;
+        football.z = zindex.BALL;
         animation.runImageAnimation(football, [img`
             . . . . . . . .
             . . d d d d . .
@@ -37,6 +39,7 @@ namespace ball {
             . . d d d d . .
             . . . . . . . .
         `], 100, true);
+        scene.cameraFollowSprite(football);
 
         shadow = sprites.create(img`
             . . . . . . . .
@@ -48,14 +51,12 @@ namespace ball {
             . . c c c c . .
             . . . . . . . .
         `, SpriteKind.Shadow);
-        shadow.z = 1;
+        shadow.z = zindex.SHADOW;
         shadow.setPosition(20, 100);
         shadow.setVelocity(60, 0);
         shadow.setFlag(SpriteFlag.Ghost, true);
-        scene.cameraFollowSprite(football);
-        text.util.showInstruction("CATCH!", 1000);
 
-        let cachedShadow = shadow;
+        const cachedShadow = shadow;
 
         // small delay so overlap doesn't occur immediately
         control.runInParallel(() => {

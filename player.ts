@@ -1,9 +1,10 @@
 namespace player {
     export function create(team: Team) {
+        const isPlayerTeam = team.isPlayerControlled();
         const startAnim = team.animations[1];
         const player = sprites.create(
             startAnim.frames[0],
-            team.isPlayerControlled() ?
+            isPlayerTeam ?
                 SpriteKind.PlayerTeam
                 :
                 SpriteKind.OpposingTeam
@@ -18,12 +19,12 @@ namespace player {
         );
         animation.setAction(
             player,
-            team.isPlayerControlled() ?
+            isPlayerTeam ?
                 AnimationDirection.Right
                 :
                 AnimationDirection.Left
         );
-        player.z = 2;
+        player.z = isPlayerTeam ? zindex.PLAYER_TEAM : zindex.OPPOSING_TEAM;
 
         return player;
     }

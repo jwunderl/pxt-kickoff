@@ -116,7 +116,7 @@ namespace field {
         `, SpriteKind.Shield);
         output.setFlag(SpriteFlag.Ghost, true);
         output.setPosition(10 * 16, 4 * 16);
-        output.z = 0;
+        output.z = zindex.BACKGROUND;
         return output;
     }
 }
