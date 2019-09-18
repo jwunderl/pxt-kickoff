@@ -44,4 +44,15 @@ namespace player {
         else if (player.vx > 0)
             animation.setAction(player, AnimationDirection.Right);
     }
+
+    export function initializePlayerCollisions() {
+        sprites.onOverlap(
+            SpriteKind.PlayerTeam,
+            SpriteKind.OpposingTeam,
+            (sprite, otherSprite) => {
+                sprite.x -= 2;
+                otherSprite.x += 1;
+            }
+        );
+    }
 }
