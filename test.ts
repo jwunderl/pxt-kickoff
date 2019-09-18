@@ -9,4 +9,3 @@ ui.scoreboard.create(playerTeam, opposingTeam);
 text.util.showInstruction("CATCH!", 1000);
 ball.toss()
 controller.A.onEvent(ControllerButtonEvent.Pressed, () => ball.toss());
-

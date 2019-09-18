@@ -1,3 +1,4 @@
+// a 3 person team lined up on the field
 class Team {
     public score: number;
     public players: Sprite[];
@@ -15,10 +16,7 @@ class Team {
 
         this.players = [];
         for (let i = 0; i < 3; i++) {
-            let p = player.create();
-            p.y += (i - 1) * 32;
-            p.x = startX;
-            this.players[i] = p;
+            this.players[i] = player.create();
         }
 
         if (controlled) {
@@ -29,6 +27,19 @@ class Team {
                 () => this.controlNextPlayer()
             );
         }
+        this.resetPlayerPositions();
+    }
+
+    resetPlayerPositions() {
+        const startX = lineOfScrimmage + (this.isPlayerControlled() ? -20 : 20);
+        this.players.forEach((p, i) => {
+            p.y = (screen.height >> 1) + (i - 1) * 32;
+            p.x = startX;
+        });
+    }
+
+    isPlayerControlled() {
+        return this.controlledPlayer !== undefined;
     }
 
     get activePlayer() {
