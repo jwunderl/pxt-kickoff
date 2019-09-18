@@ -32,10 +32,10 @@ namespace player {
     game.onUpdate(() => {
         sprites
             .allOfKind(SpriteKind.PlayerTeam)
-            .forEach(s => updatePlayerAnimation);
+            .forEach(updatePlayerAnimation);
         sprites
             .allOfKind(SpriteKind.OpposingTeam)
-            .forEach(s => updatePlayerAnimation);
+            .forEach(updatePlayerAnimation);
     });
 
     function updatePlayerAnimation(player: Sprite) {
