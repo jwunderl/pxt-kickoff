@@ -6,6 +6,10 @@ namespace SpriteKind {
     export const OpposingTeam = SpriteKind.create();
 }
 
+namespace datakey {
+    export const CURRENT_OFFENSE = "current_offense";
+}
+
 enum AnimationDirection {
     Left,
     Right

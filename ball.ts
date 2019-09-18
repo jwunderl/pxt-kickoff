@@ -4,7 +4,7 @@ namespace ball {
 
     export function toss() {
         clear();
-        ai.setOpponentTeamFollowing(true);
+        ai.setTeamDefense(opposingTeam, playerTeam, true);
         text.util.showInstruction("CATCH!", 1000);
 
         football = sprites.create(img`
@@ -93,7 +93,7 @@ namespace ball {
                     playerScored = true;
                     playerTeam.score += 7;
                     ball.toss();
-                    ai.setOpponentTeamFollowing(false)
+                    ai.setTeamDefense(opposingTeam, playerTeam, false);
                 }
             });
         } else {
