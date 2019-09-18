@@ -101,7 +101,7 @@ namespace ui.player {
                 const indicator = indicatorImage(IndicatorImage.Down)
                 target.drawTransparentImage(
                     indicator,
-                    xPos + 1,
+                    xPos - 6,
                     yPos - 5
                 );
             }

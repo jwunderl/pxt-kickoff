@@ -3,10 +3,7 @@ class Team {
     public score: number;
     public players: Sprite[];
     protected controlledPlayer: number;
-    // frames for animations with the players;
-    // animations[0] moving left
-    // animations[1] moving right
-    public animations: Image[][];
+    public animations: animation.Animation[];
 
     constructor(
         public name: string,
@@ -62,7 +59,7 @@ class Team {
     }
 
     protected initializeFrames() {
-        this.animations = [
+        const animationFrames = [
             [img`
                 . . . . . . . . . . . . . . . .
                 . . . . . . . . . . . . . . . .
@@ -134,12 +131,20 @@ class Team {
                 . . . . . f f f . . . f f f . .
             `]
         ];
+        this.animations = [];
 
-        this.animations.forEach(anim => {
+        animationFrames.forEach(anim => {
             anim.forEach(frame => {
                 frame.replace(4, this.mainColor)
             });
         });
+
+        this.animations[AnimationDirection.Left] = animation.createAnimation(AnimationDirection.Left, 200);
+        this.animations[AnimationDirection.Right] = animation.createAnimation(AnimationDirection.Right, 200);
+
+        animationFrames.forEach((frames, index) =>
+            frames.forEach(im => this.animations[index].addAnimationFrame(im))
+        );
     }
 }
 

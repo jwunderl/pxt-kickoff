@@ -7,3 +7,8 @@ namespace SpriteKind {
 namespace DataKeys {
     export const PlayerHasBall = "__PLAYER_HAS_BALL";
 }
+
+enum AnimationDirection {
+    Left,
+    Right
+}
