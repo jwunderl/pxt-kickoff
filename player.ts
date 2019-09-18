@@ -4,10 +4,15 @@ namespace player {
         const player = sprites.create(startAnim.frames[0], SpriteKind.Player);
         animation.attachAnimation(player, team.animations[AnimationDirection.Left]);
         animation.attachAnimation(player, team.animations[AnimationDirection.Right]);
-        animation.setAction(player, AnimationDirection.Left)
         player.z = 2;
 
-        // animation.runImageAnimation(player, startAnim, 200, true);
         return player;
     }
-} 
+
+    game.onUpdate(() => {
+        sprites.allOfKind(SpriteKind.Player).forEach(s => {
+            if (s.vx < 0) animation.setAction(s, AnimationDirection.Left);
+            else if (s.vx > 0) animation.setAction(s, AnimationDirection.Right);
+        });
+    });
+}
