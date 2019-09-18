@@ -11,22 +11,22 @@ namespace field {
         `);
         // sidelines
         scene.setTile(3, img`
-            e e e e e e e e e e e e e e e e
-            e e e e e e e e e e e e e e e e
-            e e e e e e e e e e e e e e e e
-            e 1 1 1 e e e e e e e e e e e e
-            e 1 e 1 1 e e e e e e e e e e e
-            e 1 e e 1 e e e e e e e e e e e
-            e 1 e e e e e e e e e e e e e e
-            e 1 e e e e e e e e e e e e e e
-            1 1 1 e 1 1 1 e e 1 e 1 e e e e
-            e 1 e 1 1 e 1 e e 1 1 e 1 e e e
-            e 1 e 1 e 1 1 e e 1 e e 1 e e e
-            e 1 e 1 1 1 e 1 e 1 e e 1 e e e
-            e e e e e e e e e e e e e e e e
-            e e e e e e e e e e e e e e e e
-            e e e e e e e e e e e e e e e e
-            e e e e e e e e e e e e e e e e
+            f f f f f f f f f f f f f f f f
+            f f f f f f f f f f f f f f f f
+            f f f f f f f f f f f f f f f f
+            f f f f f f e e e f f f f f f f
+            f f f f f e e 1 e e f f f f f f
+            f f f f f f 1 1 1 f f f f f f f
+            f f f f f f 1 1 1 f f f f f f f
+            f f f f 8 8 8 1 8 8 8 f f f f f
+            f f f 8 8 8 8 8 8 8 8 8 f f f f
+            f f f 8 f 8 8 8 8 8 f 8 f f f f
+            f f f f f 8 8 8 8 8 f f f f f f
+            f f f f f 8 8 8 8 8 f f f f f f
+            1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+            7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7
+            7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7
+            7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7
         `, true);
         // grass
         scene.setTile(7, img`
