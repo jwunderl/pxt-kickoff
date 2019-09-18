@@ -99,9 +99,10 @@ namespace ui.player {
                 );
             } else { // within the screen
                 const indicator = indicatorImage(IndicatorImage.Down)
+                // offset here is very hacky, probably just store state in data instead I guess
                 target.drawTransparentImage(
                     indicator,
-                    xPos - 6,
+                    xPos + (activePlayer._action === AnimationDirection.Left ? -8 : 1),
                     yPos - 5
                 );
             }

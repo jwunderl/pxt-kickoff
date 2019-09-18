@@ -15,19 +15,20 @@ class Team {
         this.score = 0;
         const startX = lineOfScrimmage + (controlled ? -20 : 20);
         this.initializeFrames();
+        if (controlled) {
+            this.controlledPlayer = 0;
+            controller.B.onEvent(
+                ControllerButtonEvent.Pressed,
+                () => this.controlNextPlayer()
+            );
+        }
 
         this.players = [];
         for (let i = 0; i < 3; i++) {
             this.players[i] = player.create(this);
         }
-
         if (controlled) {
-            this.controlledPlayer = 0;
             controller.moveSprite(this.players[this.controlledPlayer]);
-            controller.B.onEvent(
-                ControllerButtonEvent.Pressed,
-                () => this.controlNextPlayer()
-            );
         }
         this.resetPlayerPositions();
     }
