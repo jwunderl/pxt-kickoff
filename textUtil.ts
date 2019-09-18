@@ -1,9 +1,15 @@
 namespace text.util {
+    let renderable: scene.Renderable;
     export function showInstruction(text: string, duration: number): void {
-        control.runInParallel(() => {
-            const renderable = showText(text);
-            pause(duration);
+        if (renderable) {
             renderable.destroy();
+        }
+        renderable = showText(text);
+        control.runInParallel(() => {
+            pause(duration);
+            if (renderable) {
+                renderable.destroy();
+            }
         });
     }
 
