@@ -29,11 +29,18 @@ namespace player {
     }
 
     game.onUpdate(() => {
-        sprites.allOfKind(SpriteKind.Player).forEach(s => {
-            if (s.vx < 0)
-                animation.setAction(s, AnimationDirection.Left);
-            else if (s.vx > 0)
-                animation.setAction(s, AnimationDirection.Right);
-        });
+        sprites
+            .allOfKind(SpriteKind.PlayerTeam)
+            .forEach(s => updatePlayerAnimation);
+        sprites
+            .allOfKind(SpriteKind.OpposingTeam)
+            .forEach(s => updatePlayerAnimation);
     });
+
+    function updatePlayerAnimation(player: Sprite) {
+        if (player.vx < 0)
+            animation.setAction(player, AnimationDirection.Left);
+        else if (player.vx > 0)
+            animation.setAction(player, AnimationDirection.Right);
+    }
 }
