@@ -1,5 +1,3 @@
-// behaves as a singleton object; if you try to create a new ball,
-// the previous one will be cleared.
 namespace ball {
     let football: Sprite;
     let shadow: Sprite;

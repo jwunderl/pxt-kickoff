@@ -3,6 +3,10 @@ class Team {
     public score: number;
     public players: Sprite[];
     protected controlledPlayer: number;
+    // frames for animations with the players;
+    // animations[0] moving left
+    // animations[1] moving right
+    public animations: Image[][];
 
     constructor(
         public name: string,
@@ -13,10 +17,11 @@ class Team {
     ) {
         this.score = 0;
         const startX = lineOfScrimmage + (controlled ? -20 : 20);
+        this.initializeFrames();
 
         this.players = [];
         for (let i = 0; i < 3; i++) {
-            this.players[i] = player.create();
+            this.players[i] = player.create(this);
         }
 
         if (controlled) {
@@ -54,6 +59,87 @@ class Team {
 
     toString() {
         return `${this.abbrev}:${`  ${this.score}`.slice(-3)} `;
+    }
+
+    protected initializeFrames() {
+        this.animations = [
+            [img`
+                . . . . . . . . . . . . . . . .
+                . . . . . . . . . . . . . . . .
+                . . f f f f f . . . . . . . . .
+                . f f f f f f f . . . . . . . .
+                . . 4 f f f f f . . . . . . . .
+                . 4 4 f f f f 1 1 1 . . . . . .
+                . f f 4 4 4 4 1 1 4 4 . . . . .
+                . 4 4 1 1 4 4 4 4 f . . . . . .
+                . 4 4 1 1 1 1 4 4 f . . . . . .
+                . . f f f f f f f 1 f . . . . .
+                . f f 1 1 1 f f f f 1 f f 1 f f
+                . f 1 f f f f . . f f f f 1 f f
+                . f f . . . . . . f f f . . . f
+                . . 1 . . . . . . . . . . . . .
+                . f f . . . . . . . . . . . . .
+                f f f . . . . . . . . . . . . .
+            `, img`
+                . . . . . . . . . . . . . . . .
+                . . . . . . . . . . . . . . . .
+                . . f f f f f . . . . . . . . .
+                . f f f f f f f . . . . . . . .
+                . . 4 f f f f f . . . . . . . .
+                . 4 4 f f f f 1 1 1 . . . . . .
+                . f f 4 4 1 1 1 1 4 4 . . . . .
+                . 4 4 1 1 4 1 1 f 4 4 . . . . .
+                . 4 4 1 1 1 1 4 4 f . . . . . .
+                . . . . f f f f f 1 f . . . . .
+                . . . f f f f f 1 f . . . . . .
+                . . . f f f . 1 f f f . . . . .
+                . . . f f . . . . f 1 . . . . .
+                . . . . 1 . . . . . f . . . . .
+                . . . f f . . . . f f . . . . .
+                . . f f f . . . f f f . . . . .
+            `],
+            [img`
+                . . . . . . . . . . . . . . . .
+                . . . . . . . . . . . . . . . .
+                . . . . . . . . . f f f f f . .
+                . . . . . . . . f f f f f f f .
+                . . . . . . . . f f f f f 4 . .
+                . . . . . . 1 1 1 f f f f 4 4 .
+                . . . . . 4 4 1 1 4 4 4 4 f f .
+                . . . . . . f 4 4 4 4 1 1 4 4 .
+                . . . . . . f 4 4 1 1 1 1 4 4 .
+                . . . . . f 1 f f f f f f f . .
+                f f 1 f f 1 f f f f 1 1 1 f f .
+                f f 1 f f f f . . f f f f 1 f .
+                f . . . f f f . . . . . . f f .
+                . . . . . . . . . . . . . 1 . .
+                . . . . . . . . . . . . . f f .
+                . . . . . . . . . . . . . f f f
+            `, img`
+                . . . . . . . . . . . . . . . .
+                . . . . . . . . . . . . . . . .
+                . . . . . . . . . f f f f f . .
+                . . . . . . . . f f f f f f f .
+                . . . . . . . . f f f f f 4 . .
+                . . . . . . 1 1 1 f f f f 4 4 .
+                . . . . . 4 4 1 1 1 1 4 4 f f .
+                . . . . . 4 4 f 1 1 4 1 1 4 4 .
+                . . . . . . f 4 4 1 1 1 1 4 4 .
+                . . . . . f 1 f f f f f . . . .
+                . . . . . . f 1 f f f f f . . .
+                . . . . . f f f 1 . f f f . . .
+                . . . . . 1 f . . . . f f . . .
+                . . . . . f . . . . . 1 . . . .
+                . . . . . f f . . . . f f . . .
+                . . . . . f f f . . . f f f . .
+            `]
+        ];
+
+        this.animations.forEach(anim => {
+            anim.forEach(frame => {
+                frame.replace(4, this.mainColor)
+            });
+        });
     }
 }
 
