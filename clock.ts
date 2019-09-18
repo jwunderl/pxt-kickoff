@@ -54,8 +54,7 @@ class GameClock {
     protected timeRemainingToString() {
         const minutes = (this.secondsRemaining / 60) | 0;
         const seconds = this.secondsRemaining % 60;
-        const secondsDisplay = `0${seconds}`.slice(-2);
-        return `${minutes}:${secondsDisplay}`;
+        return `${minutes}:${`0${seconds}`.slice(-2)}`;
     }
 }
 
