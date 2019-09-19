@@ -1,27 +1,39 @@
 class GameClock {
     public quarter: number;
     public secondsRemaining: number;
+    protected on: boolean;
 
     constructor(secondsPerQuarter: number) {
+        this.on = false;
         this.quarter = 1;
         this.secondsRemaining = secondsPerQuarter;
 
         // register timer update
         game.onUpdateInterval(1000, () => {
-            this.secondsRemaining--;
-            if (this.secondsRemaining <= 0) {
-                this.quarter++;
-                if (!this.finished()) {
-                    game.splash("Next Quarter!");
-                    this.secondsRemaining = secondsPerQuarter;
-                    playerTeam.resetPlayerPositions();
-                    opposingTeam.resetPlayerPositions();
-                    ball.toss()
-                } else {
-                    game.over();
+            if (this.on) {
+                this.secondsRemaining--;
+                if (this.secondsRemaining <= 0) {
+                    this.quarter++;
+                    if (!this.finished()) {
+                        game.splash("Next Quarter!");
+                        this.secondsRemaining = secondsPerQuarter;
+                        playerTeam.resetPlayerPositions();
+                        opposingTeam.resetPlayerPositions();
+                        ball.toss()
+                    } else {
+                        game.over();
+                    }
                 }
             }
         });
+    }
+
+    stop() {
+        this.on = false;
+    }
+
+    start() {
+        this.on = true;
     }
 
     toString() {

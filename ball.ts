@@ -6,6 +6,7 @@ namespace ball {
 
     export function toss() {
         clear();
+        gameClock.start();
         ai.setTeamDefense(opposingTeam, playerTeam, true);
         ai.setTeamOffense(playerTeam, true);
         text.util.showInstruction("CATCH!", 1000);
@@ -91,6 +92,7 @@ namespace ball {
                 text.util.showInstruction("MISS!", 1500);
                 const stopPosition = otherSprite.bottom;
                 pauseUntil(() => sprite && sprite.bottom >= stopPosition);
+                gameClock.stop();
                 otherSprite.destroy();
                 animation.stopAnimation(animation.AnimationTypes.ImageAnimation, sprite);
                 sprite.ay = 0;
@@ -115,6 +117,7 @@ namespace ball {
 
     function touchDown() {
         text.util.showInstruction("TOUCHDOWN!", 1500);
+        gameClock.stop();
         playerTeam.score += 7;
         ai.setTeamDefense(opposingTeam, playerTeam, false);
         ai.setTeamOffense(playerTeam, false);
@@ -124,6 +127,6 @@ namespace ball {
         opposingTeam.players.forEach(p => {
             p.vx = 0;
             p.vy = 0;
-        })
+        });
     }
 }
