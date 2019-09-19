@@ -45,7 +45,7 @@ namespace player {
             animation.setAction(player, AnimationDirection.Right);
     }
 
-    export function initializePlayerCollisions() {
+    export function initializeEvents() {
         sprites.onOverlap(
             SpriteKind.PlayerTeam,
             SpriteKind.OpposingTeam,

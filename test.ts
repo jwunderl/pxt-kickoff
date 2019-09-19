@@ -6,8 +6,8 @@ const gameClock = clocks.create(20);
 ui.player.createIndicator();
 field.create();
 ui.scoreboard.create(playerTeam, opposingTeam);
-text.util.showInstruction("CATCH!", 1000);
-player.initializePlayerCollisions();
+player.initializeEvents();
+ball.initializeEvents();
 controller.A.onEvent(ControllerButtonEvent.Pressed, () => ball.toss());
 
 (() => {

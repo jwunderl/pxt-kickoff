@@ -1,6 +1,8 @@
 namespace ball {
     let football: Sprite;
     let shadow: Sprite;
+    // player that currently possesses the football
+    let heldBy: Sprite;
 
     export function toss() {
         clear();
@@ -72,51 +74,48 @@ namespace ball {
     export function clear() {
         if (football) football.destroy();
         if (shadow) shadow.destroy();
+        if (heldBy) heldBy = undefined;
     }
 
-    // moved for now, but this needs a lot of clean up to maintain state in an appropriate way
-    // / to allow a few frames for catching
-    sprites.onOverlap(SpriteKind.Ball, SpriteKind.Shadow, (sprite, otherSprite) => {
-        otherSprite.setFlag(SpriteFlag.Ghost, true);
-        const playerWhoCaught = playerTeam.players.find(player => sprite.overlapsWith(player));
-        if (playerWhoCaught) {
-            let playerScored = false;
-            otherSprite.destroy();
-            animation.stopAnimation(animation.AnimationTypes.ImageAnimation, sprite);
-            game.onUpdate(() => {
-                sprite.x = playerWhoCaught.x;
-                sprite.y = playerWhoCaught.y;
+    export function initializeEvents() {
+        sprites.onOverlap(SpriteKind.Ball, SpriteKind.Shadow, (sprite, otherSprite) => {
+            otherSprite.setFlag(SpriteFlag.Ghost, true);
+            heldBy = playerTeam.players.find(player => sprite.overlapsWith(player));
+            if (heldBy) {
+                let playerScored = false;
+                otherSprite.destroy();
+                animation.stopAnimation(animation.AnimationTypes.ImageAnimation, sprite);
+                pauseUntil(() => !heldBy || heldBy.right > 19 * 16);
+                text.util.showInstruction("TOUCHDOWN!", 1500);
 
-                if (playerScored)
-                    return;
+                playerScored = true;
+                playerTeam.score += 7;
+                ai.setTeamDefense(opposingTeam, playerTeam, false);
+                ai.setTeamOffense(playerTeam, false);
+            } else {
+                bounceBall();
+                text.util.showInstruction("MISS!", 1500);
+                const stopPosition = otherSprite.bottom;
+                pauseUntil(() => sprite && sprite.bottom >= stopPosition);
+                otherSprite.destroy();
+                animation.stopAnimation(animation.AnimationTypes.ImageAnimation, sprite);
+                sprite.ay = 0;
+                sprite.vy = 0;
+                sprite.vx = 0;
+            }
+        });
 
-                if (playerWhoCaught.right > 19 * 16) {
-                    playerScored = true;
-                    playerTeam.score += 7;
-                    ball.toss();
-                    ai.setTeamDefense(opposingTeam, playerTeam, false);
-                    ai.setTeamOffense(playerTeam, false);
-                }
-            });
-        } else {
-            sprite.vy = sprite.vy * -0.33;
-            sprite.vx = sprite.vx * .6;
-            otherSprite.vx = otherSprite.vx * .6;
-            const stopPosition = otherSprite.bottom;
-            game.onUpdate(() => {
-                if (!sprite.ay)
-                    return;
-                if (sprite && sprite.bottom >= stopPosition) {
-                    otherSprite.destroy();
-                    animation.stopAnimation(animation.AnimationTypes.ImageAnimation, sprite);
-                    sprite.ay = 0;
-                    sprite.vy = 0;
-                    sprite.vx = 0;
-                    control.runInParallel(() => {
-                        text.util.showInstruction("MISS!", 1500);
-                    });
-                }
-            });
-        }
-    });
+        game.onUpdate(() => {
+            if (heldBy) {
+                football.x = heldBy.x;
+                football.y = heldBy.y;
+            }
+        });
+    }
+
+    function bounceBall() {
+        football.vy = football.vy * -0.33;
+        football.vx = football.vx * .6;
+        shadow.vx = shadow.vx * .6;
+    }
 }
