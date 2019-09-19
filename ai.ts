@@ -2,25 +2,40 @@ namespace ai {
     export function setTeamDefense(defense: Team, offense: Team, on: boolean) {
         defense.players.forEach((player, ind) => {
             if (player !== defense.activePlayer) {
-                player.follow(offense.players[ind], on ? 100 : 0, 1.5);
+                player.follow(offense.players[ind], on ? 100 : 0, 2);
             }
         });
     }
 
-    export function setTeamOffense(defense: Team, offense: Team, on: boolean) {
+    export function setTeamOffense(offense: Team, on: boolean) {
         const currSceneData = game.currentScene().data;
         let offenseList: Sprite[] = currSceneData[datakey.CURRENT_OFFENSE];
         if (!offenseList) {
             currSceneData[datakey.CURRENT_OFFENSE] = offenseList = [];
             game.onUpdate(() => {
-                offenseList.forEach((value, index) => {
-                    // do soomething to make offense move over
-                    
+                offenseList.forEach((p, index) => {
+                    // do something to make offense 'avoid' defense.
+                    // Should probably also eventually run towards / follow ball ball when possible / close enough --
+                    // maybe when halfway across field?
+                    if (Math.percentChance(1)) {
+                        p.vy = -p.vy * Math.randomRange(50, 150) / 100
+                    }
                 });
             });
         }
-        
-        offense.players.forEach((player, index) => {
-        });
+
+        while (offenseList.length)
+            offenseList.pop();
+
+        if (on) {
+            offense.players
+                .filter(p => p != offense.activePlayer)
+                .forEach(p => {
+                    offenseList.push(p)
+                    // TODO: generalize based off team's target direction.
+                    p.vx = 80;
+                    p.vy = Math.randomRange(-50, 50)
+                });
+        }
     }
 }

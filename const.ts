@@ -8,6 +8,7 @@ namespace SpriteKind {
 
 namespace datakey {
     export const CURRENT_OFFENSE = "current_offense";
+    export const CURRENT_DEFENSE = "current_defense";
 }
 
 enum AnimationDirection {
