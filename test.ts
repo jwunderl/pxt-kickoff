@@ -8,5 +8,12 @@ field.create();
 ui.scoreboard.create(playerTeam, opposingTeam);
 text.util.showInstruction("CATCH!", 1000);
 player.initializePlayerCollisions();
-ball.toss()
 controller.A.onEvent(ControllerButtonEvent.Pressed, () => ball.toss());
+
+(() => {
+    let on = true;
+    controller.B.onEvent(
+        ControllerButtonEvent.Pressed,
+        () => ai.setTeamDefense(opposingTeam, playerTeam, on = !on)
+    );
+})();
