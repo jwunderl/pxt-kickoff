@@ -10,7 +10,7 @@ class Team {
         public abbrev: string,
         public mainColor: number,
         public secondaryColor: number,
-        controlled?: boolean
+        protected controlled?: boolean
     ) {
         this.score = 0;
         const startX = lineOfScrimmage + (controlled ? -20 : 20);
@@ -42,11 +42,11 @@ class Team {
     }
 
     isPlayerControlled() {
-        return this.controlledPlayer !== undefined;
+        return this.controlled;
     }
 
     get activePlayer() {
-        return this.players[this.controlledPlayer];
+        return this.controlled && this.players[this.controlledPlayer];
     }
 
     controlNextPlayer() {
