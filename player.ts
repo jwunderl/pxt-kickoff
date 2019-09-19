@@ -9,21 +9,9 @@ namespace player {
                 :
                 SpriteKind.OpposingTeam
         );
-        animation.attachAnimation(
-            player,
-            team.animations[PlayerAnimation.Left]
-        );
-        animation.attachAnimation(
-            player,
-            team.animations[PlayerAnimation.Right]
-        );
-        animation.setAction(
-            player,
-            isPlayerTeam ?
-                PlayerAnimation.Right
-                :
-                PlayerAnimation.Left
-        );
+        team.animations
+            .forEach(a => animation.attachAnimation(player, a));
+
         player.z = isPlayerTeam ? zindex.PLAYER_TEAM : zindex.OPPOSING_TEAM;
 
         return player;

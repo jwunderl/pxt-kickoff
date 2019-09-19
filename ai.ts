@@ -1,13 +1,17 @@
 namespace ai {
     export function setTeamDefense(defense: Team, offense: Team, on: boolean) {
+        if (on) defense.resetPlayerPositions();
         defense.players.forEach((player, ind) => {
             if (player !== defense.activePlayer) {
                 player.follow(offense.players[ind], on ? 100 : 0, 2);
+            } else {
+                controller.moveSprite(player);
             }
         });
     }
 
     export function setTeamOffense(offense: Team, on: boolean) {
+        if (on) offense.resetPlayerPositions();
         const currSceneData = game.currentScene().data;
         let offenseList: Sprite[] = currSceneData[datakey.CURRENT_OFFENSE];
         if (!offenseList) {
@@ -17,7 +21,7 @@ namespace ai {
                     // do something to make offense 'avoid' defense.
                     // Should probably also eventually run towards / follow ball ball when possible / close enough --
                     // maybe when halfway across field?
-                    if (Math.percentChance(1)) {
+                    if (Math.percentChance(3)) {
                         p.vy = -p.vy * Math.randomRange(50, 150) / 100
                     }
                 });
@@ -36,6 +40,7 @@ namespace ai {
                     p.vx = 80;
                     p.vy = Math.randomRange(-50, 50)
                 });
+            controller.moveSprite(offense.activePlayer)
         }
     }
 }

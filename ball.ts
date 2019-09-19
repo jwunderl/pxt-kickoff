@@ -118,5 +118,12 @@ namespace ball {
         playerTeam.score += 7;
         ai.setTeamDefense(opposingTeam, playerTeam, false);
         ai.setTeamOffense(playerTeam, false);
+        playerTeam.stop();
+        opposingTeam.stop();
+        playerTeam.players.forEach(p => animation.setAction(p, PlayerAnimation.Celebrate));
+        opposingTeam.players.forEach(p => {
+            p.vx = 0;
+            p.vy = 0;
+        })
     }
 }

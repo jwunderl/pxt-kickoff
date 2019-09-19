@@ -27,9 +27,6 @@ class Team {
         for (let i = 0; i < 3; i++) {
             this.players[i] = player.create(this);
         }
-        if (controlled) {
-            controller.moveSprite(this.players[this.controlledPlayer]);
-        }
         this.resetPlayerPositions();
     }
 
@@ -38,6 +35,13 @@ class Team {
         this.players.forEach((p, i) => {
             p.y = (screen.height >> 1) + (i - 1) * 32;
             p.x = startX;
+            animation.setAction(
+                p,
+                this.isPlayerControlled() ?
+                    PlayerAnimation.Right
+                    :
+                    PlayerAnimation.Left
+            );
         });
     }
 
@@ -55,82 +59,134 @@ class Team {
         controller.moveSprite(this.activePlayer);
     }
 
+    stop() {
+        this.players.forEach(p => {
+            p.vx = 0;
+            p.vy = 0;
+            if (p == this.activePlayer) {
+                controller.moveSprite(p, 0, 0);
+            }
+        });
+    }
+
     toString() {
         return `${this.abbrev}:${`  ${this.score}`.slice(-3)} `;
     }
 
     protected initializeFrames() {
         const animationFrames = [
-            [img`
-                . . . . . . . . . . . . . . . .
-                . . . . . . . . . . . . . . . .
-                . . f f f f f . . . . . . . . .
-                . f f f f f f f . . . . . . . .
-                . . 4 f f f f f . . . . . . . .
-                . 4 4 f f f f 1 1 1 . . . . . .
-                . f f 4 4 4 4 1 1 4 4 . . . . .
-                . 4 4 1 1 4 4 4 4 f . . . . . .
-                . 4 4 1 1 1 1 4 4 f . . . . . .
-                . . f f f f f f f 1 f . . . . .
-                . f f 1 1 1 f f f f 1 f f 1 f f
-                . f 1 f f f f . . f f f f 1 f f
-                . f f . . . . . . f f f . . . f
-                . . 1 . . . . . . . . . . . . .
-                . f f . . . . . . . . . . . . .
-                f f f . . . . . . . . . . . . .
-            `, img`
-                . . . . . . . . . . . . . . . .
-                . . . . . . . . . . . . . . . .
-                . . f f f f f . . . . . . . . .
-                . f f f f f f f . . . . . . . .
-                . . 4 f f f f f . . . . . . . .
-                . 4 4 f f f f 1 1 1 . . . . . .
-                . f f 4 4 1 1 1 1 4 4 . . . . .
-                . 4 4 1 1 4 1 1 f 4 4 . . . . .
-                . 4 4 1 1 1 1 4 4 f . . . . . .
-                . . . . f f f f f 1 f . . . . .
-                . . . f f f f f 1 f . . . . . .
-                . . . f f f . 1 f f f . . . . .
-                . . . f f . . . . f 1 . . . . .
-                . . . . 1 . . . . . f . . . . .
-                . . . f f . . . . f f . . . . .
-                . . f f f . . . f f f . . . . .
-            `],
-            [img`
-                . . . . . . . . . . . . . . . .
-                . . . . . . . . . . . . . . . .
-                . . . . . . . . . f f f f f . .
-                . . . . . . . . f f f f f f f .
-                . . . . . . . . f f f f f 4 . .
-                . . . . . . 1 1 1 f f f f 4 4 .
-                . . . . . 4 4 1 1 4 4 4 4 f f .
-                . . . . . . f 4 4 4 4 1 1 4 4 .
-                . . . . . . f 4 4 1 1 1 1 4 4 .
-                . . . . . f 1 f f f f f f f . .
-                f f 1 f f 1 f f f f 1 1 1 f f .
-                f f 1 f f f f . . f f f f 1 f .
-                f . . . f f f . . . . . . f f .
-                . . . . . . . . . . . . . 1 . .
-                . . . . . . . . . . . . . f f .
-                . . . . . . . . . . . . . f f f
-            `, img`
-                . . . . . . . . . . . . . . . .
-                . . . . . . . . . . . . . . . .
-                . . . . . . . . . f f f f f . .
-                . . . . . . . . f f f f f f f .
-                . . . . . . . . f f f f f 4 . .
-                . . . . . . 1 1 1 f f f f 4 4 .
-                . . . . . 4 4 1 1 1 1 4 4 f f .
-                . . . . . 4 4 f 1 1 4 1 1 4 4 .
-                . . . . . . f 4 4 1 1 1 1 4 4 .
-                . . . . . f 1 f f f f f . . . .
-                . . . . . . f 1 f f f f f . . .
-                . . . . . f f f 1 . f f f . . .
-                . . . . . 1 f . . . . f f . . .
-                . . . . . f . . . . . 1 . . . .
-                . . . . . f f . . . . f f . . .
-                . . . . . f f f . . . f f f . .
-            `]
+            [
+                img`
+                    . . . . . . . . . . . . . . . .
+                    . . . . . . . . . . . . . . . .
+                    . . f f f f f . . . . . . . . .
+                    . f f f f f f f . . . . . . . .
+                    . . 4 f f f f f . . . . . . . .
+                    . 4 4 f f f f 1 1 1 . . . . . .
+                    . f f 4 4 4 4 1 1 4 4 . . . . .
+                    . 4 4 1 1 4 4 4 4 f . . . . . .
+                    . 4 4 1 1 1 1 4 4 f . . . . . .
+                    . . f f f f f f f 1 f . . . . .
+                    . f f 1 1 1 f f f f 1 f f 1 f f
+                    . f 1 f f f f . . f f f f 1 f f
+                    . f f . . . . . . f f f . . . f
+                    . . 1 . . . . . . . . . . . . .
+                    . f f . . . . . . . . . . . . .
+                    f f f . . . . . . . . . . . . .
+                `, img`
+                    . . . . . . . . . . . . . . . .
+                    . . . . . . . . . . . . . . . .
+                    . . f f f f f . . . . . . . . .
+                    . f f f f f f f . . . . . . . .
+                    . . 4 f f f f f . . . . . . . .
+                    . 4 4 f f f f 1 1 1 . . . . . .
+                    . f f 4 4 1 1 1 1 4 4 . . . . .
+                    . 4 4 1 1 4 1 1 f 4 4 . . . . .
+                    . 4 4 1 1 1 1 4 4 f . . . . . .
+                    . . . . f f f f f 1 f . . . . .
+                    . . . f f f f f 1 f . . . . . .
+                    . . . f f f . 1 f f f . . . . .
+                    . . . f f . . . . f 1 . . . . .
+                    . . . . 1 . . . . . f . . . . .
+                    . . . f f . . . . f f . . . . .
+                    . . f f f . . . f f f . . . . .
+                `
+            ],
+            [
+                img`
+                    . . . . . . . . . . . . . . . .
+                    . . . . . . . . . . . . . . . .
+                    . . . . . . . . . f f f f f . .
+                    . . . . . . . . f f f f f f f .
+                    . . . . . . . . f f f f f 4 . .
+                    . . . . . . 1 1 1 f f f f 4 4 .
+                    . . . . . 4 4 1 1 4 4 4 4 f f .
+                    . . . . . . f 4 4 4 4 1 1 4 4 .
+                    . . . . . . f 4 4 1 1 1 1 4 4 .
+                    . . . . . f 1 f f f f f f f . .
+                    f f 1 f f 1 f f f f 1 1 1 f f .
+                    f f 1 f f f f . . f f f f 1 f .
+                    f . . . f f f . . . . . . f f .
+                    . . . . . . . . . . . . . 1 . .
+                    . . . . . . . . . . . . . f f .
+                    . . . . . . . . . . . . . f f f
+                `, img`
+                    . . . . . . . . . . . . . . . .
+                    . . . . . . . . . . . . . . . .
+                    . . . . . . . . . f f f f f . .
+                    . . . . . . . . f f f f f f f .
+                    . . . . . . . . f f f f f 4 . .
+                    . . . . . . 1 1 1 f f f f 4 4 .
+                    . . . . . 4 4 1 1 1 1 4 4 f f .
+                    . . . . . 4 4 f 1 1 4 1 1 4 4 .
+                    . . . . . . f 4 4 1 1 1 1 4 4 .
+                    . . . . . f 1 f f f f f . . . .
+                    . . . . . . f 1 f f f f f . . .
+                    . . . . . f f f 1 . f f f . . .
+                    . . . . . 1 f . . . . f f . . .
+                    . . . . . f . . . . . 1 . . . .
+                    . . . . . f f . . . . f f . . .
+                    . . . . . f f f . . . f f f . .
+                `
+            ],
+            [
+                img`
+                    . . . . . . . . . . . . . . . .
+                    . . . . . f f f f f . . . . . .
+                    . . . . f f 4 4 4 f f . . . . .
+                    . . . . f 4 f 4 f 4 f . . . . .
+                    . . . . f f 4 4 4 f f . . . . .
+                    . . . . . f f 4 f f . . . . . .
+                    . . . . . 1 1 1 1 1 . . . . . .
+                    . . . 1 1 1 4 4 4 1 1 1 . . . .
+                    . . 1 1 4 4 4 4 4 4 4 1 1 . . .
+                    . . 1 4 4 1 1 1 1 1 4 4 1 . . .
+                    . . 1 4 1 1 1 1 1 1 1 4 1 . . .
+                    . . 1 4 1 1 1 1 1 1 1 4 1 . . .
+                    . . . . f f f f f f f . . . . .
+                    . . . . f 1 . . . 1 f . . . . .
+                    . . . . f 1 . . . 1 f . . . . .
+                    . . . f f 1 . . . 1 f f . . . .
+                `,
+                img`
+                    . . . . . . . . . . . . . . . .
+                    . . . . . f f f f f . . . . . .
+                    . . . . f f 4 4 4 f f . . . . .
+                    . . . . f 4 f 4 f 4 f . . . . .
+                    . . 1 . f f 4 4 4 f f . 1 . . .
+                    . 1 4 1 . f f 4 f f . 1 4 1 . .
+                    . 1 4 1 . 1 1 1 1 1 . 1 4 1 . .
+                    . 1 4 4 1 1 4 4 4 1 1 4 4 1 . .
+                    . . 1 4 4 4 4 4 4 4 4 4 1 . . .
+                    . . . 1 4 1 1 1 1 1 4 1 . . . .
+                    . . . . 1 1 1 1 1 1 1 . . . . .
+                    . . . . 1 1 1 1 1 1 1 . . . . .
+                    . . . . f f f f f f f . . . . .
+                    . . . . f 1 . . . 1 f . . . . .
+                    . . . . f 1 . . . 1 f . . . . .
+                    . . . f f 1 . . . 1 f f . . . .
+                `
+            ]
         ];
         this.animations = [];
 
@@ -142,6 +198,7 @@ class Team {
 
         this.animations[PlayerAnimation.Left] = animation.createAnimation(PlayerAnimation.Left, 200);
         this.animations[PlayerAnimation.Right] = animation.createAnimation(PlayerAnimation.Right, 200);
+        this.animations[PlayerAnimation.Celebrate] = animation.createAnimation(PlayerAnimation.Celebrate, 200);
 
         animationFrames.forEach((frames, index) =>
             frames.forEach(im => this.animations[index].addAnimationFrame(im))

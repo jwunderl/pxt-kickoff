@@ -9,11 +9,3 @@ ui.scoreboard.create(playerTeam, opposingTeam);
 player.initializeEvents();
 ball.initializeEvents();
 controller.A.onEvent(ControllerButtonEvent.Pressed, () => ball.toss());
-
-(() => {
-    let on = true;
-    controller.B.onEvent(
-        ControllerButtonEvent.Pressed,
-        () => ai.setTeamDefense(opposingTeam, playerTeam, on = !on)
-    );
-})();
