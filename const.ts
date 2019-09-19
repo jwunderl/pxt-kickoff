@@ -11,9 +11,10 @@ namespace datakey {
     export const CURRENT_DEFENSE = "current_defense";
 }
 
-enum AnimationDirection {
+enum PlayerAnimation {
     Left,
-    Right
+    Right,
+    Celebrate
 }
 
 namespace zindex {

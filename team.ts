@@ -140,8 +140,8 @@ class Team {
             });
         });
 
-        this.animations[AnimationDirection.Left] = animation.createAnimation(AnimationDirection.Left, 200);
-        this.animations[AnimationDirection.Right] = animation.createAnimation(AnimationDirection.Right, 200);
+        this.animations[PlayerAnimation.Left] = animation.createAnimation(PlayerAnimation.Left, 200);
+        this.animations[PlayerAnimation.Right] = animation.createAnimation(PlayerAnimation.Right, 200);
 
         animationFrames.forEach((frames, index) =>
             frames.forEach(im => this.animations[index].addAnimationFrame(im))

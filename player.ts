@@ -11,18 +11,18 @@ namespace player {
         );
         animation.attachAnimation(
             player,
-            team.animations[AnimationDirection.Left]
+            team.animations[PlayerAnimation.Left]
         );
         animation.attachAnimation(
             player,
-            team.animations[AnimationDirection.Right]
+            team.animations[PlayerAnimation.Right]
         );
         animation.setAction(
             player,
             isPlayerTeam ?
-                AnimationDirection.Right
+                PlayerAnimation.Right
                 :
-                AnimationDirection.Left
+                PlayerAnimation.Left
         );
         player.z = isPlayerTeam ? zindex.PLAYER_TEAM : zindex.OPPOSING_TEAM;
 
@@ -40,9 +40,9 @@ namespace player {
 
     function updatePlayerAnimation(player: Sprite) {
         if (player.vx < 0)
-            animation.setAction(player, AnimationDirection.Left);
+            animation.setAction(player, PlayerAnimation.Left);
         else if (player.vx > 0)
-            animation.setAction(player, AnimationDirection.Right);
+            animation.setAction(player, PlayerAnimation.Right);
     }
 
     export function initializeEvents() {
