@@ -82,16 +82,10 @@ namespace ball {
             otherSprite.setFlag(SpriteFlag.Ghost, true);
             heldBy = playerTeam.players.find(player => sprite.overlapsWith(player));
             if (heldBy) {
-                let playerScored = false;
                 otherSprite.destroy();
                 animation.stopAnimation(animation.AnimationTypes.ImageAnimation, sprite);
                 pauseUntil(() => !heldBy || heldBy.right > 19 * 16);
-                text.util.showInstruction("TOUCHDOWN!", 1500);
-
-                playerScored = true;
-                playerTeam.score += 7;
-                ai.setTeamDefense(opposingTeam, playerTeam, false);
-                ai.setTeamOffense(playerTeam, false);
+                touchDown();
             } else {
                 bounceBall();
                 text.util.showInstruction("MISS!", 1500);
@@ -117,5 +111,12 @@ namespace ball {
         football.vy = football.vy * -0.33;
         football.vx = football.vx * .6;
         shadow.vx = shadow.vx * .6;
+    }
+
+    function touchDown() {
+        text.util.showInstruction("TOUCHDOWN!", 1500);
+        playerTeam.score += 7;
+        ai.setTeamDefense(opposingTeam, playerTeam, false);
+        ai.setTeamOffense(playerTeam, false);
     }
 }
