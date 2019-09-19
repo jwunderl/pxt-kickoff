@@ -50,8 +50,14 @@ namespace player {
             SpriteKind.PlayerTeam,
             SpriteKind.OpposingTeam,
             (sprite, otherSprite) => {
-                sprite.x -= 3;
-                otherSprite.x += 2;
+                // needs some logic for going other way; maybe instead we switch sprite kinds to
+                // ``SpriteKind.Offense`` and ``SpriteKind.Defense`` and change players kind depending
+                // on their current status instead
+                if (sprite.x < otherSprite.x) {
+                    // push player back
+                    sprite.x -= 3;
+                    otherSprite.x += 2;
+                }
             }
         );
     }
