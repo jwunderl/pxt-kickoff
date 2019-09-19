@@ -50,8 +50,8 @@ namespace player {
             SpriteKind.PlayerTeam,
             SpriteKind.OpposingTeam,
             (sprite, otherSprite) => {
-                sprite.x -= 2;
-                otherSprite.x += 1;
+                sprite.x -= 3;
+                otherSprite.x += 2;
             }
         );
     }
