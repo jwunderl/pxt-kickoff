@@ -17,8 +17,8 @@ class GameClock {
                     if (!this.finished()) {
                         game.splash("Next Quarter!");
                         this.secondsRemaining = secondsPerQuarter;
-                        playerTeam.resetPlayerPositions();
-                        opposingTeam.resetPlayerPositions();
+                        offense.resetPlayerPositions();
+                        defense.resetPlayerPositions();
                         ball.toss()
                     } else {
                         game.over();

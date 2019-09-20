@@ -73,7 +73,7 @@ namespace ui.player {
 
     export function createIndicator() {
         return scene.createRenderable(zindex.PLAYER_INDICATOR, (target, camera) => {
-            const activePlayer = playerTeam.activePlayer;
+            const activePlayer = offense.activePlayer || defense.activePlayer;
             if (!activePlayer)
                 return;
 

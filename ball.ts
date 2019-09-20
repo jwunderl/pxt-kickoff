@@ -7,8 +7,8 @@ namespace ball {
     export function toss() {
         clear();
         gameClock.start();
-        ai.setTeamDefense(opposingTeam, playerTeam, true);
-        ai.setTeamOffense(playerTeam, true);
+        ai.setTeamDefense(defense, offense, true);
+        ai.setTeamOffense(offense, true);
         text.util.showInstruction("CATCH!", 1000);
 
         football = sprites.create(img`
@@ -81,7 +81,7 @@ namespace ball {
     export function initializeEvents() {
         sprites.onOverlap(SpriteKind.Ball, SpriteKind.Shadow, (sprite, otherSprite) => {
             otherSprite.setFlag(SpriteFlag.Ghost, true);
-            heldBy = playerTeam.players.find(player => sprite.overlapsWith(player));
+            heldBy = offense.players.find(player => sprite.overlapsWith(player));
             if (heldBy) {
                 otherSprite.destroy();
                 animation.stopAnimation(animation.AnimationTypes.ImageAnimation, sprite);
@@ -118,13 +118,13 @@ namespace ball {
     function touchDown() {
         text.util.showInstruction("TOUCHDOWN!", 1500);
         gameClock.stop();
-        playerTeam.score += 7;
-        ai.setTeamDefense(opposingTeam, playerTeam, false);
-        ai.setTeamOffense(playerTeam, false);
-        playerTeam.stop();
-        opposingTeam.stop();
-        playerTeam.players.forEach(p => animation.setAction(p, PlayerAnimation.Celebrate));
-        opposingTeam.players.forEach(p => {
+        offense.score += 7;
+        ai.setTeamDefense(defense, offense, false);
+        ai.setTeamOffense(offense, false);
+        offense.stop();
+        defense.stop();
+        offense.players.forEach(p => animation.setAction(p, PlayerAnimation.Celebrate));
+        defense.players.forEach(p => {
             p.vx = 0;
             p.vy = 0;
         });
