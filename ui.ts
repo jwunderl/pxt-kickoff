@@ -6,7 +6,7 @@ namespace ui.player {
     }
 
     function indicatorImage(dir: IndicatorImage) {
-        if (gameClock.secondsRemaining % 2) {
+        if (currentGame.clock.secondsRemaining % 2) {
             switch (dir) {
                 case IndicatorImage.Left:
                     return img`
@@ -73,7 +73,7 @@ namespace ui.player {
 
     export function createIndicator() {
         return scene.createRenderable(zindex.PLAYER_INDICATOR, (target, camera) => {
-            const activePlayer = offense.activePlayer || defense.activePlayer;
+            const activePlayer = currentGame.offense.activePlayer || currentGame.defense.activePlayer;
             if (!activePlayer)
                 return;
 
@@ -152,7 +152,7 @@ namespace ui.scoreboard {
 
             printAndUpdate(teamOneText);
             printAndUpdate(teamTwoText);
-            printAndUpdate(gameClock + "");
+            printAndUpdate(currentGame.clock + "");
         });
     }
 }

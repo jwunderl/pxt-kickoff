@@ -13,7 +13,7 @@ class Team {
         protected controlled?: boolean
     ) {
         this.score = 0;
-        const startX = lineOfScrimmage + (controlled ? -20 : 20);
+        const startX = controlled ? -20 : 20;
         this.initializeFrames();
         if (controlled) {
             this.controlledPlayer = 0;
@@ -27,10 +27,9 @@ class Team {
         for (let i = 0; i < 3; i++) {
             this.players[i] = player.create(this);
         }
-        this.resetPlayerPositions();
     }
 
-    resetPlayerPositions() {
+    resetPlayerPositions(lineOfScrimmage: number) {
         const startX = lineOfScrimmage + (this.isPlayerControlled() ? -20 : 20);
         this.players.forEach((p, i) => {
             p.y = (screen.height >> 1) + (i - 1) * 32;

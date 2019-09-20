@@ -1,5 +1,5 @@
 namespace field {
-    export function create() {
+    export function initialize() {
         scene.setTileMap(img`
             3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3
             4 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 8

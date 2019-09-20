@@ -16,7 +16,8 @@
         "team.ts",
         "ball.ts",
         "clock.ts",
-        "ai.ts"
+        "ai.ts",
+        "game.ts"
     ],
     "testFiles": [
         "test.ts"

@@ -6,9 +6,9 @@ namespace ball {
 
     export function toss() {
         clear();
-        gameClock.start();
-        ai.setTeamDefense(defense, offense, true);
-        ai.setTeamOffense(offense, true);
+        currentGame.clock.start();
+        ai.setTeamDefense(currentGame.defense, currentGame.offense, true);
+        ai.setTeamOffense(currentGame.offense, true);
         text.util.showInstruction("CATCH!", 1000);
 
         football = sprites.create(img`
@@ -81,7 +81,7 @@ namespace ball {
     export function initializeEvents() {
         sprites.onOverlap(SpriteKind.Ball, SpriteKind.Shadow, (sprite, otherSprite) => {
             otherSprite.setFlag(SpriteFlag.Ghost, true);
-            heldBy = offense.players.find(player => sprite.overlapsWith(player));
+            heldBy = currentGame.offense.players.find(player => sprite.overlapsWith(player));
             if (heldBy) {
                 otherSprite.destroy();
                 animation.stopAnimation(animation.AnimationTypes.ImageAnimation, sprite);
@@ -92,7 +92,7 @@ namespace ball {
                 text.util.showInstruction("MISS!", 1500);
                 const stopPosition = otherSprite.bottom;
                 pauseUntil(() => sprite && sprite.bottom >= stopPosition);
-                gameClock.stop();
+                currentGame.clock.stop();
                 otherSprite.destroy();
                 animation.stopAnimation(animation.AnimationTypes.ImageAnimation, sprite);
                 sprite.ay = 0;
@@ -115,18 +115,25 @@ namespace ball {
         shadow.vx = shadow.vx * .6;
     }
 
+    // move to game.ts
     function touchDown() {
         text.util.showInstruction("TOUCHDOWN!", 1500);
-        gameClock.stop();
-        offense.score += 7;
-        ai.setTeamDefense(defense, offense, false);
-        ai.setTeamOffense(offense, false);
-        offense.stop();
-        defense.stop();
-        offense.players.forEach(p => animation.setAction(p, PlayerAnimation.Celebrate));
-        defense.players.forEach(p => {
+        currentGame.clock.stop();
+        currentGame.offense.score += 7;
+        ai.setTeamDefense(currentGame.defense, currentGame.offense, false);
+        ai.setTeamOffense(currentGame.offense, false);
+        currentGame.offense.stop();
+        currentGame.defense.stop();
+        currentGame.offense.players.forEach(p => animation.setAction(p, PlayerAnimation.Celebrate));
+        currentGame.defense.players.forEach(p => {
             p.vx = 0;
             p.vy = 0;
+        });
+
+        control.runInParallel(() => {
+            effects.confetti.startScreenEffect(1000);
+            pause(2500);
+            currentGame.resetPlayers();
         });
     }
 }

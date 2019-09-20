@@ -1,6 +1,5 @@
 namespace ai {
     export function setTeamDefense(defense: Team, offense: Team, on: boolean) {
-        if (on) defense.resetPlayerPositions();
         defense.players.forEach((player, ind) => {
             if (player !== defense.activePlayer) {
                 player.follow(offense.players[ind], on ? 100 : 0, 2);
@@ -11,7 +10,6 @@ namespace ai {
     }
 
     export function setTeamOffense(offense: Team, on: boolean) {
-        if (on) offense.resetPlayerPositions();
         const currSceneData = game.currentScene().data;
         let offenseList: Sprite[] = currSceneData[datakey.CURRENT_OFFENSE];
         if (!offenseList) {
