@@ -23,49 +23,56 @@ namespace ball {
         football.setVelocity(60, -70);
         football.ay = 50;
         football.z = zindex.BALL;
-        animation.runImageAnimation(football, [img`
+        animation.runImageAnimation(football, [
+            img`
             . . 6 6 6 6 . .
             . 6 d 4 4 4 6 .
             6 1 b 1 1 4 d 6
             c 1 b b 4 4 1 c
             . c b b b d c .
             . . c c c c . .
-        `, img`
-            . . 6 6 6 6 . .
-            . 6 1 4 4 4 6 .
-            6 d 4 4 4 4 4 6
-            c b b 1 1 4 d c
-            . c b b 4 1 c .
-            . . c c c c . .
-        `, img`
-            . . 6 6 6 6 . .
-            . 6 d 4 4 4 6 .
-            6 d 4 4 4 4 d 6
-            c 1 b 4 4 4 d c
-            . c b 1 1 4 c .
-            . . c c c c . .
-        `, img`
-            . . 6 6 6 6 . .
-            . 6 d d 4 4 6 .
-            6 d 4 4 4 4 d 6
-            c b b 4 4 4 d c
-            . c b b 4 d c .
-            . . c c c c . .
-        `, img`
-            . . 6 6 6 6 . .
-            . 6 d d 4 4 6 .
-            6 d 4 4 4 4 d 6
-            c b b 4 4 4 d c
-            . c b b 4 d c .
-            . . c c c c . .
-        `, img`
-            . . 6 6 6 6 . .
-            . 6 d 1 1 4 6 .
-            6 d 4 4 4 4 1 6
-            c b b 4 4 4 d c
-            . c b b 4 d c .
-            . . c c c c . .
-        `], 30, true);
+            `, 
+            img`
+                . . 6 6 6 6 . .
+                . 6 1 4 4 4 6 .
+                6 d 4 4 4 4 4 6
+                c b b 1 1 4 d c
+                . c b b 4 1 c .
+                . . c c c c . .
+            `, 
+            img`
+                . . 6 6 6 6 . .
+                . 6 d 4 4 4 6 .
+                6 d 4 4 4 4 d 6
+                c 1 b 4 4 4 d c
+                . c b 1 1 4 c .
+                . . c c c c . .
+            `, 
+            img`
+                . . 6 6 6 6 . .
+                . 6 d d 4 4 6 .
+                6 d 4 4 4 4 d 6
+                c b b 4 4 4 d c
+                . c b b 4 d c .
+                . . c c c c . .
+            `, 
+            img`
+                . . 6 6 6 6 . .
+                . 6 d d 4 4 6 .
+                6 d 4 4 4 4 d 6
+                c b b 4 4 4 d c
+                . c b b 4 d c .
+                . . c c c c . .
+            `, 
+            img`
+                . . 6 6 6 6 . .
+                . 6 d 1 1 4 6 .
+                6 d 4 4 4 4 1 6
+                c b b 4 4 4 d c
+                . c b b 4 d c .
+                . . c c c c . .
+            `
+        ], 30, true);
         scene.cameraFollowSprite(football);
 
         shadow = sprites.create(img`
