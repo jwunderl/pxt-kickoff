@@ -46,7 +46,7 @@ namespace field {
             c 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6
             c 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6
         `, true)
-                scene.setTile(6, img`
+        scene.setTile(6, img`
             f f f f c c c c f f f f f f f c
             d d c f c c c f f c b b c f c c
             d d d c f f f f c b b b b c c c
@@ -64,7 +64,7 @@ namespace field {
             6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 c
             6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 c
         `, true)
-                scene.setTile(7, img`
+        scene.setTile(7, img`
             c f f f f f f f f f f f c 7 7 c
             c c f f f f f f f f f c 7 7 7 7
             c c f c b b c f b f f 7 f 7 7 f
@@ -82,7 +82,7 @@ namespace field {
             c 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6
             c 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6
         `, true)
-                scene.setTile(8, img`
+        scene.setTile(8, img`
             f f f c b b b b c c f f f f f f
             c f f b c b b c b c 6 6 c f f f
             7 f f b c b b c b 6 6 6 6 c f f
@@ -100,7 +100,7 @@ namespace field {
             6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 c
             6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 c
         `, true)
-                scene.setTile(9, img`
+        scene.setTile(9, img`
             f c c c c f f f f f f f c c c c
             f c c c c c f c d d c f c c c f
             c c c f c c c d d d d c f f f f
@@ -118,7 +118,7 @@ namespace field {
             c 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6
             c 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6
         `, true)
-                scene.setTile(10, img`
+        scene.setTile(10, img`
             f f f f f f f c c f f f f f f f
             f c b b c f c c c c f f f f f f
             c b b b b c c c c c f c b b c f
@@ -136,7 +136,7 @@ namespace field {
             6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 c
             6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 c
         `, true)
-                scene.setTile(11, img`
+        scene.setTile(11, img`
             f f f f c 7 7 c f f f c b b b b
             f f f c 7 7 7 7 c f f b c b b c
             b f f 7 f 7 7 f 7 f f b c b b c
@@ -154,7 +154,7 @@ namespace field {
             c 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6
             c 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6
         `, true)
-                scene.setTile(12, img`
+        scene.setTile(12, img`
             c c f f f f f f f c c c c f f f
             b c 6 6 c f f f f c c c c c f c
             b 6 6 6 6 c f f c c c f c c c d
@@ -172,7 +172,7 @@ namespace field {
             6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 c
             6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 c
         `, true)
-                scene.setTile(13, img`
+        scene.setTile(13, img`
             f f f f c c c c f f f f f f f c
             d d c f c c c f f c b b c f c c
             d d d c f f f f c b b b b c c c
@@ -190,7 +190,7 @@ namespace field {
             c 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6
             c 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6
         `, true)
-                scene.setTile(14, img`
+        scene.setTile(14, img`
             c f f f f f f f f f f f c 7 7 c
             c c f f f f f f f f f c 7 7 7 7
             c c f c b b c f b f f 7 f 7 7 f
