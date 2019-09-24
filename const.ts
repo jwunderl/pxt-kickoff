@@ -24,8 +24,8 @@ enum PlayerAnimation {
 namespace zindex {
     export const BACKGROUND = 0;
     export const SHADOW = 1;
-    export const PLAYER_TEAM = 5;
     export const OPPOSING_TEAM = 5;
+    export const PLAYER_TEAM = 6;
     export const BALL = 10;
     export const PLAYER_INDICATOR = 20;
     export const HUD = 100; // scene.HUD_Z

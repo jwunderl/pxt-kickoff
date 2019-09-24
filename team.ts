@@ -124,7 +124,7 @@ class Team {
                     . a 8 f f f 9 b c f c c c . . .
                     . a 9 1 1 1 1 b f 8 b b c c . .
                     . . . a a a c c f 8 b b c c . .
-                    . . . . . a c c b c 8 1 1 9 . .t
+                    . . . . . a c c b c 8 1 1 9 . .
                     . . . . . . . f 8 8 f f f f . .
                     . . . . . . . . 8 8 f f f f f f
                     . . . . . . . . c f f f . f f f
