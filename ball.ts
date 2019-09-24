@@ -10,12 +10,12 @@ namespace ball {
         text.util.showInstruction("CATCH!", 1000);
 
         const newFootball = sprites.create(img`
-            . . 6 6 6 6 . .
-            . 6 d 4 4 4 6 .
-            6 1 b 1 1 4 d 6
-            c 1 b b 4 4 1 c
-            . c b b b d c .
-            . . c c c c . .
+            . . 5 5 5 5 . .
+            . 5 8 7 7 7 5 .
+            5 1 9 1 1 7 8 5
+            a 1 9 9 7 7 1 a
+            . a 9 9 9 8 a .
+            . . a a a a . .
         `, SpriteKind.Ball);
         newFootball.setPosition(20, 100);
         newFootball.setVelocity(60, -70);
@@ -23,63 +23,63 @@ namespace ball {
         newFootball.z = zindex.BALL;
         animation.runImageAnimation(newFootball, [
             img`
-                . . 6 6 6 6 . .
-                . 6 d 4 4 4 6 .
-                6 1 b 1 1 4 d 6
-                c 1 b b 4 4 1 c
-                . c b b b d c .
-                . . c c c c . .
-            `, 
+                . . 5 5 5 5 . .
+                . 5 8 7 7 7 5 .
+                5 1 9 1 1 7 8 5
+                a 1 9 9 7 7 1 a
+                . a 9 9 9 8 a .
+                . . a a a a . .
+            `,
             img`
-                . . 6 6 6 6 . .
-                . 6 1 4 4 4 6 .
-                6 d 4 4 4 4 4 6
-                c b b 1 1 4 d c
-                . c b b 4 1 c .
-                . . c c c c . .
-            `, 
+                . . 5 5 5 5 . .
+                . 5 1 7 7 7 5 .
+                5 8 7 7 7 7 7 5
+                a 9 9 1 1 7 8 a
+                . a 9 9 7 1 a .
+                . . a a a a . .
+            `,
             img`
-                . . 6 6 6 6 . .
-                . 6 d 4 4 4 6 .
-                6 d 4 4 4 4 d 6
-                c 1 b 4 4 4 d c
-                . c b 1 1 4 c .
-                . . c c c c . .
-            `, 
+                . . 5 5 5 5 . .
+                . 5 8 7 7 7 5 .
+                5 8 7 7 7 7 8 5
+                a 1 9 7 7 7 8 a
+                . a 9 1 1 7 a .
+                . . a a a a . .
+            `,
             img`
-                . . 6 6 6 6 . .
-                . 6 d d 4 4 6 .
-                6 d 4 4 4 4 d 6
-                c b b 4 4 4 d c
-                . c b b 4 d c .
-                . . c c c c . .
-            `, 
+                . . 5 5 5 5 . .
+                . 5 8 8 7 7 5 .
+                5 8 7 7 7 7 8 5
+                a 9 9 7 7 7 8 a
+                . a 9 9 7 8 a .
+                . . a a a a . .
+            `,
             img`
-                . . 6 6 6 6 . .
-                . 6 d d 4 4 6 .
-                6 d 4 4 4 4 d 6
-                c b b 4 4 4 d c
-                . c b b 4 d c .
-                . . c c c c . .
-            `, 
+                . . 5 5 5 5 . .
+                . 5 8 8 7 7 5 .
+                5 8 7 7 7 7 8 5
+                a 9 9 7 7 7 8 a
+                . a 9 9 7 8 a .
+                . . a a a a . .
+            `,
             img`
-                . . 6 6 6 6 . .
-                . 6 d 1 1 4 6 .
-                6 d 4 4 4 4 1 6
-                c b b 4 4 4 d c
-                . c b b 4 d c .
-                . . c c c c . .
+                . . 5 5 5 5 . .
+                . 5 8 1 1 7 5 .
+                5 8 7 7 7 7 1 5
+                a 9 9 7 7 7 8 a
+                . a 9 9 7 8 a .
+                . . a a a a . .
             `
         ], 30, true);
         scene.cameraFollowSprite(newFootball);
 
         const newShadow = sprites.create(img`
-            . . c c c c . .
-            . c f f f f c .
-            c f f f f f f c
-            c f f f f f f c
-            . c f f f f c .
-            . . c c c c . .
+            . . a a a a . .
+            . a f f f f a .
+            a f f f f f f a
+            a f f f f f f a
+            . a f f f f a .
+            . . a a a a . .
         `, SpriteKind.Shadow);
         newShadow.z = zindex.SHADOW;
         newShadow.setPosition(20, 100);
@@ -106,7 +106,7 @@ namespace ball {
             otherSprite.setFlag(SpriteFlag.Ghost, true);
             const heldBy = currentGame.offense.players.find(player => sprite.overlapsWith(player));
             if (heldBy) {
-                currentGame.playerWhoHasBall = heldBy; 
+                currentGame.playerWhoHasBall = heldBy;
                 sprite.destroy();
                 otherSprite.destroy();
                 scene.cameraFollowSprite(heldBy);
