@@ -172,10 +172,10 @@ class Team {
                     . . . a 9 f f f f c b b c c . .
                     . . . a 8 f f f 9 b c f c c c .
                     . . . a 9 f f f c b f 8 b b c c
-                    . . . . a 4 4 9 a c f 8 b b c c
-                    . . . . a 4 1 1 4 a c c 8 1 1 9
-                    . . . . a 4 4 4 4 c c c c f f .
-                    . . . . a 9 4 4 4 c 8 8 f f . .
+                    . . . . a 7 7 9 a c f 8 b b c c
+                    . . . . a 7 1 1 7 a c c 8 1 1 9
+                    . . . . a 7 7 7 7 c c c c f f .
+                    . . . . a 9 7 7 7 c 8 8 f f . .
                     . . . . 8 a a a a c 8 8 f f . .
                     . . . . . . . . . f f f f . . .
                     . . . . . . . . c c c f f f . .
@@ -190,10 +190,10 @@ class Team {
                     . a a f f c b b b b b c . . . .
                     . a 9 f f f f c b b c c . . . .
                     . a 8 f f f f c c f c c c . . .
-                    . a 9 a 4 4 9 a f 8 b b c c . .
-                    . . . a 4 1 1 4 a 9 b b c c . .
-                    . . . a 4 4 4 4 a c 9 1 1 9 . .
-                    . . . a 9 4 4 4 8 8 f f f f . .
+                    . a 9 a 7 7 9 a f 8 b b c c . .
+                    . . . a 7 1 1 7 a 9 b b c c . .
+                    . . . a 7 7 7 7 a c 9 1 1 9 . .
+                    . . . a 9 7 7 7 8 8 f f f f . .
                     . . . . a a a a 8 8 f f f f f f
                     . . . . . a a a f f f f . f f f
                     . . . . . . . c c c . . . . f f
@@ -208,10 +208,10 @@ class Team {
                     . a a f f c b b b b b c . . . .
                     . a 9 f f f f c b b c c . . . .
                     . a 8 f f f f f c c f c c c . .
-                    . a 9 1 a 4 4 9 a f 8 b b c c .
-                    . . . a a 4 1 1 4 a 9 b b c c .
-                    . . . . a 4 4 4 4 a c 9 1 1 9 .
-                    . . . 8 a 9 4 4 4 8 8 f f f . .
+                    . a 9 1 a 7 7 9 a f 8 b b c c .
+                    . . . a a 7 1 1 7 a 9 b b c c .
+                    . . . . a 7 7 7 7 a c 9 1 1 9 .
+                    . . . 8 a 9 7 7 7 8 8 f f f . .
                     . . . 8 8 a a a a 8 8 f f f c c
                     . . . . . . a a a f f f f c c c
                     . . . . . . . f f f . . . . c c
@@ -226,10 +226,10 @@ class Team {
                     a a f f c b b b b b c . . . . .
                     a 9 f f f f c b b c c . . . . .
                     a 8 f f f c b b c f c c c . . .
-                    a a 4 4 9 a b c f 8 b b c c . .
-                    . a 4 1 1 4 a c f 8 b b c c . .
-                    . a 4 4 4 4 a c c c 8 1 1 9 . .
-                    . a 9 4 4 4 8 8 f f f f f . . .
+                    a a 7 7 9 a b c f 8 b b c c . .
+                    . a 7 1 1 7 a c f 8 b b c c . .
+                    . a 7 7 7 7 a c c c 8 1 1 9 . .
+                    . a 9 7 7 7 8 8 f f f f f . . .
                     . . a a a a 8 8 f f f f . . . .
                     . . . a a a f f f f f . . . . .
                     . . . . . . . f f c c c . . . .
@@ -320,10 +320,10 @@ class Team {
                     . . c c b b c f f f f 9 a . . .
                     . c c c f c b 9 f f f 8 a . . .
                     c c b b 8 f b c f f f 9 a . . .
-                    c c b b 8 f c a 9 4 4 a . . . .
-                    9 1 1 8 c c a 4 1 1 4 a . . . .
-                    . f f c c c c 4 4 4 4 a . . . .
-                    . . f f 8 8 c 4 4 4 9 a . . . .
+                    c c b b 8 f c a 9 7 7 a . . . .
+                    9 1 1 8 c c a 7 1 1 7 a . . . .
+                    . f f c c c c 7 7 7 7 a . . . .
+                    . . f f 8 8 c 7 7 7 9 a . . . .
                     . . f f 8 8 c a a a a 8 . . . .
                     . . . f f f f . . . . . . . . .
                     . . f f f c c c . . . . . . . .
@@ -338,10 +338,10 @@ class Team {
                     . . . . c b b b b b c f f a a .
                     . . . . c c b b c f f f f 9 a .
                     . . . c c c f c c f f f f 8 a .
-                    . . c c b b 8 f a 9 4 4 a 9 a .
-                    . . c c b b 9 a 4 1 1 4 a . . .
-                    . . 9 1 1 9 c a 4 4 4 4 a . . .
-                    . . f f f f 8 8 4 4 4 9 a . . .
+                    . . c c b b 8 f a 9 7 7 a 9 a .
+                    . . c c b b 9 a 7 1 1 7 a . . .
+                    . . 9 1 1 9 c a 7 7 7 7 a . . .
+                    . . f f f f 8 8 7 7 7 9 a . . .
                     f f f f f f 8 8 a a a a . . . .
                     f f f . f f f f a a a . . . . .
                     f f . . . . c c c . . . . . . .
@@ -356,10 +356,10 @@ class Team {
                     . . . . c b b b b b c f f a a .
                     . . . . c c b b c f f f f 9 a .
                     . . c c c f c c f f f f f 8 a .
-                    . c c b b 8 f a 9 4 4 a 1 9 a .
-                    . c c b b 9 a 4 1 1 4 a a . . .
-                    . 9 1 1 9 c a 4 4 4 4 a . . . .
-                    . . f f f 8 8 4 4 4 9 a 8 . . .
+                    . c c b b 8 f a 9 7 7 a 1 9 a .
+                    . c c b b 9 a 7 1 1 7 a a . . .
+                    . 9 1 1 9 c a 7 7 7 7 a . . . .
+                    . . f f f 8 8 7 7 7 9 a 8 . . .
                     c c f f f 8 8 a a a a 8 8 . . .
                     c c c f f f f a a a . . . . . .
                     c c . . . . f f f . . . . . . .
@@ -374,10 +374,10 @@ class Team {
                     . . . . . c b b b b b c f f a a
                     . . . . . c c b b c f f f f 9 a
                     . . . c c c f c b b c f f f 8 a
-                    . . c c b b 8 f c b a 9 4 4 a a
-                    . . c c b b 8 f c a 4 1 1 4 a .
-                    . . 9 1 1 8 c c c a 4 4 4 4 a .
-                    . . . f f f f f 8 8 4 4 4 9 a .
+                    . . c c b b 8 f c b a 9 7 7 a a
+                    . . c c b b 8 f c a 7 1 1 7 a .
+                    . . 9 1 1 8 c c c a 7 7 7 7 a .
+                    . . . f f f f f 8 8 7 7 7 9 a .
                     . . . . f f f f 8 8 a a a a . .
                     . . . . . f f f f f a a a . . .
                     . . . . c c c f f . . . . . . .
