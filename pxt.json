@@ -23,6 +23,24 @@
     "testFiles": [
         "test.ts"
     ],
+    "palette": [
+        "#000000",
+        "#FFFFFF",
+        "#0000FF",
+        "#0000FF",
+        "#0000FF",
+        "#249CA3",
+        "#78DC52",
+        "#FF8135",
+        "#E5CDC4",
+        "#A4839F",
+        "#5C406C",
+        "#FF3C00",
+        "#D91600",
+        "#002244",
+        "#00001E",
+        "#000000"
+    ],
     "public": false,
     "preferredEditor": "tsprj"
 }
