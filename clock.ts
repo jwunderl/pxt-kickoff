@@ -57,7 +57,7 @@ class GameClock {
             case 4:
                 return "4th";
             default:
-                return undefined;
+                throw "Invalid Quarter";
         }
     }
 
