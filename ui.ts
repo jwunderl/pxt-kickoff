@@ -10,30 +10,30 @@ namespace ui.player {
             switch (dir) {
                 case IndicatorImage.Left:
                     return img`
-                        . . . 5
-                        . . 5 4
-                        . 5 4 5
-                        5 4 5 5
-                        . 5 4 5
-                        . . 5 4
-                        . . . 5
+                        . . . 3
+                        . . 3 7
+                        . 3 7 3
+                        3 7 3 3
+                        . 3 7 3
+                        . . 3 7
+                        . . . 3
                     `;
                 case IndicatorImage.Right:
                     return img`
-                        5 . . .
-                        4 5 . .
-                        5 4 5 .
-                        5 5 4 5
-                        5 4 5 .
-                        4 5 . .
-                        5 . . .
+                        3 . . .
+                        7 3 . .
+                        3 7 3 .
+                        3 3 7 3
+                        3 7 3 .
+                        7 3 . .
+                        3 . . .
                     `;
                 case IndicatorImage.Down:
                     return img`
-                        5 4 5 5 5 4 5
-                        . 5 4 5 4 5 .
-                        . . 5 4 5 . .
-                        . . . 5 . . .
+                        3 7 3 3 3 7 3
+                        . 3 7 3 7 3 .
+                        . . 3 7 3 . .
+                        . . . 3 . . .
                     `;
             }
         }
@@ -44,28 +44,28 @@ namespace ui.player {
             case IndicatorImage.Left:
                 return img`
                     . . . 2
-                    . . 2 5
-                    . 2 5 2
-                    2 5 2 2
-                    . 2 5 2
-                    . . 2 5
+                    . . 2 3
+                    . 2 3 2
+                    2 3 2 2
+                    . 2 3 2
+                    . . 2 3
                     . . . 2
                 `;
             case IndicatorImage.Right:
                 return img`
                     2 . . .
-                    5 2 . .
-                    2 5 2 .
-                    2 2 5 2
-                    2 5 2 .
-                    5 2 . .
+                    3 2 . .
+                    2 3 2 .
+                    2 2 3 2
+                    2 3 2 .
+                    3 2 . .
                     2 . . .
                 `;
             case IndicatorImage.Down:
                 return img`
-                    2 5 2 2 2 5 2
-                    . 2 5 2 5 2 .
-                    . . 2 5 2 . .
+                    2 3 2 2 2 3 2
+                    . 2 3 2 3 2 .
+                    . . 2 3 2 . .
                     . . . 2 . . .
                 `;
         }
