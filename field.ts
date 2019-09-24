@@ -28,40 +28,40 @@ namespace field {
             6 6 6 6 6 6 6 1 6 6 6 6 6 6 6 6
         `, false);
         scene.setTile(3, img`
-            b b b b b b b b b b b b b b b b
-            b b b b b b b b b b b b b b b b
-            b b b b b b b b b b b b b b b b
-            b b b b b b b b b b b b b b b b
-            b b b b b b b b b b b b b b b b
-            b b b b b b b b b b b b b b b b
-            b b b b b b b b b b b b b b b b
-            b b b b b b b b b b b b b b b b
-            b b b b b b b b b b b b b b b b
-            b b b b b b b b b b b b b b b b
-            b b b b b b b b b b b b b b b b
-            b b b b b b b b b b b b b b b b
-            b b b b b b b b b b b b b b b b
-            b b b b b b b b b b b b b b b b
-            b b b b b b b b b b b b b b b b
-            b b b b b b b b b b b b b b b b
+            c c b b b b b b b b b b b b c c
+            c c b b b b c b b b b b b b c c
+            c c b b b b b b b b b b b b c c
+            c c b b b b b b b b b b b b c c
+            c c b b b b b b c b b b b b c c
+            c c b b b b b b b b b b b b c c
+            c c b b b b c b b b b b b b c c
+            c c b b b b c b b b b b b b c c
+            c c b b b b b b b b b b b b c c
+            c c b b b b b b b b b b b b c c
+            c c b b b b b b c b b b b b c c
+            c c b b b b c b c b b b b b c c
+            c c b b b b b b b b b b b b c c
+            c c b b b b b b b b b b b b c c
+            c c b b b b b b c b b b b b c c
+            c c b b b b b b c b b b b b c c
         `, false);
         scene.setTile(4, img`
-            d d d d d d d d d d d d d d d d
-            d d d d d d d d d d d d d d d d
-            d d d d d d d d d d d d d d d d
-            d d d d d d d d d d d d d d d d
-            d d d d d d d d d d d d d d d d
-            d d d d d d d d d d d d d d d d
-            d d d d d d d d d d d d d d d d
-            d d d d d d d d d d d d d d d d
-            d d d d d d d d d d d d d d d d
-            d d d d d d d d d d d d d d d d
-            d d d d d d d d d d d d d d d d
-            d d d d d d d d d d d d d d d d
-            d d d d d d d d d d d d d d d d
-            d d d d d d d d d d d d d d d d
-            d d d d d d d d d d d d d d d d
-            d d d d d d d d d d d d d d d d
+            e e d d d d d d d d d d d d e e
+            e e d d d d e d d d d d d d e e
+            e e d d d d e d d d d d d d e e
+            e e d d d d d d e d d d d d e e
+            e e d d d d d d d d d d d d e e
+            e e d d d d e d e d d d d d e e
+            e e d d d d e d d d d d d d e e
+            e e d d d d d d d d d d d d e e
+            e e d d d d d d d d d d d d e e
+            e e d d d d e d d d d d d d e e
+            e e d d d d d d d d d d d d e e
+            e e d d d d d d e d d d d d e e
+            e e d d d d d d e d d d d d e e
+            e e d d d d d d d d d d d d e e
+            e e d d d d d d d d d d d d e e
+            e e d d d d e d d d d d d d e e
         `, false);
         scene.setTile(5, img`
             a a f f f f f f f a a a a f f f
