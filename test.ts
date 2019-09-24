@@ -1,6 +1,6 @@
 const currentGame = new Game(
-    teams.create("Browns", "CLE", 0x4, 0xE, true),
-    teams.create("Seahawks", "SEA", 0x8, 0x7, false),
+    teams.create(league.clevelandBrowns, true),
+    teams.create(league.seattleSeahawks, false),
     20
 );
 

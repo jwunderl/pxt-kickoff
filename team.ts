@@ -6,10 +6,7 @@ class Team {
     public animations: animation.Animation[];
 
     constructor(
-        public name: string,
-        public abbrev: string,
-        public mainColor: number,
-        public secondaryColor: number,
+        protected teamData: TeamData,
         protected controlled?: boolean
     ) {
         this.score = 0;
@@ -27,6 +24,23 @@ class Team {
         for (let i = 0; i < 3; i++) {
             this.players[i] = player.create(this);
         }
+
+    }
+
+    get name() {
+        return this.teamData.name;
+    }
+
+    get abbrev() {
+        return this.teamData.abbreviation;
+    }
+
+    get mainColor() {
+        return 0xB + (this.controlled ? 2 : 0); 
+    }
+
+    get secondaryColor() {
+        return 0xC + (this.controlled ? 2 : 0);
     }
 
     resetPlayerPositions(lineOfScrimmage: number) {
@@ -431,17 +445,11 @@ class Team {
 
 namespace teams {
     export function create(
-        name: string,
-        abbrev: string,
-        mainColor: number,
-        secondaryColor: number,
+        teamData: TeamData,
         controlled: boolean
     ) {
         return new Team(
-            name,
-            abbrev,
-            mainColor,
-            secondaryColor,
+            teamData,
             controlled
         );
     }

@@ -1,10 +1,10 @@
 //% fixedInstances
 class TeamData {
     constructor(
-        readonly name: string,
-        readonly abbreviation: string,
-        readonly colorOne: number,
-        readonly colorTwo: number
+        public readonly name: string,
+        public readonly abbreviation: string,
+        public readonly colorOne: number,
+        public readonly colorTwo: number
     ) { }
 }
 
@@ -73,7 +73,7 @@ namespace league {
     export const newEnglandPatriots = new TeamData("New England Patriots", "NE", 0x002244, 0xC60C30);
 
     //% fixedInstance whenUsed block="New Orleans Saints"
-    export const newOrleans = new TeamData("New Orleans Saints", "NO", 0xD3BC8D, 0x101820);
+    export const newOrleansSaints = new TeamData("New Orleans Saints", "NO", 0xD3BC8D, 0x101820);
 
     //% fixedInstance whenUsed block="New York Giants"
     export const newYorkGiants = new TeamData("New York Giants", "NYG", 0x0B2265, 0xA71930);
@@ -82,26 +82,26 @@ namespace league {
     export const newYorkJets = new TeamData("New York Jets", "NYJ", 0x125740, 0x000000);
 
     //% fixedInstance whenUsed block="Oakland Raiders"
-    export const oakland = new TeamData("Oakland Raiders", "OAK", 0x000000, 0xA5ACAF);
+    export const oaklandRaiders = new TeamData("Oakland Raiders", "OAK", 0x000000, 0xA5ACAF);
 
     //% fixedInstance whenUsed block="Philadelphia Eagles"
-    export const philadelphia = new TeamData("Philadelphia Eagles", "PHI", 0x004C54, 0xACC0C6);
+    export const philadelphiaEagles = new TeamData("Philadelphia Eagles", "PHI", 0x004C54, 0xACC0C6);
 
     //% fixedInstance whenUsed block="Pittsburgh Steelers"
-    export const pittsburgh = new TeamData("Pittsburgh Steelers", "PIT", 0xFFB612, 0x003087);
+    export const pittsburghSteelers = new TeamData("Pittsburgh Steelers", "PIT", 0xFFB612, 0x003087);
 
     //% fixedInstance whenUsed block="Seattle Seahawks"
-    export const seattle = new TeamData("Seattle Seahawks", "SEA", 0x002244, 0x69BE28);
+    export const seattleSeahawks = new TeamData("Seattle Seahawks", "SEA", 0x002244, 0x69BE28);
 
     //% fixedInstance whenUsed block="San Francisco 49ers"
     export const sanFrancisco49ers = new TeamData("San Francisco 49ers", "SF", 0xAA0000, 0xB3995D);
 
     //% fixedInstance whenUsed block="Tampa Bay Buccaneers"
-    export const tampaBay = new TeamData("Tampa Bay Buccaneers", "TB", 0xD50A0A, 0xFF7900);
+    export const tampaBayBuccaneers = new TeamData("Tampa Bay Buccaneers", "TB", 0xD50A0A, 0xFF7900);
 
     //% fixedInstance whenUsed block="Tennessee Titans"
-    export const tennessee = new TeamData("Tennessee Titans", "TEN", 0x0C2340, 0x418FDE);
+    export const tennesseeTitans = new TeamData("Tennessee Titans", "TEN", 0x0C2340, 0x418FDE);
 
     //% fixedInstance whenUsed block="Washington Redskins"
-    export const washington = new TeamData("Washington Redskins", "WAS", 0x773141, 0xFFB612);
+    export const washingtonRedskins = new TeamData("Washington Redskins", "WAS", 0x773141, 0xFFB612);
 }
