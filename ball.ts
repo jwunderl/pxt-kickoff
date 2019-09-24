@@ -25,12 +25,12 @@ namespace ball {
         football.z = zindex.BALL;
         animation.runImageAnimation(football, [
             img`
-            . . 6 6 6 6 . .
-            . 6 d 4 4 4 6 .
-            6 1 b 1 1 4 d 6
-            c 1 b b 4 4 1 c
-            . c b b b d c .
-            . . c c c c . .
+                . . 6 6 6 6 . .
+                . 6 d 4 4 4 6 .
+                6 1 b 1 1 4 d 6
+                c 1 b b 4 4 1 c
+                . c b b b d c .
+                . . c c c c . .
             `, 
             img`
                 . . 6 6 6 6 . .

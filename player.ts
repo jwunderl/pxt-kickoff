@@ -18,11 +18,13 @@ namespace player {
     }
 
     game.onUpdate(() => {
-        sprites
-            .allOfKind(SpriteKind.PlayerTeam)
+        currentGame
+            .offense
+            .players
             .forEach(updatePlayerAnimation);
-        sprites
-            .allOfKind(SpriteKind.OpposingTeam)
+        currentGame
+            .defense
+            .players
             .forEach(updatePlayerAnimation);
     });
 
