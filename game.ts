@@ -1,7 +1,8 @@
 class Game {
     public clock: GameClock;
 
-    protected possessesBall: Team;
+    protected teamWithPossession: Team;
+    protected playerWithPossession: Sprite;
     public lineOfScrimmage: number;
     protected indicator: scene.Renderable;
     protected scoreboard: scene.Renderable;
@@ -13,7 +14,7 @@ class Game {
     ) {
         this.lineOfScrimmage = 60;
         this.resetPlayers();
-        this.possessesBall = this.teamA;
+        this.teamWithPossession = this.teamA;
         this.clock = new GameClock(quarterLength);
 
         this.indicator = ui.player.createIndicator();
@@ -24,20 +25,28 @@ class Game {
         ball.initializeEvents();
     }
 
+    get playerWhoHasBall() {
+        return this.playerWithPossession;
+    }
+
+    set playerWhoHasBall(s: Sprite) {
+        this.playerWithPossession = s;
+    }
+
     resetPlayers() {
         this.teamA.resetPlayerPositions(this.lineOfScrimmage);
         this.teamB.resetPlayerPositions(this.lineOfScrimmage);
     }
 
     get offense() {
-        return this.possessesBall;
+        return this.teamWithPossession;
     }
 
     get defense() {
-        return this.teamA === this.possessesBall ? this.teamB : this.teamA;
+        return this.teamA === this.teamWithPossession ? this.teamB : this.teamA;
     }
 
     turnOver() {
-        this.possessesBall = this.defense;
+        this.teamWithPossession = this.defense;
     }
 }

@@ -29,10 +29,11 @@ namespace player {
     });
 
     function updatePlayerAnimation(player: Sprite) {
+        const offset = player === currentGame.playerWhoHasBall ? 1 : 0;
         if (player.vx < 0)
-            animation.setAction(player, PlayerAnimation.Left);
+            animation.setAction(player, PlayerAnimation.Left + offset);
         else if (player.vx > 0)
-            animation.setAction(player, PlayerAnimation.Right);
+            animation.setAction(player, PlayerAnimation.Right + offset);
     }
 
     export function initializeEvents() {

@@ -11,10 +11,14 @@ namespace datakey {
     export const CURRENT_DEFENSE = "current_defense";
 }
 
+// must maintain relative positions of left / leftWithBall and right/rightWithBall,
+// such that the one without the ball is one less than the one with the ball.
 enum PlayerAnimation {
-    Left,
-    Right,
-    Celebrate
+    Left = 0,
+    LeftWithBall = 1,
+    Right = 2,
+    RightWithBall = 3,
+    Celebrate = 4
 }
 
 namespace zindex {

@@ -1,8 +1,6 @@
 namespace ball {
     let football: Sprite;
     let shadow: Sprite;
-    // player that currently possesses the football
-    let heldBy: Sprite;
 
     export function toss() {
         clear();
@@ -11,7 +9,7 @@ namespace ball {
         ai.setTeamOffense(currentGame.offense, true);
         text.util.showInstruction("CATCH!", 1000);
 
-        football = sprites.create(img`
+        const newFootball = sprites.create(img`
             . . 6 6 6 6 . .
             . 6 d 4 4 4 6 .
             6 1 b 1 1 4 d 6
@@ -19,11 +17,11 @@ namespace ball {
             . c b b b d c .
             . . c c c c . .
         `, SpriteKind.Ball);
-        football.setPosition(20, 100);
-        football.setVelocity(60, -70);
-        football.ay = 50;
-        football.z = zindex.BALL;
-        animation.runImageAnimation(football, [
+        newFootball.setPosition(20, 100);
+        newFootball.setVelocity(60, -70);
+        newFootball.ay = 50;
+        newFootball.z = zindex.BALL;
+        animation.runImageAnimation(newFootball, [
             img`
                 . . 6 6 6 6 . .
                 . 6 d 4 4 4 6 .
@@ -73,9 +71,9 @@ namespace ball {
                 . . c c c c . .
             `
         ], 30, true);
-        scene.cameraFollowSprite(football);
+        scene.cameraFollowSprite(newFootball);
 
-        shadow = sprites.create(img`
+        const newShadow = sprites.create(img`
             . . c c c c . .
             . c f f f f c .
             c f f f f f f c
@@ -83,35 +81,35 @@ namespace ball {
             . c f f f f c .
             . . c c c c . .
         `, SpriteKind.Shadow);
-        shadow.z = zindex.SHADOW;
-        shadow.setPosition(20, 100);
-        shadow.setVelocity(60, 0);
-        shadow.setFlag(SpriteFlag.Ghost, true);
-
-        const cachedShadow = shadow;
+        newShadow.z = zindex.SHADOW;
+        newShadow.setPosition(20, 100);
+        newShadow.setVelocity(60, 0);
+        newShadow.setFlag(SpriteFlag.Ghost, true);
 
         // small delay so overlap doesn't occur immediately
         control.runInParallel(() => {
             pause(200);
-            if (shadow == cachedShadow) {
-                shadow.setFlag(SpriteFlag.Ghost, false);
-            } // otherwise, ball was immediately rethrown so do nothing.
+            shadow.setFlag(SpriteFlag.Ghost, false);
         });
+
+        shadow = newShadow;
+        football = newFootball
     }
 
     export function clear() {
         if (football) football.destroy();
         if (shadow) shadow.destroy();
-        if (heldBy) heldBy = undefined;
     }
 
     export function initializeEvents() {
         sprites.onOverlap(SpriteKind.Ball, SpriteKind.Shadow, (sprite, otherSprite) => {
             otherSprite.setFlag(SpriteFlag.Ghost, true);
-            heldBy = currentGame.offense.players.find(player => sprite.overlapsWith(player));
+            const heldBy = currentGame.offense.players.find(player => sprite.overlapsWith(player));
             if (heldBy) {
+                currentGame.playerWhoHasBall = heldBy; 
+                sprite.destroy();
                 otherSprite.destroy();
-                animation.stopAnimation(animation.AnimationTypes.ImageAnimation, sprite);
+                scene.cameraFollowSprite(heldBy);
                 pauseUntil(() => !heldBy || heldBy.right > 19 * 16);
                 touchDown();
             } else {
@@ -125,13 +123,6 @@ namespace ball {
                 sprite.ay = 0;
                 sprite.vy = 0;
                 sprite.vx = 0;
-            }
-        });
-
-        game.onUpdate(() => {
-            if (heldBy) {
-                football.x = heldBy.x;
-                football.y = heldBy.y;
             }
         });
     }
@@ -152,10 +143,6 @@ namespace ball {
         currentGame.offense.stop();
         currentGame.defense.stop();
         currentGame.offense.players.forEach(p => animation.setAction(p, PlayerAnimation.Celebrate));
-        currentGame.defense.players.forEach(p => {
-            p.vx = 0;
-            p.vy = 0;
-        });
 
         control.runInParallel(() => {
             effects.confetti.startScreenEffect(1000);
