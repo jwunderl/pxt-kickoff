@@ -28,6 +28,42 @@ namespace field {
             6 6 6 6 6 6 6 1 6 6 6 6 6 6 6 6
             6 6 6 6 6 6 6 1 6 6 6 6 6 6 6 6
         `, false);
+        scene.setTile(3, img`
+            b b b b b b b b b b b b b b b b
+            b b b b b b b b b b b b b b b b
+            b b b b b b b b b b b b b b b b
+            b b b b b b b b b b b b b b b b
+            b b b b b b b b b b b b b b b b
+            b b b b b b b b b b b b b b b b
+            b b b b b b b b b b b b b b b b
+            b b b b b b b b b b b b b b b b
+            b b b b b b b b b b b b b b b b
+            b b b b b b b b b b b b b b b b
+            b b b b b b b b b b b b b b b b
+            b b b b b b b b b b b b b b b b
+            b b b b b b b b b b b b b b b b
+            b b b b b b b b b b b b b b b b
+            b b b b b b b b b b b b b b b b
+            b b b b b b b b b b b b b b b b
+        `, false);
+        scene.setTile(4, img`
+            d d d d d d d d d d d d d d d d
+            d d d d d d d d d d d d d d d d
+            d d d d d d d d d d d d d d d d
+            d d d d d d d d d d d d d d d d
+            d d d d d d d d d d d d d d d d
+            d d d d d d d d d d d d d d d d
+            d d d d d d d d d d d d d d d d
+            d d d d d d d d d d d d d d d d
+            d d d d d d d d d d d d d d d d
+            d d d d d d d d d d d d d d d d
+            d d d d d d d d d d d d d d d d
+            d d d d d d d d d d d d d d d d
+            d d d d d d d d d d d d d d d d
+            d d d d d d d d d d d d d d d d
+            d d d d d d d d d d d d d d d d
+            d d d d d d d d d d d d d d d d
+        `, false);
         scene.setTile(5, img`
             c c f f f f f f f c c c c f f f
             b c 6 6 c f f f f c c c c c f c
