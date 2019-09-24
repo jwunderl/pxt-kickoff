@@ -4,7 +4,8 @@
     "description": "",
     "dependencies": {
         "device": "*",
-        "animation": "*"
+        "animation": "*",
+        "Color Fading": "github:jwunderl/pxt-color#v0.0.30"
     },
     "files": [
         "README.md",
@@ -36,9 +37,9 @@
         "#A4839F",
         "#5C406C",
         "#FF3C00",
-        "#D91600",
+        "#E62300",
         "#002244",
-        "#00001E",
+        "#00092B",
         "#000000"
     ],
     "public": false,

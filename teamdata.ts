@@ -31,7 +31,7 @@ namespace league {
     export const cincinnatiBengals = new TeamData("Cincinnati Bengals", "CIN", 0xFB4F14, 0x000000);
 
     //% fixedInstance whenUsed block="Cleveland Browns"
-    export const clevelandBrowns = new TeamData("Cleveland Browns", "CLE", 0x311D00, 0xFF3C00);
+    export const clevelandBrowns = new TeamData("Cleveland Browns", "CLE", 0xFF3C00, 0x311D00);
 
     //% fixedInstance whenUsed block="Dallas Cowboys"
     export const dallasCowboys = new TeamData("Dallas Cowboys", "DAL", 0x003594, 0x041E42);

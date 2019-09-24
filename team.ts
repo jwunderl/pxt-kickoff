@@ -6,7 +6,7 @@ class Team {
     public animations: animation.Animation[];
 
     constructor(
-        protected teamData: TeamData,
+        public readonly teamData: TeamData,
         protected controlled?: boolean
     ) {
         this.score = 0;
@@ -25,6 +25,12 @@ class Team {
             this.players[i] = player.create(this);
         }
 
+        // set color to team colors on creation
+        const teamPalette = new color.Palette(2);
+        teamPalette.setColor(0, teamData.colorOne);
+        teamPalette.setColor(1, teamData.colorTwo);
+        color.setPalette(teamPalette, this.primaryColor, 2);
+
     }
 
     get name() {
@@ -35,7 +41,7 @@ class Team {
         return this.teamData.abbreviation;
     }
 
-    get mainColor() {
+    get primaryColor() {
         return 0xB + (this.controlled ? 0 : 2); 
     }
 
@@ -427,7 +433,7 @@ class Team {
 
         animationFrames.forEach(anim => {
             anim.forEach(frame => {
-                frame.replace(0xb, this.mainColor);
+                frame.replace(0xb, this.primaryColor);
                 frame.replace(0xc, this.secondaryColor);
             });
         });

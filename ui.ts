@@ -140,14 +140,14 @@ namespace ui.scoreboard {
                 TOP + 1,
                 teamOneWidth,
                 HEIGHT,
-                playerTeam.mainColor
+                playerTeam.primaryColor
             );
             target.fillRect(
                 teamOneWidth,
                 TOP + 1,
                 teamTwoWidth,
                 HEIGHT,
-                opposingTeam.mainColor
+                opposingTeam.primaryColor
             );
 
             printAndUpdate(teamOneText);
