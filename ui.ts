@@ -102,7 +102,7 @@ namespace ui.player {
                 // offset here is very hacky, probably just store state in data instead I guess
                 target.drawTransparentImage(
                     indicator,
-                    xPos + (activePlayer._action === PlayerAnimation.Left ? -8 : -3),
+                    xPos + (activePlayer._action === PlayerAnimation.Left ? -5 : -3),
                     yPos - 5
                 );
             }

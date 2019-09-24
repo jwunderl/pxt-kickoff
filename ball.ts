@@ -99,6 +99,7 @@ namespace ball {
     export function clear() {
         if (football) football.destroy();
         if (shadow) shadow.destroy();
+        currentGame.playerWhoHasBall = undefined;
     }
 
     export function initializeEvents() {
