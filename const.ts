@@ -1,6 +1,7 @@
 namespace SpriteKind {
     export const Ball = SpriteKind.create();
     export const Shadow = SpriteKind.create();
+    export const ThrowTarget = SpriteKind.create();
     export const Logo = SpriteKind.create();
     export const PlayerTeam = SpriteKind.create();
     export const OpposingTeam = SpriteKind.create();
@@ -24,6 +25,7 @@ enum PlayerAnimation {
 namespace zindex {
     export const BACKGROUND = 0;
     export const SHADOW = 1;
+    export const THROW_TARGET = 2;
     export const OPPOSING_TEAM = 5;
     export const PLAYER_TEAM = 6;
     export const BALL = 10;

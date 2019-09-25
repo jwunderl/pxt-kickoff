@@ -1,13 +1,36 @@
 namespace ball {
     let football: Sprite;
     let shadow: Sprite;
+    let target: Sprite;
 
     export function toss() {
         clear();
-        currentGame.clock.start();
-        ai.setTeamDefense(currentGame.defense, currentGame.offense, true);
-        ai.setTeamOffense(currentGame.offense, true);
-        text.util.showInstruction("CATCH!", 1000);
+
+        const newTarget = sprites.create(img`
+            . . . . . . . . . . . . . . . .
+            . . . . . . . . . . . . . . . .
+            . . . . . . . . . . . . . . . .
+            . a a . . . . . . . . a a . . .
+            . a a a . . . . . . a a a . . .
+            . 1 a a a . . . . a a a 1 . . .
+            . 1 1 a a a . . a a a 1 1 . . .
+            . . 1 1 a a a a a a 1 1 . . . .
+            . . . 1 1 a a a a 1 1 . . . . .
+            . . . . a a a a a a . . . . . .
+            . . . a a a 1 1 a a a . . . . .
+            . . a a a 1 1 1 1 a a a . . . .
+            . a a a 1 1 . . 1 1 a a a . . .
+            . a a 1 1 . . . . 1 1 a a . . .
+            . 1 1 1 . . . . . . 1 1 1 . . .
+            . . . . . . . . . . . . . . . .
+        `, SpriteKind.Ball);
+        controller.moveSprite(newTarget)
+        newTarget.z = zindex.HUD - 1;
+        scene.cameraFollowSprite(newTarget);
+
+        pauseUntil(() => controller.A.isPressed() && newTarget.x > currentGame.lineOfScrimmage);
+        newTarget.z = zindex.THROW_TARGET;
+        controller.moveSprite(newTarget, 0, 0);
 
         const newFootball = sprites.create(img`
             . . 5 5 5 5 . .
@@ -18,7 +41,7 @@ namespace ball {
             . . a a a a . .
         `, SpriteKind.Ball);
         newFootball.setPosition(20, 100);
-        newFootball.setVelocity(60, -70);
+        newFootball.vy = -70;
         newFootball.ay = 50;
         newFootball.z = zindex.BALL;
         animation.runImageAnimation(newFootball, [
@@ -71,7 +94,6 @@ namespace ball {
                 . . a a a a . .
             `
         ], 30, true);
-        scene.cameraFollowSprite(newFootball);
 
         const newShadow = sprites.create(img`
             . . a a a a . .
@@ -82,10 +104,19 @@ namespace ball {
             . . a a a a . .
         `, SpriteKind.Shadow);
         newShadow.z = zindex.SHADOW;
+        // TODO: change to throw from qb, instead of just 20, 100
         newShadow.setPosition(20, 100);
-        newShadow.setVelocity(60, 0);
+
+        // TODO: use atan2 to calculate proper speeds
+        newShadow.setVelocity(newTarget.x - newShadow.x, newTarget.y - newShadow.y);
+        scene.cameraFollowSprite(newShadow);
 
         newShadow.setFlag(SpriteFlag.Ghost, true);
+
+        currentGame.clock.start();
+        ai.setTeamDefense(currentGame.defense, currentGame.offense, true);
+        ai.setTeamOffense(currentGame.offense, true);
+        text.util.showInstruction("CATCH!", 1000);
 
         // small delay so overlap doesn't occur immediately
         control.runInParallel(() => {
@@ -93,19 +124,28 @@ namespace ball {
             newShadow.setFlag(SpriteFlag.Ghost, false);
         });
 
+        target = newTarget;
         shadow = newShadow;
-        football = newFootball
+        football = newFootball;
     }
 
     export function clear() {
+        if (target) target.destroy();
         if (football) football.destroy();
         if (shadow) shadow.destroy();
         currentGame.playerWhoHasBall = undefined;
     }
 
     export function initializeEvents() {
+        game.onUpdate(() => {
+            if (football && shadow) {
+                football.x = shadow.x;
+            }
+        });
         sprites.onOverlap(SpriteKind.Ball, SpriteKind.Shadow, (sprite, otherSprite) => {
+            if (target) target.destroy();
             otherSprite.setFlag(SpriteFlag.Ghost, true);
+
             const heldBy = currentGame.offense.players.find(player => sprite.overlapsWith(player));
             if (heldBy) {
                 currentGame.playerWhoHasBall = heldBy;

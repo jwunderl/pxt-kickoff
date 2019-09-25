@@ -9,4 +9,6 @@ const currentGame = new Game(
 //     20
 // );
 
-controller.A.onEvent(ControllerButtonEvent.Pressed, () => ball.toss());
+// controller.A.onEvent(ControllerButtonEvent.Pressed, () => ball.toss());
+
+ball.toss();
