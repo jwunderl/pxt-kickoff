@@ -6,19 +6,21 @@ class Game {
     public lineOfScrimmage: number;
     protected indicator: scene.Renderable;
     protected scoreboard: scene.Renderable;
+    protected lineOfScrimmageIndicator: scene.Renderable;
 
     constructor(
         protected teamA: Team,
         protected teamB: Team,
         quarterLength: number = 20
     ) {
-        this.lineOfScrimmage = 60;
+        this.lineOfScrimmage = 80;
         this.resetPlayers();
         this.teamWithPossession = this.teamA;
         this.clock = new GameClock(quarterLength);
 
         this.indicator = ui.player.createIndicator();
         this.scoreboard = ui.scoreboard.create(teamA, teamB);
+        this.lineOfScrimmageIndicator = ui.field.createLineOfScrimmage();
 
         field.initialize();
         player.initializeEvents();
@@ -37,7 +39,7 @@ class Game {
             a 5 5 6 5 5 5 6 5 5 a
             . a 5 5 5 5 5 5 5 a .
             . . a a a a a a a . .
-        `)
+        `);
     }
 
     get playerWhoHasBall() {

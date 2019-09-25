@@ -156,3 +156,12 @@ namespace ui.scoreboard {
         });
     }
 }
+
+namespace ui.field {
+    export function createLineOfScrimmage() {
+        return scene.createRenderable(zindex.HUD - 1, (target, camera) => {
+            const los = currentGame.lineOfScrimmage - camera.offsetX;
+            target.drawLine(los, 16, los, screen.height, 0x3);
+        });
+    }
+}
