@@ -293,7 +293,7 @@ namespace field {
             . . . . . . . . 1 b b b b b b 1 . . . . . . . . . . . . . . . . . . . . . . . . . 1 b b b b b b 1 . . . . . . . .
             . . . . . . . . . 1 b b b b b b 1 . . . . . . . . . . . . . . . . . . . . . . . 1 b b b b b b 1 . . . . . . . . .
             . . . . . . . . . . 1 1 1 1 1 1 1 . . . . . . . . . . . . . . . . . . . . . . . 1 1 1 1 1 1 1 . . . . . . . . . .
-        `, SpriteKind.Shield);
+        `, SpriteKind.Logo);
         output.setFlag(SpriteFlag.Ghost, true);
         output.setPosition(10 * 16, 4 * 16);
         output.z = zindex.BACKGROUND;

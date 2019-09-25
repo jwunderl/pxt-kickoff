@@ -23,6 +23,21 @@ class Game {
         field.initialize();
         player.initializeEvents();
         ball.initializeEvents();
+
+        // initialize recolored a button prompt
+        game.setDialogCursor(img`
+            . . . 5 5 5 5 5 . . .
+            . 5 5 6 6 6 6 6 5 5 .
+            . 5 6 6 1 1 1 6 6 5 .
+            5 6 6 1 6 6 6 1 6 6 5
+            5 6 6 1 6 6 6 1 6 6 5
+            5 6 6 1 1 1 1 1 6 6 5
+            5 5 6 1 6 6 6 1 6 5 5
+            a 5 5 1 6 6 6 1 5 5 a
+            a 5 5 6 5 5 5 6 5 5 a
+            . a 5 5 5 5 5 5 5 a .
+            . . a a a a a a a . .
+        `)
     }
 
     get playerWhoHasBall() {

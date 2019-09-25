@@ -84,12 +84,13 @@ namespace ball {
         newShadow.z = zindex.SHADOW;
         newShadow.setPosition(20, 100);
         newShadow.setVelocity(60, 0);
+
         newShadow.setFlag(SpriteFlag.Ghost, true);
 
         // small delay so overlap doesn't occur immediately
         control.runInParallel(() => {
             pause(200);
-            shadow.setFlag(SpriteFlag.Ghost, false);
+            newShadow.setFlag(SpriteFlag.Ghost, false);
         });
 
         shadow = newShadow;
