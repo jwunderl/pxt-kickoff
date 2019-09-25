@@ -431,12 +431,14 @@ class Team {
         ];
         this.animations = [];
 
-        animationFrames.forEach(anim => {
-            anim.forEach(frame => {
-                frame.replace(0xb, this.primaryColor);
-                frame.replace(0xc, this.secondaryColor);
+        if (!this.controlled) {
+            animationFrames.forEach(anim => {
+                anim.forEach(frame => {
+                    frame.replace(0xb, this.primaryColor);
+                    frame.replace(0xc, this.secondaryColor);
+                });
             });
-        });
+        }
 
         this.animations[PlayerAnimation.Left] = animation.createAnimation(PlayerAnimation.Left, 150);
         this.animations[PlayerAnimation.LeftWithBall] = animation.createAnimation(PlayerAnimation.LeftWithBall, 150);
