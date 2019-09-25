@@ -1,10 +1,11 @@
 namespace ball {
-    let football: Sprite;
-    let shadow: Sprite;
-    let target: Sprite;
+    let activeFootball: Sprite;
+    let activeShadow: Sprite;
+    let activeTarget: Sprite;
 
     export function toss() {
         clear();
+        const currentGame = football.activeGame();
 
         const newTarget = sprites.create(img`
             . . . . . . . . . . . . . . . .
@@ -124,27 +125,31 @@ namespace ball {
             newShadow.setFlag(SpriteFlag.Ghost, false);
         });
 
-        target = newTarget;
-        shadow = newShadow;
-        football = newFootball;
+        activeTarget = newTarget;
+        activeShadow = newShadow;
+        activeFootball = newFootball;
     }
 
     export function clear() {
-        if (target) target.destroy();
-        if (football) football.destroy();
-        if (shadow) shadow.destroy();
-        currentGame.playerWhoHasBall = undefined;
+        if (activeTarget) activeTarget.destroy();
+        if (activeFootball) activeFootball.destroy();
+        if (activeShadow) activeShadow.destroy();
+        const currentGame = football.activeGame();
+        if (currentGame) {
+            currentGame.playerWhoHasBall = undefined;
+        }
     }
 
     export function initializeEvents() {
         game.onUpdate(() => {
-            if (football && shadow) {
-                football.x = shadow.x;
+            if (activeFootball && activeShadow) {
+                activeFootball.x = activeShadow.x;
             }
         });
         sprites.onOverlap(SpriteKind.Ball, SpriteKind.Shadow, (sprite, otherSprite) => {
-            if (target) target.destroy();
+            if (activeTarget) activeTarget.destroy();
             otherSprite.setFlag(SpriteFlag.Ghost, true);
+            const currentGame = football.activeGame();
 
             const heldBy = currentGame.offense.players.find(player => sprite.overlapsWith(player));
             if (heldBy) {
@@ -170,13 +175,14 @@ namespace ball {
     }
 
     function bounceBall() {
-        football.vy = football.vy * -0.33;
-        football.vx = football.vx * .6;
-        shadow.vx = shadow.vx * .6;
+        activeFootball.vy = activeFootball.vy * -0.33;
+        activeFootball.vx = activeFootball.vx * .6;
+        activeShadow.vx = activeShadow.vx * .6;
     }
 
     // move to game.ts
     function touchDown() {
+        const currentGame = football.activeGame();
         text.util.showInstruction("TOUCHDOWN!", 1500);
         currentGame.clock.stop();
         currentGame.offense.score += 7;

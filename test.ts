@@ -1,4 +1,4 @@
-let currentGame: Game;
+
 // currentGame = new Game(
 //     teams.create(league.clevelandBrowns, true),
 //     teams.create(league.seattleSeahawks, false),
@@ -9,12 +9,9 @@ let currentGame: Game;
 //     teams.create(league.pittsburghSteelers, false),
 //     20
 // );
-currentGame = new Game(
-    teams.create(league.newEnglandPatriots, true),
-    teams.create(league.washingtonRedskins, false),
-    20
-);
 
+
+football.createGame(league.clevelandBrowns, league.seattleSeahawks)
 // controller.A.onEvent(ControllerButtonEvent.Pressed, () => ball.toss());
 
 ball.toss();

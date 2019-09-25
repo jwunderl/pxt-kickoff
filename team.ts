@@ -42,11 +42,15 @@ class Team {
     }
 
     get primaryColor() {
-        return 0xB + (this.controlled ? 0 : 2); 
+        return 0xB + this.colorOffset(); 
     }
 
     get secondaryColor() {
-        return 0xC + (this.controlled ? 0 : 2);
+        return 0xC + this.colorOffset();
+    }
+
+    private colorOffset() {
+        return this.controlled ? 0 : 2;
     }
 
     resetPlayerPositions(lineOfScrimmage: number) {

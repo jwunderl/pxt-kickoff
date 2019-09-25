@@ -18,6 +18,7 @@ namespace player {
     }
 
     game.onUpdate(() => {
+        const currentGame = football.activeGame();
         currentGame
             .offense
             .players
@@ -29,6 +30,7 @@ namespace player {
     });
 
     function updatePlayerAnimation(player: Sprite) {
+        const currentGame = football.activeGame();
         const offset = player === currentGame.playerWhoHasBall ? 1 : 0;
         if (player.vx < 0)
             animation.setAction(player, PlayerAnimation.Left + offset);

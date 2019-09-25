@@ -5,7 +5,7 @@ namespace ui.player {
         Down
     }
 
-    function indicatorImage(dir: IndicatorImage) {
+    function indicatorImage(currentGame: football.Game, dir: IndicatorImage) {
         if (currentGame.clock.secondsRemaining % 2) {
             switch (dir) {
                 case IndicatorImage.Left:
@@ -71,7 +71,7 @@ namespace ui.player {
         }
     }
 
-    export function createIndicator() {
+    export function createIndicator(currentGame: football.Game) {
         return scene.createRenderable(zindex.PLAYER_INDICATOR, (target, camera) => {
             const activePlayer = currentGame.offense.activePlayer || currentGame.defense.activePlayer;
             if (!activePlayer)
@@ -82,7 +82,7 @@ namespace ui.player {
 
             // player is either:
             if (xPos < 0) { // off screen to left
-                const indicator = indicatorImage(IndicatorImage.Left);
+                const indicator = indicatorImage(currentGame, IndicatorImage.Left);
 
                 target.drawTransparentImage(
                     indicator,
@@ -90,7 +90,7 @@ namespace ui.player {
                     yPos + 5
                 );
             } else if (xPos > screen.width) { // off screen to right
-                const indicator = indicatorImage(IndicatorImage.Right)
+                const indicator = indicatorImage(currentGame, IndicatorImage.Right);
 
                 target.drawTransparentImage(
                     indicator,
@@ -98,7 +98,7 @@ namespace ui.player {
                     yPos + 5
                 );
             } else { // within the screen
-                const indicator = indicatorImage(IndicatorImage.Down)
+                const indicator = indicatorImage(currentGame, IndicatorImage.Down);
                 // offset here is very hacky, probably just store state in data instead I guess
                 target.drawTransparentImage(
                     indicator,
@@ -111,7 +111,7 @@ namespace ui.player {
 }
 
 namespace ui.scoreboard {
-    export function create(playerTeam: Team, opposingTeam: Team) {
+    export function create(currentGame: football.Game, playerTeam: Team, opposingTeam: Team) {
         return scene.createRenderable(zindex.HUD, (target, camera) => {
             const FONT = image.font8
             const HEIGHT = 10;
@@ -158,7 +158,7 @@ namespace ui.scoreboard {
 }
 
 namespace ui.field {
-    export function createLineOfScrimmage() {
+    export function createLineOfScrimmage(currentGame: football.Game) {
         return scene.createRenderable(zindex.HUD - 1, (target, camera) => {
             const los = currentGame.lineOfScrimmage - camera.offsetX;
             target.drawLine(los, 16, los, screen.height, 0x3);
