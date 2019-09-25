@@ -89,7 +89,7 @@ class Team {
     }
 
     toString() {
-        return `${this.abbrev}:${`  ${this.score}`.slice(-3)} `;
+        return `${` ${this.abbrev}`.slice(-3)}:${`  ${this.score}`.slice(-3)} `;
     }
 
     protected initializeFrames() {

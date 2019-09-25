@@ -54,8 +54,8 @@ namespace league {
     //% fixedInstance whenUsed block="Jacksonville Jaguars"
     export const jacksonvilleJaguars = new TeamData("Jacksonville Jaguars", "JAX", 0xD7A22A, 0x006778);
 
-    //% fixedInstance whenUsed block="Kansaas City Chiefs"
-    export const kansasCityChiefs = new TeamData("Kansaas City Chiefs", "KC", 0xE31837, 0xFFB81C);
+    //% fixedInstance whenUsed block="Kansas City Chiefs"
+    export const kansasCityChiefs = new TeamData("Kansas City Chiefs", "KC", 0xE31837, 0xFFB81C);
 
     //% fixedInstance whenUsed block="Los Angeles Chargers"
     export const losAngelesChargers = new TeamData("Los Angeles Chargers", "LAC", 0x002A5E, 0xFFC20E);

@@ -1,11 +1,17 @@
-const currentGame = new Game(
+let currentGame: Game;
+currentGame = new Game(
     teams.create(league.clevelandBrowns, true),
     teams.create(league.seattleSeahawks, false),
     20
 );
-// const currentGame = new Game(
+// currentGame = new Game(
+//     teams.create(league.kansasCityChiefs, true),
+//     teams.create(league.pittsburghSteelers, false),
+//     20
+// );
+// currentGame = new Game(
 //     teams.create(league.newEnglandPatriots, true),
-//     teams.create(league.dallasCowboys, false),
+//     teams.create(league.washingtonRedskins, false),
 //     20
 // );
 
