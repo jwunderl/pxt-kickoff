@@ -34,7 +34,6 @@ class Team {
         teamPalette.setColor(0, teamData.colorOne);
         teamPalette.setColor(1, teamData.colorTwo);
         color.setPalette(teamPalette, this.primaryColor, 2);
-
     }
 
     get name() {

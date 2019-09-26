@@ -84,6 +84,21 @@ namespace football {
             ball.toss();
         }
 
+        // if the offense is moving to the left, returns -1
+        // if the offense is moving to the right, returns 1
+        offenseDirection() {
+            // player always starts as offense, moving right
+            const playerMovingRight = !!(this.clock.quarter % 2) ? 1 : -1;
+            const playerTeamActive = this.offense.isPlayerControlled() ? 1 : -1;
+            return playerMovingRight * playerTeamActive;
+        }
+
+        // if the offense is moving to the left, returns 1
+        // if the offense is moving to the right, returns -1
+        defenseDirection() {
+            return -this.offenseDirection();
+        }
+
         touchdown() {
             text.util.showInstruction("TOUCHDOWN!", 1500);
             this.stopClock();
