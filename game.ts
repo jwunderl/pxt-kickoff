@@ -72,11 +72,15 @@ namespace football {
     //% aiTeam.defl="league.pittsburghSteelers"
     //% weight=100
     export function createGame(playerTeam: TeamData, aiTeam: TeamData, quarterLength = 20) {
-        currentGame = new Game(
-            teams.create(playerTeam, true),
-            teams.create(aiTeam, false),
-            quarterLength
-        );
+        if (currentGame) {
+            game.splash("Game already created!")
+        } else {
+            currentGame = new Game(
+                teams.create(playerTeam, true),
+                teams.create(aiTeam, false),
+                quarterLength
+            );
+        }
     }
 
     export function activeGame() {
