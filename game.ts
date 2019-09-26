@@ -72,7 +72,7 @@ namespace football {
             this.defense.stop();
         }
 
-        touchDown() {
+        touchdown() {
             text.util.showInstruction("TOUCHDOWN!", 1500);
             this.stopClock();
             this.offense.score += 7;
