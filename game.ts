@@ -1,3 +1,8 @@
+/**
+ * A customizable football game for MakeCode Arcade
+ * Choose your favorite teams and play!
+ */
+//% weight=100 color="#003399" icon="\uf091"
 namespace football {
     export class Game {
         public clock: GameClock;
@@ -70,6 +75,15 @@ namespace football {
     }
 
     let currentGame: Game;
+
+    /**
+     * Play a game of football against the AI!
+     * @param playerTeam the team the player will play as, eg league.clevelandBrowns
+     * @param aiTeam the team the player will play against, eg league.pittsburghSteelers
+     * @param quarterLength the length of a quarter, eg 20
+     */
+    //% blockId=createGame block="play as %playerTeam against %aiTeam || quarter length %quarterLength seconds"
+    //% weight=100
     export function createGame(playerTeam: TeamData, aiTeam: TeamData, quarterLength = 20) {
         currentGame = new Game(
             teams.create(playerTeam, true),
