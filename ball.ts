@@ -160,7 +160,7 @@ namespace ball {
         //         otherSprite.destroy();
         //         scene.cameraFollowSprite(heldBy);
         //         pauseUntil(() => !heldBy || heldBy.right > 19 * 16);
-        //         touchDown();
+        //         currentGame.touchDown();
         //     } else {
         //         bounceBall();
         //         text.util.showInstruction("MISS!", 1500);
@@ -194,24 +194,5 @@ namespace ball {
         ball.vy = ball.vy * -0.33;
         ball.vx = ball.vx * .6;
         shadow.vx = shadow.vx * .6;
-    }
-
-    // move to game.ts
-    function touchDown() {
-        const currentGame = football.activeGame();
-        text.util.showInstruction("TOUCHDOWN!", 1500);
-        currentGame.clock.stop();
-        currentGame.offense.score += 7;
-        ai.setTeamDefense(currentGame.defense, currentGame.offense, false);
-        ai.setTeamOffense(currentGame.offense, false);
-        currentGame.offense.stop();
-        currentGame.defense.stop();
-        currentGame.offense.players.forEach(p => animation.setAction(p, PlayerAnimation.Celebrate));
-
-        control.runInParallel(() => {
-            effects.confetti.startScreenEffect(1000);
-            pause(2500);
-            currentGame.resetPlayers();
-        });
     }
 }

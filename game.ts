@@ -57,6 +57,25 @@ namespace football {
         turnOver() {
             this.teamWithPossession = this.defense;
         }
+
+        touchDown() {
+            text.util.showInstruction("TOUCHDOWN!", 1500);
+            this.clock.stop();
+            this.offense.score += 7;
+            ai.setTeamDefense(this.defense, this.offense, false);
+            ai.setTeamOffense(this.offense, false);
+            this.offense.stop();
+            this.defense.stop();
+            this.offense.players.forEach(p => animation.setAction(p, PlayerAnimation.Celebrate));
+
+            control.runInParallel(() => {
+                effects.confetti.startScreenEffect(1000);
+                pause(2500);
+                currentGame.resetPlayers();
+                pause(500)
+                ball.toss();
+            });
+        }
     }
 
     let currentGame: Game;
