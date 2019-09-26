@@ -17,18 +17,6 @@ namespace player {
         return player;
     }
 
-    game.onUpdate(() => {
-        const currentGame = football.activeGame();
-        currentGame
-            .offense
-            .players
-            .forEach(updatePlayerAnimation);
-        currentGame
-            .defense
-            .players
-            .forEach(updatePlayerAnimation);
-    });
-
     function updatePlayerAnimation(player: Sprite) {
         const currentGame = football.activeGame();
         const offset = player === currentGame.playerWhoHasBall ? 1 : 0;
@@ -39,6 +27,17 @@ namespace player {
     }
 
     export function initializeEvents() {
+        game.onUpdate(() => {
+            const currentGame = football.activeGame();
+            currentGame
+                .offense
+                .players
+                .forEach(updatePlayerAnimation);
+            currentGame
+                .defense
+                .players
+                .forEach(updatePlayerAnimation);
+        });
         sprites.onOverlap(
             SpriteKind.PlayerTeam,
             SpriteKind.OpposingTeam,
