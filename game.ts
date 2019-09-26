@@ -72,6 +72,11 @@ namespace football {
             this.defense.stop();
         }
 
+        startClock() {
+            this.clock.start();
+            this.setAI(true);
+        }
+
         touchdown() {
             text.util.showInstruction("TOUCHDOWN!", 1500);
             this.stopClock();
@@ -159,19 +164,37 @@ namespace football {
     export function startGame() {
         // initialize recolored a button prompt
         game.setDialogCursor(img`
-            . . . 5 5 5 5 5 . . .
-            . 5 5 6 6 6 6 6 5 5 .
-            . 5 6 6 1 1 1 6 6 5 .
-            5 6 6 1 6 6 6 1 6 6 5
-            5 6 6 1 6 6 6 1 6 6 5
-            5 6 6 1 1 1 1 1 6 6 5
-            5 5 6 1 6 6 6 1 6 5 5
-            a 5 5 1 6 6 6 1 5 5 a
-            a 5 5 6 5 5 5 6 5 5 a
-            . a 5 5 5 5 5 5 5 a .
+            . . . 9 9 9 9 9 . . .
+            . 9 9 8 8 8 8 8 9 9 .
+            . 9 8 8 f f f 8 8 9 .
+            9 8 8 f 8 8 8 f 8 8 9
+            9 8 8 f 8 8 8 f 8 8 9
+            9 8 8 f f f f f 8 8 9
+            9 9 8 f 8 8 8 f 8 9 9
+            a 9 9 f 8 8 8 f 9 9 a
+            a 9 9 8 9 9 9 8 9 9 a
+            . a 9 9 9 9 9 9 9 a .
             . . a a a a a a a . .
         `);
+        game.setDialogFrame(img`
+            . . . . . . . . . . . .
+            . . 9 9 9 9 9 9 9 9 . .
+            . 9 9 9 9 9 9 9 9 9 9 8
+            . 9 9 a 1 1 1 1 a 9 9 8
+            . 9 9 1 1 1 1 1 1 9 9 8
+            . 9 9 1 1 1 1 1 1 9 9 8
+            . 9 9 1 1 1 1 1 1 9 9 8
+            . 9 9 1 1 1 1 1 1 9 9 8
+            . 9 9 a 1 1 1 1 a 9 9 8
+            . 9 9 9 9 9 9 9 9 9 9 8
+            . . 9 9 9 9 9 9 9 9 8 8
+            . . 8 8 8 8 8 8 8 8 8 .
+        `);
+
         if (currentGame) {
+            // disable menu button
+            controller.menu.onEvent(ControllerButtonEvent.Pressed, undefined);
+            text.util.introInstruction("Move with arrows and   throw with A! Click on the screen to start.");
             ball.toss();
         } else {
             game.splash("You need to set teams first!");

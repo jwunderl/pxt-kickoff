@@ -8,6 +8,7 @@ namespace ball {
     export function toss() {
         clear();
         const currentGame = football.activeGame();
+        text.util.showInstruction("THROW!", 500);
         currentGame.resetPlayerPositions();
         target = sprites.create(img`
             a a . . . . . . . . a a
@@ -102,8 +103,11 @@ namespace ball {
             . . a a a a . .
         `, SpriteKind.Shadow);
         shadow.z = zindex.SHADOW;
+        scene.cameraFollowSprite(shadow);
         // TODO: change to throw from qb at ~LOS - 30, instead of just 20, 100; 
         shadow.setPosition(20, 100);
+        // TODO: qb animation here
+        pause(500);
         
         // make it so user can control speed / control with timing
         const speed = 90;
@@ -114,10 +118,7 @@ namespace ball {
         shadow.setVelocity(Math.cos(angleToTarget) * speed, Math.sin(angleToTarget) * speed);
         lastXPos = shadow.x;
 
-        scene.cameraFollowSprite(shadow);
-
-        currentGame.clock.start();
-        currentGame.setAI(true);
+        currentGame.startClock();
         text.util.showInstruction("CATCH!", 1000);
     }
 

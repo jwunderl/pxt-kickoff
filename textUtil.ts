@@ -41,4 +41,30 @@ namespace text.util {
             }
         }
     }
+
+    export function introInstruction(str: string) {
+        const width = screen.width - 4;
+        const height = Math.idiv(screen.height, 3) + 5;
+        const top = screen.height - height;
+        const left = screen.width - width >> 1;
+
+        const dialog = new game.Dialog(width, height);
+        const s = sprites.create(dialog.image, -1);
+        s.z = zindex.HUD + 1
+        s.top = top;
+        s.left = left;
+        dialog.setText(str);
+        dialog.update();
+        let done = false;
+        control.runInParallel(() => {
+            while (!done) {
+                dialog.update();
+                pause(300);
+            }
+        })
+        
+        pauseUntil(() => controller.A.isPressed());
+        s.destroy();
+        done = true;
+    }
 }
