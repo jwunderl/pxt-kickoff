@@ -86,7 +86,7 @@ namespace football {
 
         // if the offense is moving to the left, returns -1
         // if the offense is moving to the right, returns 1
-        offenseDirection() {
+        offenseDirection(): MovementDirection {
             // player always starts as offense, moving right
             const playerMovingRight = !!(this.clock.quarter % 2) ? 1 : -1;
             const playerTeamActive = this.offense.isPlayerControlled() ? 1 : -1;
@@ -95,7 +95,7 @@ namespace football {
 
         // if the offense is moving to the left, returns 1
         // if the offense is moving to the right, returns -1
-        defenseDirection() {
+        defenseDirection(): MovementDirection {
             return -this.offenseDirection();
         }
 

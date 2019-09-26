@@ -22,6 +22,11 @@ enum PlayerAnimation {
     Celebrate = 4
 }
 
+enum MovementDirection {
+    Left = -1,
+    Right = 1
+}
+
 namespace zindex {
     export const BACKGROUND = 0;
     export const SHADOW = 1;

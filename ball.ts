@@ -1,6 +1,6 @@
 namespace ball {
     let fball: Sprite;
-    let shadow: Sprite;
+    export let shadow: Sprite;
     let target: Sprite;
     let lastXPos: number;
     let ballOffsetMagnitude: number;
@@ -39,6 +39,7 @@ namespace ball {
             . . a a a a . .
         `, SpriteKind.Shadow);
         shadow.z = zindex.SHADOW;
+        shadow.setFlag(SpriteFlag.Ghost, true);
         shadow.setPosition(
             currentGame.lineOfScrimmage - (40 * offenseDirection),
             Math.randomRange(30, 100)
@@ -49,14 +50,19 @@ namespace ball {
         pauseUntil(() => {
             if (!controller.A.isPressed())
                 return false;
-            if (offenseDirection > 0) {
+            if (offenseDirection === MovementDirection.Right) {
                 return target.x > currentGame.lineOfScrimmage;
             } else {
                 return target.x < currentGame.lineOfScrimmage
             }
         });
+        shadow.setFlag(SpriteFlag.Ghost, false);
         target.z = zindex.THROW_TARGET;
         controller.moveSprite(target, 0, 0);
+
+        // TODO: qb animation here
+        scene.cameraFollowSprite(shadow);
+        pause(500);
 
         fball = sprites.create(img`
             . . 5 5 5 5 . .
@@ -119,10 +125,6 @@ namespace ball {
                 . . a a a a . .
             `
         ], 30, true);
-
-        // TODO: qb animation here
-        scene.cameraFollowSprite(shadow);
-        pause(500);
         
         // make it so user can control speed / control with timing
         const speed = Math.randomRange(60, 120);
@@ -176,7 +178,7 @@ namespace ball {
                 // past the center line and no catch; make ball bounce once and move on
                 const currentGame = football.activeGame()
                 const offenseDirection = currentGame.offenseDirection();
-                const pastTarget = offenseDirection > 0 ? s.x >= os.x : s.x <= os.x;
+                const pastTarget = offenseDirection === MovementDirection.Right ? s.x >= os.x : s.x <= os.x;
                 if (pastTarget) {
                     // move target a bit to the right to give somewhere to bounce to
                     os.setFlag(SpriteFlag.Ghost, true);
@@ -191,7 +193,7 @@ namespace ball {
 
                     const stopPosition = os.bottom;
                     pauseUntil(() => {
-                        const fballEnd = offenseDirection > 0 ? fball.x > os.x - 2 : fball.x < os.x + 2;
+                        const fballEnd = offenseDirection === MovementDirection.Right ? fball.x > os.x - 2 : fball.x < os.x + 2;
                         return fballEnd;
                     });
                     currentGame.stopClock();
