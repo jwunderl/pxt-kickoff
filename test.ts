@@ -6,7 +6,3 @@ football.createGame(league.clevelandBrowns, league.pittsburghSteelers);
 
 football.startGame();
 // ball.toss();
-
-
-pause (2000)
-football.activeGame().touchdown()

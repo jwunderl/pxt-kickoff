@@ -150,6 +150,7 @@ namespace ball {
                     // move target a bit to the right to give somewhere to bounce to
                     os.setFlag(SpriteFlag.Ghost, true);
                     os.setFlag(SpriteFlag.Invisible, true);
+                    s.setFlag(SpriteFlag.Ghost, true);
                     os.x += 30;
                     ballOffsetMagnitude /= 3;
                     s.vx *= .6;

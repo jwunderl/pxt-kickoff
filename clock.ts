@@ -15,6 +15,7 @@ class GameClock {
                 if (this.secondsRemaining <= 0) {
                     this.quarter++;
                     if (!this.finished()) {
+                        // TODO: should just go down to 0 and wait until play is done
                         game.splash("Next Quarter!");
                         this.secondsRemaining = secondsPerQuarter;
                         ball.toss()
