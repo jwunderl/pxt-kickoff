@@ -8,6 +8,7 @@ namespace ball {
     export function toss() {
         clear();
         const currentGame = football.activeGame();
+        const offenseDirection = currentGame.offenseDirection();
         text.util.showInstruction("THROW!", 500);
         currentGame.resetPlayerPositions();
         target = sprites.create(img`
@@ -26,6 +27,7 @@ namespace ball {
         `, SpriteKind.ThrowTarget);
         controller.moveSprite(target)
         target.z = zindex.HUD - 1;
+        target.x = currentGame.lineOfScrimmage + (40 * offenseDirection),
         scene.cameraFollowSprite(target);
 
         shadow = sprites.create(img`
@@ -38,12 +40,21 @@ namespace ball {
         `, SpriteKind.Shadow);
         shadow.z = zindex.SHADOW;
         shadow.setPosition(
-            currentGame.lineOfScrimmage - (40 * currentGame.offenseDirection()),
-            Math.randomRange(30, 110)
+            currentGame.lineOfScrimmage - (40 * offenseDirection),
+            Math.randomRange(30, 100)
         );
         // todo: create qb on top of shadow
 
-        pauseUntil(() => controller.A.isPressed() && target.x > currentGame.lineOfScrimmage);
+        pause(250);
+        pauseUntil(() => {
+            if (!controller.A.isPressed())
+                return false;
+            if (offenseDirection > 0) {
+                return target.x > currentGame.lineOfScrimmage;
+            } else {
+                return target.x < currentGame.lineOfScrimmage
+            }
+        });
         target.z = zindex.THROW_TARGET;
         controller.moveSprite(target, 0, 0);
 
@@ -114,7 +125,7 @@ namespace ball {
         pause(500);
         
         // make it so user can control speed / control with timing
-        const speed = 90;
+        const speed = Math.randomRange(60, 110);
         ballOffsetMagnitude = speed >> 1;
         const diffY = target.y - shadow.y;
         const diffX = target.x - shadow.x;
