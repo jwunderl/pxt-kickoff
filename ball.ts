@@ -28,6 +28,21 @@ namespace ball {
         target.z = zindex.HUD - 1;
         scene.cameraFollowSprite(target);
 
+        shadow = sprites.create(img`
+            . . a a a a . .
+            . a f f f f a .
+            a f f f f f f a
+            a f f f f f f a
+            . a f f f f a .
+            . . a a a a . .
+        `, SpriteKind.Shadow);
+        shadow.z = zindex.SHADOW;
+        shadow.setPosition(
+            currentGame.lineOfScrimmage - (40 * currentGame.offenseDirection()),
+            Math.randomRange(30, 110)
+        );
+        // todo: create qb on top of shadow
+
         pauseUntil(() => controller.A.isPressed() && target.x > currentGame.lineOfScrimmage);
         target.z = zindex.THROW_TARGET;
         controller.moveSprite(target, 0, 0);
@@ -94,19 +109,8 @@ namespace ball {
             `
         ], 30, true);
 
-        shadow = sprites.create(img`
-            . . a a a a . .
-            . a f f f f a .
-            a f f f f f f a
-            a f f f f f f a
-            . a f f f f a .
-            . . a a a a . .
-        `, SpriteKind.Shadow);
-        shadow.z = zindex.SHADOW;
-        scene.cameraFollowSprite(shadow);
-        // TODO: change to throw from qb at ~LOS - 30, instead of just 20, 100; 
-        shadow.setPosition(20, 100);
         // TODO: qb animation here
+        scene.cameraFollowSprite(shadow);
         pause(500);
         
         // make it so user can control speed / control with timing
@@ -115,7 +119,10 @@ namespace ball {
         const diffY = target.y - shadow.y;
         const diffX = target.x - shadow.x;
         const angleToTarget = Math.atan2(diffY, diffX);
-        shadow.setVelocity(Math.cos(angleToTarget) * speed, Math.sin(angleToTarget) * speed);
+        shadow.setVelocity(
+            Math.cos(angleToTarget) * speed,
+            Math.sin(angleToTarget) * speed
+        );
         lastXPos = shadow.x;
 
         currentGame.startClock();

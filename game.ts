@@ -184,7 +184,7 @@ namespace football {
     //% blockId=startGame block="start game"
     //% weight=90
     export function startGame() {
-        // initialize recolored a button prompt
+        // initialize recolored a button prompt and a frame
         game.setDialogCursor(img`
             . . . 9 9 9 9 9 . . .
             . 9 9 8 8 8 8 8 9 9 .
