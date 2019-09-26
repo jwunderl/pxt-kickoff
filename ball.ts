@@ -2,6 +2,7 @@ namespace ball {
     let ball: Sprite;
     let shadow: Sprite;
     let target: Sprite;
+    let throwXDistance: number;
 
     export function toss() {
         clear();
@@ -42,9 +43,8 @@ namespace ball {
             . . a a a a . .
         `, SpriteKind.Ball);
         ball.setPosition(20, 100);
-        ball.vy = -70;
-        ball.ay = 50;
         ball.z = zindex.BALL;
+        ball.setFlag(SpriteFlag.Ghost, true);
         animation.runImageAnimation(ball, [
             img`
                 . . 5 5 5 5 . .
@@ -109,14 +109,17 @@ namespace ball {
         shadow.setPosition(20, 100);
         
         // make it so user can control speed / control with timing
-        const speed = 50;
-        const angleToTarget = Math.atan2(target.y - shadow.y, target.x - shadow.x);
+        const speed = 90;
+        const diffY = target.y - shadow.y;
+        const diffX = target.x - shadow.x;
+        const angleToTarget = Math.atan2(diffY, diffX);
         shadow.setVelocity(Math.cos(angleToTarget) * speed, Math.sin(angleToTarget) * speed);
+        throwXDistance = diffX;
+
+        // initialize speed based off approximate time for shadow to reach target
+        ball.vy = -speed * (diffX / shadow.vx) / 2;
 
         scene.cameraFollowSprite(shadow);
-
-        // shadow.setFlag(SpriteFlag.Ghost, true);
-        ball.setFlag(SpriteFlag.Ghost, true);
 
         currentGame.clock.start();
         ai.setTeamDefense(currentGame.defense, currentGame.offense, true);
@@ -145,6 +148,8 @@ namespace ball {
             () => {
                 if (ball && shadow) {
                     ball.x = shadow.x;
+                    const distanceRemaining = target.x - shadow.x;
+                    const shift = throwXDistance >> 1;
                 }
             }
         );
@@ -157,32 +162,32 @@ namespace ball {
                 os.destroy();
             }
         )
-        sprites.onOverlap(SpriteKind.Ball, SpriteKind.Shadow, (sprite, otherSprite) => {
-            if (target) target.destroy();
-            otherSprite.setFlag(SpriteFlag.Ghost, true);
-            const currentGame = football.activeGame();
+        // sprites.onOverlap(SpriteKind.Ball, SpriteKind.Shadow, (sprite, otherSprite) => {
+        //     if (target) target.destroy();
+        //     otherSprite.setFlag(SpriteFlag.Ghost, true);
+        //     const currentGame = football.activeGame();
 
-            const heldBy = currentGame.offense.players.find(player => sprite.overlapsWith(player));
-            if (heldBy) {
-                currentGame.playerWhoHasBall = heldBy;
-                sprite.destroy();
-                otherSprite.destroy();
-                scene.cameraFollowSprite(heldBy);
-                pauseUntil(() => !heldBy || heldBy.right > 19 * 16);
-                touchDown();
-            } else {
-                bounceBall();
-                text.util.showInstruction("MISS!", 1500);
-                const stopPosition = otherSprite.bottom;
-                pauseUntil(() => sprite && sprite.bottom >= stopPosition);
-                currentGame.clock.stop();
-                otherSprite.destroy();
-                animation.stopAnimation(animation.AnimationTypes.ImageAnimation, sprite);
-                sprite.ay = 0;
-                sprite.vy = 0;
-                sprite.vx = 0;
-            }
-        });
+        //     const heldBy = currentGame.offense.players.find(player => sprite.overlapsWith(player));
+        //     if (heldBy) {
+        //         currentGame.playerWhoHasBall = heldBy;
+        //         sprite.destroy();
+        //         otherSprite.destroy();
+        //         scene.cameraFollowSprite(heldBy);
+        //         pauseUntil(() => !heldBy || heldBy.right > 19 * 16);
+        //         touchDown();
+        //     } else {
+        //         bounceBall();
+        //         text.util.showInstruction("MISS!", 1500);
+        //         const stopPosition = otherSprite.bottom;
+        //         pauseUntil(() => sprite && sprite.bottom >= stopPosition);
+        //         currentGame.clock.stop();
+        //         otherSprite.destroy();
+        //         animation.stopAnimation(animation.AnimationTypes.ImageAnimation, sprite);
+        //         sprite.ay = 0;
+        //         sprite.vy = 0;
+        //         sprite.vx = 0;
+        //     }
+        // });
     }
 
     function bounceBall() {
