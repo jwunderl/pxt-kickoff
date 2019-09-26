@@ -2,29 +2,25 @@ namespace ball {
     let ball: Sprite;
     let shadow: Sprite;
     let target: Sprite;
-    let throwXDistance: number;
+    let throwXPos: number;
 
     export function toss() {
         clear();
         const currentGame = football.activeGame();
 
         target = sprites.create(img`
-            . . . . . . . . . . . . . . . .
-            . . . . . . . . . . . . . . . .
-            . . . . . . . . . . . . . . . .
-            . a a . . . . . . . . a a . . .
-            . a a a . . . . . . a a a . . .
-            . 1 a a a . . . . a a a 1 . . .
-            . 1 1 a a a . . a a a 1 1 . . .
-            . . 1 1 a a a a a a 1 1 . . . .
-            . . . 1 1 a a a a 1 1 . . . . .
-            . . . . a a a a a a . . . . . .
-            . . . a a a 1 1 a a a . . . . .
-            . . a a a 1 1 1 1 a a a . . . .
-            . a a a 1 1 . . 1 1 a a a . . .
-            . a a 1 1 . . . . 1 1 a a . . .
-            . 1 1 1 . . . . . . 1 1 1 . . .
-            . . . . . . . . . . . . . . . .
+            a a . . . . . . . . a a
+            a a a . . . . . . a a a
+            1 a a a . . . . a a a 1
+            1 1 a a a . . a a a 1 1
+            . 1 1 a a a a a a 1 1 .
+            . . 1 1 a a a a 1 1 . .
+            . . . a a a a a a . . .
+            . . a a a 1 1 a a a . .
+            . a a a 1 1 1 1 a a a .
+            a a a 1 1 . . 1 1 a a a
+            a a 1 1 . . . . 1 1 a a
+            1 1 1 . . . . . . 1 1 1
         `, SpriteKind.ThrowTarget);
         controller.moveSprite(target)
         target.z = zindex.HUD - 1;
@@ -114,10 +110,7 @@ namespace ball {
         const diffX = target.x - shadow.x;
         const angleToTarget = Math.atan2(diffY, diffX);
         shadow.setVelocity(Math.cos(angleToTarget) * speed, Math.sin(angleToTarget) * speed);
-        throwXDistance = diffX;
-
-        // initialize speed based off approximate time for shadow to reach target
-        ball.vy = -speed * (diffX / shadow.vx) / 2;
+        throwXPos = shadow.x;
 
         scene.cameraFollowSprite(shadow);
 
@@ -125,12 +118,6 @@ namespace ball {
         ai.setTeamDefense(currentGame.defense, currentGame.offense, true);
         ai.setTeamOffense(currentGame.offense, true);
         text.util.showInstruction("CATCH!", 1000);
-
-        // small delay so overlap doesn't occur immediately
-        // control.runInParallel(() => {
-        //     pause(200);
-        //     shadow.setFlag(SpriteFlag.Ghost, false);
-        // });
     }
 
     export function clear() {
@@ -148,8 +135,7 @@ namespace ball {
             () => {
                 if (ball && shadow) {
                     ball.x = shadow.x;
-                    const distanceRemaining = target.x - shadow.x;
-                    const shift = throwXDistance >> 1;
+                    ball.y = shadow.y - yOffset(throwXPos, ball.x, target.x, 50); /** result of eq */
                 }
             }
         );
@@ -188,6 +174,20 @@ namespace ball {
         //         sprite.vx = 0;
         //     }
         // });
+    }
+
+    // a quick calculation for a position on a parabola containing the points
+    // (start, 0), ((start + end) / 2, maxDisplacement), and (end,0)
+    function yOffset(start: number, curr: number, end: number, maxDisplacement: number) {
+        // map to a value between 0 and 100
+        const x = Math.map(curr, start, end, 0, 100);
+        // takes a known parabola path - the parabola containing (0,0), (50,1), and (100,0)
+        //     -x^2/2500 + x/25
+        // scaled to a hit (0,0), (50,maxDisplacement), and (100,0)
+        const a = -maxDisplacement / 2500;
+        const b = maxDisplacement / 25;
+
+        return a * (x ** 2) + b * x;
     }
 
     function bounceBall() {
