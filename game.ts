@@ -77,6 +77,13 @@ namespace football {
             this.setAI(true);
         }
 
+        startPlay() {
+            if (this.clock.quarterOver()) {
+                this.clock.nextQuarter();
+            }
+            ball.toss();
+        }
+
         touchdown() {
             text.util.showInstruction("TOUCHDOWN!", 1500);
             this.stopClock();
@@ -88,7 +95,7 @@ namespace football {
                 pause(2500);
                 currentGame.resetPlayerPositions();
                 pause(500)
-                ball.toss();
+                this.startPlay();
             });
         }
 

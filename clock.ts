@@ -3,26 +3,15 @@ class GameClock {
     public secondsRemaining: number;
     protected on: boolean;
 
-    constructor(secondsPerQuarter: number) {
+    constructor(protected secondsPerQuarter: number) {
         this.on = false;
         this.quarter = 1;
         this.secondsRemaining = secondsPerQuarter;
 
         // register timer update
         game.onUpdateInterval(1000, () => {
-            if (this.on) {
+            if (this.on && !this.quarterOver()) {
                 this.secondsRemaining--;
-                if (this.secondsRemaining <= 0) {
-                    this.quarter++;
-                    if (!this.finished()) {
-                        // TODO: should just go down to 0 and wait until play is done
-                        game.splash("Next Quarter!");
-                        this.secondsRemaining = secondsPerQuarter;
-                        ball.toss()
-                    } else {
-                        game.over();
-                    }
-                }
             }
         });
     }
@@ -47,18 +36,27 @@ class GameClock {
         return this.quarter > 4;
     }
 
+    quarterOver() {
+        return this.secondsRemaining <= 0;
+    }
+
+    nextQuarter() {
+        ++this.quarter;
+        if (!this.finished()) {
+            game.splash("Next Quarter!");
+            this.secondsRemaining = this.secondsPerQuarter;
+        } else {
+            game.over();
+        }
+    }
+
     protected quarterToString() {
         switch (this.quarter) {
-            case 1:
-                return "1st";
-            case 2:
-                return "2nd";
-            case 3:
-                return "3rd";
-            case 4:
-                return "4th";
-            default:
-                throw "Invalid Quarter";
+            case 1: return "1st";
+            case 2: return "2nd";
+            case 3: return "3rd";
+            case 4: return "4th";
+            default: throw "Invalid Quarter";
         }
     }
 

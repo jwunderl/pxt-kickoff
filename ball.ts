@@ -147,7 +147,7 @@ namespace ball {
             SpriteKind.ThrowTarget,
             (s, os) => {
                 // past the center line and no catch; make ball bounce once and move on
-                if (s.x > os.x) {
+                if (s.x >= os.x) {
                     // move target a bit to the right to give somewhere to bounce to
                     os.setFlag(SpriteFlag.Ghost, true);
                     os.setFlag(SpriteFlag.Invisible, true);
@@ -169,7 +169,7 @@ namespace ball {
                     s = undefined;
                     animation.stopAnimation(animation.AnimationTypes.ImageAnimation, fball);
                     pause(500);
-                    ball.toss();
+                    currentGame.startPlay();
                 }
             }
         )
