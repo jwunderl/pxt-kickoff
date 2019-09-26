@@ -4,4 +4,5 @@ football.createGame(league.clevelandBrowns, league.pittsburghSteelers);
 
 // controller.A.onEvent(ControllerButtonEvent.Pressed, () => ball.toss());
 
-ball.toss();
+football.startGame();
+// ball.toss();

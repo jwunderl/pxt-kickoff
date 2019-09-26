@@ -31,21 +31,6 @@ namespace football {
             field.initialize();
             player.initializeEvents();
             ball.initializeEvents();
-
-            // initialize recolored a button prompt
-            game.setDialogCursor(img`
-                . . . 5 5 5 5 5 . . .
-                . 5 5 6 6 6 6 6 5 5 .
-                . 5 6 6 1 1 1 6 6 5 .
-                5 6 6 1 6 6 6 1 6 6 5
-                5 6 6 1 6 6 6 1 6 6 5
-                5 6 6 1 1 1 1 1 6 6 5
-                5 5 6 1 6 6 6 1 6 5 5
-                a 5 5 1 6 6 6 1 5 5 a
-                a 5 5 6 5 5 5 6 5 5 a
-                . a 5 5 5 5 5 5 5 a .
-                . . a a a a a a a . .
-            `);
         }
 
         get playerWhoHasBall() {
@@ -83,6 +68,8 @@ namespace football {
      * @param quarterLength the length of a quarter, eg 20
      */
     //% blockId=createGame block="play as %playerTeam against %aiTeam || quarter length %quarterLength seconds"
+    //% playerTeam.defl="league.clevelandBrowns"
+    //% aiTeam.defl="league.pittsburghSteelers"
     //% weight=100
     export function createGame(playerTeam: TeamData, aiTeam: TeamData, quarterLength = 20) {
         currentGame = new Game(
@@ -94,5 +81,32 @@ namespace football {
 
     export function activeGame() {
         return currentGame;
+    }
+
+    /**
+     * Prompt the player and start the game!
+     */
+    //% blockId=startGame block="start game"
+    //% weight=90
+    export function startGame() {
+        // initialize recolored a button prompt
+        game.setDialogCursor(img`
+            . . . 5 5 5 5 5 . . .
+            . 5 5 6 6 6 6 6 5 5 .
+            . 5 6 6 1 1 1 6 6 5 .
+            5 6 6 1 6 6 6 1 6 6 5
+            5 6 6 1 6 6 6 1 6 6 5
+            5 6 6 1 1 1 1 1 6 6 5
+            5 5 6 1 6 6 6 1 6 5 5
+            a 5 5 1 6 6 6 1 5 5 a
+            a 5 5 6 5 5 5 6 5 5 a
+            . a 5 5 5 5 5 5 5 a .
+            . . a a a a a a a . .
+        `);
+        if (currentGame) {
+            ball.toss();
+        } else {
+            game.splash("You need to set teams first!");
+        }
     }
 }
