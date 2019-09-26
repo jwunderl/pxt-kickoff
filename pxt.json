@@ -17,7 +17,6 @@
         "team.ts",
         "ball.ts",
         "clock.ts",
-        "ai.ts",
         "game.ts",
         "teamdata.ts"
     ],

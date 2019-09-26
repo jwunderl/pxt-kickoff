@@ -16,7 +16,11 @@ class Team {
             this.controlledPlayer = 0;
             controller.B.onEvent(
                 ControllerButtonEvent.Pressed,
-                () => this.controlNextPlayer()
+                () => {
+                    if (football.activeGame().playIsActive()) {
+                        this.controlNextPlayer();
+                    }
+                }
             );
         }
 
@@ -80,6 +84,8 @@ class Team {
         controller.moveSprite(this.activePlayer, 0, 0);
         this.controlledPlayer = (this.controlledPlayer + 1) % this.players.length;
         controller.moveSprite(this.activePlayer);
+
+        football.activeGame().setAI(true);
     }
 
     stop() {

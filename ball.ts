@@ -1,13 +1,14 @@
 namespace ball {
-    let ball: Sprite;
+    let fball: Sprite;
     let shadow: Sprite;
     let target: Sprite;
-    let throwXPos: number;
+    let lastXPos: number;
+    let ballOffsetMagnitude: number;
 
     export function toss() {
         clear();
         const currentGame = football.activeGame();
-
+        currentGame.resetPlayerPositions();
         target = sprites.create(img`
             a a . . . . . . . . a a
             a a a . . . . . . a a a
@@ -30,7 +31,7 @@ namespace ball {
         target.z = zindex.THROW_TARGET;
         controller.moveSprite(target, 0, 0);
 
-        ball = sprites.create(img`
+        fball = sprites.create(img`
             . . 5 5 5 5 . .
             . 5 8 7 7 7 5 .
             5 1 9 1 1 7 8 5
@@ -38,10 +39,10 @@ namespace ball {
             . a 9 9 9 8 a .
             . . a a a a . .
         `, SpriteKind.Ball);
-        ball.setPosition(20, 100);
-        ball.z = zindex.BALL;
-        ball.setFlag(SpriteFlag.Ghost, true);
-        animation.runImageAnimation(ball, [
+        fball.setPosition(20, 100);
+        fball.z = zindex.BALL;
+        fball.setFlag(SpriteFlag.Ghost, true);
+        animation.runImageAnimation(fball, [
             img`
                 . . 5 5 5 5 . .
                 . 5 8 7 7 7 5 .
@@ -106,23 +107,23 @@ namespace ball {
         
         // make it so user can control speed / control with timing
         const speed = 90;
+        ballOffsetMagnitude = speed >> 1;
         const diffY = target.y - shadow.y;
         const diffX = target.x - shadow.x;
         const angleToTarget = Math.atan2(diffY, diffX);
         shadow.setVelocity(Math.cos(angleToTarget) * speed, Math.sin(angleToTarget) * speed);
-        throwXPos = shadow.x;
+        lastXPos = shadow.x;
 
         scene.cameraFollowSprite(shadow);
 
         currentGame.clock.start();
-        ai.setTeamDefense(currentGame.defense, currentGame.offense, true);
-        ai.setTeamOffense(currentGame.offense, true);
+        currentGame.setAI(true);
         text.util.showInstruction("CATCH!", 1000);
     }
 
     export function clear() {
         if (target) target.destroy();
-        if (ball) ball.destroy();
+        if (fball) fball.destroy();
         if (shadow) shadow.destroy();
         const currentGame = football.activeGame();
         if (currentGame) {
@@ -133,9 +134,9 @@ namespace ball {
     export function initializeEvents() {
         game.onUpdate(
             () => {
-                if (ball && shadow) {
-                    ball.x = shadow.x;
-                    ball.y = shadow.y - yOffset(throwXPos, ball.x, target.x, 50); /** result of eq */
+                if (fball && shadow) {
+                    fball.x = shadow.x;
+                    fball.y = shadow.y - yOffset(lastXPos, fball.x, target.x, ballOffsetMagnitude);
                 }
             }
         );
@@ -144,8 +145,30 @@ namespace ball {
             SpriteKind.Shadow,
             SpriteKind.ThrowTarget,
             (s, os) => {
-                s.destroy();
-                os.destroy();
+                // past the center line and no catch; make ball bounce once and move on
+                if (s.x > os.x) {
+                    // move target a bit to the right to give somewhere to bounce to
+                    os.setFlag(SpriteFlag.Ghost, true);
+                    os.setFlag(SpriteFlag.Invisible, true);
+                    os.x += 30;
+                    ballOffsetMagnitude /= 3;
+                    s.vx *= .6;
+                    s.vy *= .6;
+                    lastXPos = s.x;
+                    text.util.showInstruction("MISS!", 1500);
+
+                    const stopPosition = os.bottom;
+                    pauseUntil(() => fball && fball.x > os.x - 2);
+                    const currentGame = football.activeGame()
+                    currentGame.stopClock();
+                    football
+                    s.destroy();
+                    os.destroy();
+                    s = undefined;
+                    animation.stopAnimation(animation.AnimationTypes.ImageAnimation, fball);
+                    pause(500);
+                    ball.toss();
+                }
             }
         )
         // sprites.onOverlap(SpriteKind.Ball, SpriteKind.Shadow, (sprite, otherSprite) => {
@@ -188,11 +211,5 @@ namespace ball {
         const b = maxDisplacement / 25;
 
         return a * (x ** 2) + b * x;
-    }
-
-    function bounceBall() {
-        ball.vy = ball.vy * -0.33;
-        ball.vx = ball.vx * .6;
-        shadow.vx = shadow.vx * .6;
     }
 }

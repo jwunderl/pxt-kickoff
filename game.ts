@@ -13,6 +13,7 @@ namespace football {
         protected indicator: scene.Renderable;
         protected scoreboard: scene.Renderable;
         protected lineOfScrimmageIndicator: scene.Renderable;
+        protected aiOn: boolean;
 
         constructor(
             protected teamA: Team,
@@ -20,7 +21,7 @@ namespace football {
             quarterLength: number = 20
         ) {
             this.lineOfScrimmage = 80;
-            this.resetPlayers();
+            this.resetPlayerPositions();
             this.teamWithPossession = this.teamA;
             this.clock = new GameClock(quarterLength);
 
@@ -28,6 +29,8 @@ namespace football {
             this.scoreboard = ui.scoreboard.create(this, teamA, teamB);
             this.lineOfScrimmageIndicator = ui.field.createLineOfScrimmage(this);
 
+            this.aiOn = false;
+            this.initializeAI();
             field.initialize();
             player.initializeEvents();
             ball.initializeEvents();
@@ -41,7 +44,7 @@ namespace football {
             this.playerWithPossession = s;
         }
 
-        resetPlayers() {
+        resetPlayerPositions() {
             this.teamA.resetPlayerPositions(this.lineOfScrimmage);
             this.teamB.resetPlayerPositions(this.lineOfScrimmage);
         }
@@ -58,23 +61,65 @@ namespace football {
             this.teamWithPossession = this.defense;
         }
 
-        touchDown() {
-            text.util.showInstruction("TOUCHDOWN!", 1500);
+        playIsActive() {
+            return this.aiOn
+        }
+
+        stopClock() {
             this.clock.stop();
-            this.offense.score += 7;
-            ai.setTeamDefense(this.defense, this.offense, false);
-            ai.setTeamOffense(this.offense, false);
+            this.setAI(false);
             this.offense.stop();
             this.defense.stop();
+        }
+
+        touchDown() {
+            text.util.showInstruction("TOUCHDOWN!", 1500);
+            this.stopClock();
+            this.offense.score += 7;
             this.offense.players.forEach(p => animation.setAction(p, PlayerAnimation.Celebrate));
 
             control.runInParallel(() => {
                 effects.confetti.startScreenEffect(1000);
                 pause(2500);
-                currentGame.resetPlayers();
+                currentGame.resetPlayerPositions();
                 pause(500)
                 ball.toss();
             });
+        }
+
+        initializeAI() {
+            game.onUpdate(() => {
+                this.offense.players.forEach((p, index) => {
+                    // do something to make offense 'avoid' defense.
+                    // Should probably also eventually run towards
+                    // / follow ball ball when possible / close enough --
+                    // maybe when halfway across field?
+                    if (p != this.offense.activePlayer && Math.percentChance(3)) {
+                        p.vy = -p.vy * Math.randomRange(50, 150) / 100;
+                    }
+                });
+            });
+        }
+
+        setAI(on: boolean) {
+            this.aiOn = on;
+            this.offense.players
+                .filter(p => p != this.offense.activePlayer)
+                .forEach(p => {
+                    // TODO: generalize based off team's target direction.
+                    p.vx = 80;
+                    p.vy = Math.randomRange(-50, 50);
+                });
+            this.defense.players
+                .filter(p => p != this.defense.activePlayer)
+                .forEach((player, ind) => {
+                    if (player !== this.defense.activePlayer) {
+                        player.follow(this.offense.players[ind], on ? 100 : 0, 2);
+                    } else {
+                        controller.moveSprite(player);
+                    }
+                });
+            controller.moveSprite(this.offense.activePlayer || this.defense.activePlayer);
         }
     }
 
