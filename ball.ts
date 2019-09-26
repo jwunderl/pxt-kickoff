@@ -125,8 +125,8 @@ namespace ball {
         pause(500);
         
         // make it so user can control speed / control with timing
-        const speed = Math.randomRange(60, 110);
-        ballOffsetMagnitude = speed >> 1;
+        const speed = Math.randomRange(60, 120);
+        ballOffsetMagnitude = Math.max((140 - speed) >> 1, 10);
         const diffY = target.y - shadow.y;
         const diffX = target.x - shadow.x;
         const angleToTarget = Math.atan2(diffY, diffX);
@@ -141,9 +141,18 @@ namespace ball {
     }
 
     export function clear() {
-        if (target) target.destroy();
-        if (fball) fball.destroy();
-        if (shadow) shadow.destroy();
+        if (target) {
+            target.destroy();
+            target = undefined;
+        }
+        if (fball) {
+            fball.destroy();
+            target = undefined;
+        }
+        if (shadow) {
+            shadow.destroy();
+            target = undefined;
+        }
         const currentGame = football.activeGame();
         if (currentGame) {
             currentGame.playerWhoHasBall = undefined;
@@ -165,12 +174,15 @@ namespace ball {
             SpriteKind.ThrowTarget,
             (s, os) => {
                 // past the center line and no catch; make ball bounce once and move on
-                if (s.x >= os.x) {
+                const currentGame = football.activeGame()
+                const offenseDirection = currentGame.offenseDirection();
+                const pastTarget = offenseDirection > 0 ? s.x >= os.x : s.x <= os.x;
+                if (pastTarget) {
                     // move target a bit to the right to give somewhere to bounce to
                     os.setFlag(SpriteFlag.Ghost, true);
                     os.setFlag(SpriteFlag.Invisible, true);
                     s.setFlag(SpriteFlag.Ghost, true);
-                    os.x += 30;
+                    os.x += 30 * offenseDirection;
                     ballOffsetMagnitude /= 3;
                     s.vx *= .6;
                     s.vy *= .6;
@@ -178,8 +190,10 @@ namespace ball {
                     text.util.showInstruction("MISS!", 1500);
 
                     const stopPosition = os.bottom;
-                    pauseUntil(() => fball && fball.x > os.x - 2);
-                    const currentGame = football.activeGame()
+                    pauseUntil(() => {
+                        const fballEnd = offenseDirection > 0 ? fball.x > os.x - 2 : fball.x < os.x + 2;
+                        return fballEnd;
+                    });
                     currentGame.stopClock();
                     football
                     s.destroy();
