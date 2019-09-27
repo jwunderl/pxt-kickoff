@@ -248,6 +248,10 @@ namespace ball {
         // });
     }
 
+    export function getActiveBall() {
+        return fball;
+    }
+
     // a quick calculation for a position on a parabola containing the points
     // (start, 0), ((start + end) / 2, maxDisplacement), and (end,0)
     function yOffset(start: number, curr: number, end: number, maxDisplacement: number) {

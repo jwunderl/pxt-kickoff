@@ -56,14 +56,14 @@ class Team {
         return this.controlled ? 0 : 2;
     }
 
-    resetPlayerPositions(lineOfScrimmage: number) {
-        const startX = lineOfScrimmage + (this.isPlayerControlled() ? -20 : 20);
+    resetPlayerPositions(lineOfScrimmage: number, direction: MovementDirection) {
+        const startX = lineOfScrimmage - direction * 20;
         this.players.forEach((p, i) => {
             p.y = (screen.height >> 1) + (i - 1) * 32;
             p.x = startX;
             animation.setAction(
                 p,
-                this.isPlayerControlled() ?
+                direction === MovementDirection.Right ?
                     PlayerAnimation.Right
                     :
                     PlayerAnimation.Left

@@ -21,7 +21,6 @@ namespace football {
             quarterLength: number = 20
         ) {
             this.lineOfScrimmage = 80;
-            this.resetPlayerPositions();
             this.teamWithPossession = this.teamA;
             this.clock = new GameClock(quarterLength);
 
@@ -34,6 +33,7 @@ namespace football {
             field.initialize();
             player.initializeEvents();
             ball.initializeEvents();
+            this.resetPlayerPositions();
         }
 
         get playerWhoHasBall() {
@@ -45,8 +45,14 @@ namespace football {
         }
 
         resetPlayerPositions() {
-            this.teamA.resetPlayerPositions(this.lineOfScrimmage);
-            this.teamB.resetPlayerPositions(this.lineOfScrimmage);
+            this.offense.resetPlayerPositions(
+                this.lineOfScrimmage,
+                this.offenseDirection()
+            );
+            this.defense.resetPlayerPositions(
+                this.lineOfScrimmage,
+                this.defenseDirection()
+            );
         }
 
         get offense() {
@@ -121,7 +127,14 @@ namespace football {
                     // Should probably also eventually run towards
                     // / follow ball ball when possible / close enough --
                     // maybe when halfway across field?
-                    if (p != this.offense.activePlayer && Math.percentChance(3)) {
+                    if (!this.aiOn) return undefined;
+                    const b = ball.getActiveBall()
+                    if (b && p.x > this.lineOfScrimmage) {
+                        if (!p.data[datakey.IS_CHASING_BALL]) {
+                            p.data[datakey.IS_CHASING_BALL] = true;
+                            p.follow(b, 100, 3);
+                        }
+                    } else if (p != this.offense.activePlayer && Math.percentChance(3)) {
                         p.vy = -p.vy * Math.randomRange(50, 150) / 100;
                     }
                 });
@@ -130,23 +143,30 @@ namespace football {
 
         setAI(on: boolean) {
             this.aiOn = on;
-            this.offense.players
-                .filter(p => p != this.offense.activePlayer)
-                .forEach(p => {
-                    // TODO: generalize based off team's target direction.
-                    p.vx = 80;
-                    p.vy = Math.randomRange(-50, 50);
-                });
-            this.defense.players
-                .filter(p => p != this.defense.activePlayer)
-                .forEach((player, ind) => {
-                    if (player !== this.defense.activePlayer) {
-                        player.follow(this.offense.players[ind], on ? 100 : 0, 2);
-                    } else {
-                        controller.moveSprite(player);
-                    }
-                });
             controller.moveSprite(this.offense.activePlayer || this.defense.activePlayer);
+            if (on) {
+                this.offense.players
+                    .filter(p => p != this.offense.activePlayer)
+                    .forEach(p => {
+                        p.vx = 80 * this.offenseDirection();
+                        p.vy = Math.randomRange(-50, 50);
+                    });
+                this.defense.players
+                    .filter(p => p != this.defense.activePlayer)
+                    .forEach((player, ind) => {
+                        player.follow(this.offense.players[ind], 100, 2);
+                    });
+            } else {
+                // clear any follows
+                this.defense.players
+                    .forEach(p => p.follow(undefined));
+                this.offense.players
+                    .forEach(p => {
+                        p.follow(undefined);
+                        // eventually this should probably be a delete;
+                        p.data[datakey.IS_CHASING_BALL] = undefined;
+                    });
+            }
         }
     }
 

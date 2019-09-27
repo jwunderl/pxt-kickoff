@@ -8,8 +8,7 @@ namespace SpriteKind {
 }
 
 namespace datakey {
-    export const CURRENT_OFFENSE = "current_offense";
-    export const CURRENT_DEFENSE = "current_defense";
+    export const IS_CHASING_BALL = "NOW_FOLLOWING_BALL";
 }
 
 // must maintain relative positions of left / leftWithBall and right/rightWithBall,
