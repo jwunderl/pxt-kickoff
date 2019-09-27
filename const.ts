@@ -5,6 +5,7 @@ namespace SpriteKind {
     export const Logo = SpriteKind.create();
     export const PlayerTeam = SpriteKind.create();
     export const OpposingTeam = SpriteKind.create();
+    export const FieldGoal = SpriteKind.create();
 }
 
 namespace datakey {
@@ -33,14 +34,15 @@ namespace zindex {
     export const OPPOSING_TEAM = 5;
     export const PLAYER_TEAM = 6;
     export const BALL = 10;
+    export const FIELD_GOAL = 15;
     export const PLAYER_INDICATOR = 20;
     export const HUD = 100; // scene.HUD_Z
 }
 
 namespace field {
-    export const TILE_WIDTH = 16;
-    export const WIDTH = 20 * TILE_WIDTH;
-    export const HEIGHT = 7 * TILE_WIDTH;
+    export const TILE_SIZE = 16;
+    export const WIDTH = 20 * TILE_SIZE;
+    export const HEIGHT = 7 * TILE_SIZE;
 
     export const START_OFFSET = 55;
 }

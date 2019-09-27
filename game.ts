@@ -196,11 +196,11 @@ namespace football {
                 if (this.playerWhoHasBall) {
 
                     if (offenseDirection === MovementDirection.Right) {
-                        if (this.playerWhoHasBall.x > field.WIDTH - field.TILE_WIDTH) {
+                        if (this.playerWhoHasBall.x > field.WIDTH - field.TILE_SIZE) {
                             this.touchdown();
                         }
                     } else {
-                        if (this.playerWhoHasBall.x < field.TILE_WIDTH) {
+                        if (this.playerWhoHasBall.x < field.TILE_SIZE) {
                             this.touchdown();
                         }
                     }
