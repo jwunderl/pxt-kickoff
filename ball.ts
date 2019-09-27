@@ -44,7 +44,9 @@ namespace ball {
             Math.randomRange(30, 100)
         );
         lastXPos = shadow.x;
-        // todo: create qb on top of shadow
+        const {qb, qbAnimation} = currentGame.offense.quarterBack(); 
+        qb.x = shadow.x;
+        qb.y = shadow.y;
 
         if (playerIsOffense) {
             controller.moveSprite(target, 150, 150);
@@ -75,6 +77,7 @@ namespace ball {
         controller.moveSprite(target, 0, 0);
 
         // TODO: qb animation here
+        animation.runImageAnimation(qb, qbAnimation, 200);
         util.focusCamera(shadow);
         pause(500);
 
@@ -140,7 +143,7 @@ namespace ball {
             `
         ], 30, true);
         
-        // TODO: make it so user can control speed / control with timing?
+        // TODO?: make it so user can control speed / control with timing?
         const speed = Math.randomRange(60, 100);
         ballOffsetMagnitude = Math.max((120 - speed) >> 1, 10);
         const diffY = target.y - shadow.y;
@@ -154,6 +157,11 @@ namespace ball {
 
         currentGame.startClock();
         text.util.showInstruction("CATCH!", 1000);
+
+        pause(500);
+        qb.setFlag(SpriteFlag.AutoDestroy, true);
+        qb.setFlag(SpriteFlag.DestroyOnWall, true);
+        qb.vx = -50 * offenseDirection;
     }
 
     export function clear() {

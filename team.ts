@@ -36,6 +36,16 @@ class Team {
         color.setPalette(teamPalette, this.primaryColor, 2);
     }
 
+    quarterBack(): {qb: Sprite, qbAnimation: Image[]} {
+        const currentGame = football.activeGame();
+        const qb = player.create(this);
+        const anim = this.animations[currentGame.offenseDirection() === MovementDirection.Right ?
+                        PlayerAnimation.RightWithBall : PlayerAnimation.LeftWithBall].frames;
+        qb.setFlag(SpriteFlag.Ghost, true);
+        qb.setImage(anim[0]);
+        return {qb: qb, qbAnimation: anim};
+    }
+
     get name() {
         return this.teamData.name;
     }

@@ -1,7 +1,7 @@
 namespace player {
     export function create(team: Team) {
         const isPlayerTeam = team.isPlayerControlled();
-        const startAnim = team.animations[1];
+        const startAnim = team.animations[PlayerAnimation.Left];
         const player = sprites.create(
             startAnim.frames[0],
             isPlayerTeam ?
