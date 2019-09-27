@@ -51,16 +51,18 @@ namespace player {
             SpriteKind.PlayerTeam,
             SpriteKind.OpposingTeam,
             (s, os) => {
-                // needs some logic for going other way; maybe instead we switch sprite kinds to
-                // ``SpriteKind.Offense`` and ``SpriteKind.Defense`` and change players kind depending
-                // on their current status instead
-                if (s.x < os.x) {
-                    // push player back
-                    s.x -= 3;
-                    os.x += 2;
-                } else {
-                    s.x--;
-                    os.x--;
+                const currentGame = football.activeGame();
+                if (currentGame.playIsActive()) {
+                    const offenseDirection = currentGame.offenseDirection();
+                    if (s.x < os.x) {
+                        // push player back
+                        s.x -= 3 * offenseDirection;
+                        os.x += 2 * offenseDirection;
+                    } else {
+                        // 'drag' player back
+                        s.x -= offenseDirection;
+                        os.x -= offenseDirection;
+                    }
                 }
             }
         );

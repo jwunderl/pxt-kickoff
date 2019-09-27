@@ -10,7 +10,7 @@ namespace ball {
         const currentGame = football.activeGame();
         const offenseDirection = currentGame.offenseDirection();
         const playerIsOffense = currentGame.offense.isPlayerControlled();
-        text.util.showInstruction("THROW!", 500);
+        text.util.showInstruction(playerIsOffense ? "THROW!" : "DEFEND!", 500);
         target = sprites.create(img`
             a a . . . . . . . . a a
             a a a . . . . . . a a a
