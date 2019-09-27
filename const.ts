@@ -38,8 +38,9 @@ namespace zindex {
 }
 
 namespace field {
-    export const WIDTH = 20 * 16;
-    export const HEIGHT = 7 * 16;
+    export const TILE_WIDTH = 16;
+    export const WIDTH = 20 * TILE_WIDTH;
+    export const HEIGHT = 7 * TILE_WIDTH;
 
     export const START_OFFSET = 55;
 }

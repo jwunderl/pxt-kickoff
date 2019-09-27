@@ -29,7 +29,7 @@ namespace football {
             this.lineOfScrimmageIndicator = ui.field.createLineOfScrimmage(this);
 
             this.aiOn = false;
-            this.initializeAI();
+            this.initializeEvents();
             field.initialize();
             player.initializeEvents();
             ball.initializeEvents();
@@ -64,15 +64,6 @@ namespace football {
             return this.teamA === this.teamWithPossession ? this.teamB : this.teamA;
         }
 
-        turnOver() {
-            this.teamWithPossession = this.defense;
-            if (this.offenseDirection() === MovementDirection.Right) {
-                this.lineOfScrimmage = field.START_OFFSET;
-            } else {
-                this.lineOfScrimmage = field.WIDTH - field.START_OFFSET;
-            }
-        }
-
         playIsActive() {
             return this.aiOn
         }
@@ -103,7 +94,7 @@ namespace football {
             if (this.playerWhoHasBall) {
                 this.lineOfScrimmage = Math.clamp(
                     field.START_OFFSET - 20,
-                    screen.width - field.START_OFFSET + 20,
+                    field.WIDTH - field.START_OFFSET + 20,
                     this.playerWhoHasBall.x
                 );
                 this.stopClock();
@@ -129,7 +120,17 @@ namespace football {
             return -this.offenseDirection();
         }
 
+        turnOver() {
+            this.teamWithPossession = this.defense;
+            if (this.offenseDirection() === MovementDirection.Right) {
+                this.lineOfScrimmage = field.START_OFFSET;
+            } else {
+                this.lineOfScrimmage = field.WIDTH - field.START_OFFSET;
+            }
+        }
+
         touchdown() {
+            this.playerWhoHasBall = undefined;
             text.util.showInstruction("TOUCHDOWN!", 1500);
             this.stopClock();
             this.offense.score += 7;
@@ -138,13 +139,15 @@ namespace football {
             control.runInParallel(() => {
                 effects.confetti.startScreenEffect(1000);
                 pause(2500);
+                this.turnOver();
                 this.startPlay();
             });
         }
 
-        initializeAI() {
+        initializeEvents() {
             game.onUpdate(() => {
                 this.offense.players.forEach((p, index) => {
+                    // Offense AI
                     // make offense 'avoid' defense by trying to move past them,
                     // and run towards the target when possible.
                     if (!this.aiOn || p == this.offense.activePlayer)
@@ -161,6 +164,21 @@ namespace football {
                         } 
                     }
                 });
+
+                // scoring
+                const offenseDirection = this.offenseDirection();
+                if (this.playerWhoHasBall) {
+
+                    if (offenseDirection === MovementDirection.Right) {
+                        if (this.playerWhoHasBall.x > field.WIDTH - field.TILE_WIDTH) {
+                            this.touchdown();
+                        }
+                    } else {
+                        if (this.playerWhoHasBall.x < field.TILE_WIDTH) {
+                            this.touchdown();
+                        }
+                    }
+                }
             });
         }
 
