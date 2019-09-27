@@ -77,9 +77,10 @@ namespace ball {
         controller.moveSprite(target, 0, 0);
 
         // TODO: qb animation here
-        animation.runImageAnimation(qb, qbAnimation, 200);
+        animation.runImageAnimation(qb, qbAnimation, 150);
         util.focusCamera(shadow);
-        pause(500);
+        // hard coded to match animation portion with ball
+        pause(600);
 
         fball = sprites.create(img`
             . . 5 5 5 5 . .
