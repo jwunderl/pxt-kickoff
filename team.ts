@@ -39,10 +39,11 @@ class Team {
     quarterBack(): {qb: Sprite, qbAnimation: Image[]} {
         const currentGame = football.activeGame();
         const qb = player.create(this);
-        const anim = this.animations[currentGame.offenseDirection() === MovementDirection.Right ?
-                        PlayerAnimation.RightWithBall : PlayerAnimation.LeftWithBall].frames;
+        const ind = currentGame.offenseDirection() === MovementDirection.Right ?
+            PlayerAnimation.Right : PlayerAnimation.Left;
+        const anim = this.animations[ind].frames;
         qb.setFlag(SpriteFlag.Ghost, true);
-        qb.setImage(anim[0]);
+        qb.setImage(this.animations[ind + 1].frames[0]);
         return {qb: qb, qbAnimation: anim};
     }
 

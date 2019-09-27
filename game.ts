@@ -156,6 +156,16 @@ namespace football {
 
         initializeEvents() {
             game.onUpdate(() => {
+                if (this.aiOn && this.playerWhoHasBall) {
+                    this.defense.players
+                        .filter(p => p.overlapsWith(this.playerWhoHasBall))
+                        .forEach(() => {
+                            // ... after a certain number of ticks make it so player drops ball / this.ballStopped();
+                        })
+                }
+            });
+
+            game.onUpdate(() => {
                 this.offense.players.forEach((p, index) => {
                     // Offense AI
                     // make offense 'avoid' defense by trying to move past them,
