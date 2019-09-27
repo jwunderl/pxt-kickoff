@@ -153,6 +153,7 @@ namespace ui.scoreboard {
             printAndUpdate(teamOneText);
             printAndUpdate(teamTwoText);
             printAndUpdate(currentGame.clock + "");
+            printAndUpdate(` ${currentGame.downs}`);
         });
     }
 }

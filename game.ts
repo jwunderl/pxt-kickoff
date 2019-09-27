@@ -10,6 +10,7 @@ namespace football {
         protected teamWithPossession: Team;
         protected playerWithPossession: Sprite;
         public lineOfScrimmage: number;
+        public downs: number;
         protected indicator: scene.Renderable;
         protected scoreboard: scene.Renderable;
         protected lineOfScrimmageIndicator: scene.Renderable;
@@ -35,6 +36,7 @@ namespace football {
             ball.initializeEvents();
             util.initCamera();
             this.resetPlayerPositions();
+            this.downs = 0;
         }
 
         get playerWhoHasBall() {
@@ -81,11 +83,18 @@ namespace football {
         }
 
         startPlay() {
+            ++this.downs;
+            if (this.downs === 4) {
+                text.util.showInstruction("TURN OVER!", 1500);
+                this.turnOver();
+            }
+
             this.playerWhoHasBall = undefined;
             if (this.clock.quarterOver()) {
                 this.clock.nextQuarter();
                 this.turnOver();
             }
+
             this.resetPlayerPositions();
             ball.toss();
         }
@@ -122,6 +131,7 @@ namespace football {
 
         turnOver() {
             this.teamWithPossession = this.defense;
+            this.downs = 0;
             if (this.offenseDirection() === MovementDirection.Right) {
                 this.lineOfScrimmage = field.START_OFFSET;
             } else {

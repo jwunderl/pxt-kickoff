@@ -67,6 +67,7 @@ namespace ball {
             pause(Math.randomRange(500, 1000));
             target.vx = 0;
             target.vy = 0;
+            pause(500);
         }
 
         shadow.setFlag(SpriteFlag.Ghost, false);
@@ -194,8 +195,8 @@ namespace ball {
                         target.x = los + offenseDirection;
                     }
                     // don't let center go out of field;
-                    if (target.y < 16) {
-                        target.y = 16;
+                    if (target.y < 16 || target.y > field.HEIGHT) {
+                        target.y = Math.clamp(16, field.HEIGHT, target.y);
                     }
                 }
             }
