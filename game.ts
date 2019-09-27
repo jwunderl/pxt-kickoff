@@ -83,8 +83,7 @@ namespace football {
         }
 
         startPlay() {
-            ++this.downs;
-            if (this.downs === 4) {
+            if (this.downs >= 4) {
                 text.util.showInstruction("TURN OVER!", 1500);
                 this.turnOver();
             }
@@ -94,6 +93,7 @@ namespace football {
                 this.clock.nextQuarter();
                 this.turnOver();
             }
+            ++this.downs;
 
             this.resetPlayerPositions();
             ball.toss();
@@ -131,7 +131,7 @@ namespace football {
 
         turnOver() {
             this.teamWithPossession = this.defense;
-            this.downs = 1;
+            this.downs = 0;
             if (this.offenseDirection() === MovementDirection.Right) {
                 this.lineOfScrimmage = field.START_OFFSET;
             } else {
