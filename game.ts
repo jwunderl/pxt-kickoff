@@ -131,7 +131,7 @@ namespace football {
 
         turnOver() {
             this.teamWithPossession = this.defense;
-            this.downs = 0;
+            this.downs = 1;
             if (this.offenseDirection() === MovementDirection.Right) {
                 this.lineOfScrimmage = field.START_OFFSET;
             } else {
