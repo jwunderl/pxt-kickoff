@@ -429,7 +429,7 @@ namespace field {
                 a 9 9 9 9 9 a . . . . . . . . .
                 . a 9 9 9 a . . . . . . . . . .
                 . . a a a . . . . . . . . . . .
-            `),
+            `, SpriteKind.FieldGoal),
             sprites.create(img`
                 . . . . . . . . . . . . . a a .
                 . . . . . . . . . . . . a 9 9 a
@@ -495,9 +495,8 @@ namespace field {
                 . . . . . . . . . a 9 9 9 9 9 a
                 . . . . . . . . . . a 9 9 9 a .
                 . . . . . . . . . . . a a a . .
-            `)
+            `, SpriteKind.FieldGoal)
         ];
-        // left
         fieldGoals[0].left = -5;
         fieldGoals[1].right = field.WIDTH + 5;
         fieldGoals.forEach(fg => {
