@@ -135,18 +135,17 @@ namespace football {
         initializeAI() {
             game.onUpdate(() => {
                 this.offense.players.forEach((p, index) => {
-                    // do something to make offense 'avoid' defense.
-                    // Should probably also eventually run towards
-                    // / follow ball ball when possible / close enough --
-                    // maybe when halfway across field?
-                    if (!this.aiOn) return undefined;
+                    // make offense 'avoid' defense by trying to move past them,
+                    // and run towards the target when possible.
+                    if (!this.aiOn || p == this.offense.activePlayer)
+                        return;
                     const t = ball.getActiveTarget()
                     if (t && p.x > this.lineOfScrimmage) {
                         if (!p.data[datakey.IS_CHASING_BALL]) {
                             p.data[datakey.IS_CHASING_BALL] = true;
                             p.follow(t, 100, 3);
                         }
-                    } else if (p != this.offense.activePlayer && Math.percentChance(3)) {
+                    } else if (p != this.offense.activePlayer && Math.percentChance(4)) {
                         p.vy = -p.vy * Math.randomRange(50, 150) / 100;
                     }
                 });
@@ -160,8 +159,8 @@ namespace football {
                 this.offense.players
                     .filter(p => p != this.offense.activePlayer)
                     .forEach(p => {
-                        p.vx = 80 * this.offenseDirection();
-                        p.vy = Math.randomRange(-50, 50);
+                        p.vx = 90 * this.offenseDirection();
+                        p.vy = Math.randomRange(40, 60) * (Math.percentChance(50) ? -1 : 1);
                     });
                 this.defense.players
                     .filter(p => p != this.defense.activePlayer)
