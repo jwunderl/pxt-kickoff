@@ -2,33 +2,91 @@ namespace field {
     export function initialize() {
         scene.setTileMap(img`
             5 6 7 8 9 a b c d e 5 6 7 8 9 a b c d e
-            3 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 4
-            3 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 4
-            3 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 4
-            3 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 4
-            3 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 4
-            3 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 4
+            3 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 4
+            3 f . f . f . f . f . f . f . f . f . 4
+            3 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 4
+            3 f . f . f . f . f . f . f . f . f . 4
+            3 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 1 2 4
+            3 f . f . f . f . f . f . f . f . f . 4
             . . . . . . . . . . . . . . . . . . . .
         `);
-        scene.setTile(2, img`
-            6 6 6 6 6 6 6 1 6 6 6 6 6 6 6 6
-            6 6 6 6 6 6 6 1 6 6 6 6 6 6 6 6
-            6 6 6 6 6 6 6 1 6 6 6 6 6 6 6 6
-            6 6 6 6 6 6 6 1 6 6 6 6 6 6 6 6
-            6 6 6 6 6 6 6 1 6 6 6 6 6 6 6 6
-            6 6 6 6 6 6 6 1 6 6 6 6 6 6 6 6
-            6 6 6 6 6 6 6 1 6 6 6 6 6 6 6 6
-            6 6 6 6 6 6 6 1 6 6 6 6 6 6 6 6
-            6 6 6 6 6 6 6 1 6 6 6 6 6 6 6 6
-            6 6 6 6 6 6 6 1 6 6 6 6 6 6 6 6
-            6 6 6 6 6 6 6 1 6 6 6 6 6 6 6 6
-            6 6 6 6 6 6 6 1 6 6 6 6 6 6 6 6
-            6 6 6 6 6 6 6 1 6 6 6 6 6 6 6 6
-            6 6 6 6 6 6 6 1 6 6 6 6 6 6 6 6
-            6 6 6 6 6 6 6 1 6 6 6 6 6 6 6 6
-            6 6 6 6 6 6 6 1 6 6 6 6 6 6 6 6
+
+        // field
+        scene.setTile(0x1, img`
+            1 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5
+            1 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5
+            1 5 5 1 5 5 1 5 5 1 5 5 1 5 5 5
+            1 5 5 1 5 5 1 5 5 1 5 5 1 5 5 5
+            1 5 5 1 5 5 1 5 5 1 5 5 1 5 5 5
+            1 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5
+            1 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5
+            1 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5
+            1 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5
+            1 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5
+            1 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5
+            1 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5
+            1 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5
+            1 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5
+            1 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5
+            1 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5
         `, false);
-        scene.setTile(3, img`
+        scene.setTile(0x2, img`
+            1 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6
+            1 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6
+            1 6 6 1 6 6 1 6 6 1 6 6 1 6 6 6
+            1 6 6 1 6 6 1 6 6 1 6 6 1 6 6 6
+            1 6 6 1 6 6 1 6 6 1 6 6 1 6 6 6
+            1 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6
+            1 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6
+            1 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6
+            1 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6
+            1 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6
+            1 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6
+            1 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6
+            1 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6
+            1 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6
+            1 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6
+            1 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6
+        `, false);
+        scene.setTile(0xF, img`
+            1 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5
+            1 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5
+            1 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5
+            1 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5
+            1 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5
+            1 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5
+            1 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5
+            1 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5
+            1 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5
+            1 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5
+            1 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5
+            1 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5
+            1 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5
+            1 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5
+            1 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5
+            1 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5
+        `, false);
+        scene.setTile(0x0, img`
+            1 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6
+            1 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6
+            1 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6
+            1 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6
+            1 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6
+            1 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6
+            1 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6
+            1 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6
+            1 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6
+            1 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6
+            1 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6
+            1 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6
+            1 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6
+            1 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6
+            1 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6
+            1 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6
+        `, false);
+        
+        // end zones
+        scene.setTile(0x3, img`
             c c b b b b b b b b b b b b c c
             c c b b b b c b b b b b b b c c
             c c b b b b b b b b b b b b c c
@@ -46,7 +104,7 @@ namespace field {
             c c b b b b b b c b b b b b c c
             c c b b b b b b c b b b b b c c
         `, false);
-        scene.setTile(4, img`
+        scene.setTile(0x4, img`
             e e d d d d d d d d d d d d e e
             e e d d d d e d d d d d d d e e
             e e d d d d e d d d d d d d e e
@@ -64,7 +122,8 @@ namespace field {
             e e d d d d d d d d d d d d e e
             e e d d d d e d d d d d d d e e
         `, false);
-        scene.setTile(5, img`
+        // crowd
+        scene.setTile(0x5, img`
             a a f f f f f f f a a a a f f f
             9 a 5 5 a f f f f a a a a a f e
             9 5 5 5 5 a f f a a a f a a e d
@@ -82,7 +141,7 @@ namespace field {
             6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6
             1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
         `, false);
-        scene.setTile(6, img`
+        scene.setTile(0x6, img`
             f f f f a a a a f f f f f f f a
             d d e f a a a f f b c c b f a a
             d d d e f f f f b c c c c b a a
@@ -100,7 +159,7 @@ namespace field {
             6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6
             1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
         `, false);
-        scene.setTile(7, img`
+        scene.setTile(0x7, img`
             a f f f f f f f f f f f a 6 6 a
             a a f f f f f f f f f a 6 6 6 6
             a a f a 9 9 a f 9 f f 6 f 6 6 f
@@ -118,7 +177,7 @@ namespace field {
             6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6
             1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
         `, false);
-        scene.setTile(8, img`
+        scene.setTile(0x8, img`
             f f f a 9 9 9 9 a a f f f f f f
             a f f 9 a 9 9 a 9 c b b c f f f
             6 f f 9 a 9 9 a c b b b b c f f
@@ -136,7 +195,7 @@ namespace field {
             6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6
             1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
         `, false);
-        scene.setTile(9, img`
+        scene.setTile(0x9, img`
             f a a a a f f f f f f f a a a a
             f a a a a a f a b b a f a a a f
             a a a f a a a b b b b a f f f f
@@ -154,7 +213,7 @@ namespace field {
             6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6
             1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
         `, false);
-        scene.setTile(10, img`
+        scene.setTile(0xA, img`
             f f f f f f f a a f f f f f f f
             f a 9 9 a f a a a a f f f f f f
             a 9 9 9 9 a a a a a f d e e d f
@@ -172,7 +231,7 @@ namespace field {
             6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6
             1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
         `, false);
-        scene.setTile(11, img`
+        scene.setTile(0xB, img`
             f f f f a e e a f f f a 9 9 9 9
             f f f a e e e e a f f 9 a 9 9 a
             9 f f e f e e f e f f 9 a 9 9 a
@@ -190,7 +249,7 @@ namespace field {
             6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6
             1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
         `, false);
-        scene.setTile(12, img`
+        scene.setTile(0xC, img`
             a a f f f f f f f a a a a f f f
             9 a 5 5 a f f f f a a a a a f a
             9 5 5 5 5 a f f a a a f a a a 8
@@ -208,7 +267,7 @@ namespace field {
             6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6
             1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
         `, false);
-        scene.setTile(13, img`
+        scene.setTile(0xD, img`
             f f f f a a a a f f f f f f f a
             8 8 a f a a a f f a e e a f a a
             8 8 8 a f f f f a e e e e a a a
@@ -226,7 +285,7 @@ namespace field {
             6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6
             1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
         `, false);
-        scene.setTile(14, img`
+        scene.setTile(0xE, img`
             a f f f f f f f f f f f a 6 6 a
             a a f f f f f f f f f a 6 6 6 6
             a a f a 9 9 a f 9 f f 6 f 6 6 f
