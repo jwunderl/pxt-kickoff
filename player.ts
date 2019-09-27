@@ -30,7 +30,7 @@ namespace player {
         if (player.y < 16 || player.y > field.HEIGHT) {
             player.y = Math.clamp(16, field.HEIGHT, player.y);
             if (isPlayerWithBall) {
-                currentGame.ballStopped();
+                currentGame.ballStopped("OUT OF BOUNDS!");
             }
         }
     }

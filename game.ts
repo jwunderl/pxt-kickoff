@@ -45,7 +45,7 @@ namespace football {
         }
 
         set playerWhoHasBall(s: Sprite) {
-            this.playerEnergy = 5;
+            this.playerEnergy = 6;
             this.playerWithPossession = s;
         }
 
@@ -101,8 +101,9 @@ namespace football {
             ball.toss();
         }
 
-        ballStopped() {
+        ballStopped(reason: string) {
             if (this.playerWhoHasBall) {
+                text.util.showInstruction(reason, 750);
                 this.lineOfScrimmage = Math.clamp(
                     field.START_OFFSET - 20,
                     field.WIDTH - field.START_OFFSET + 20,
@@ -110,7 +111,7 @@ namespace football {
                 );
                 this.stopClock();
                 control.runInParallel(() => {
-                    pause(400);
+                    pause(1000);
                     this.startPlay()
                 });
             }
@@ -165,7 +166,7 @@ namespace football {
                             --this.playerEnergy;
                         });
                     if (this.playerEnergy < 0) {
-                        this.ballStopped()
+                        this.ballStopped("TACKLED!");
                     }
                 }
             });
