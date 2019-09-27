@@ -145,8 +145,9 @@ namespace ball {
         ], 30, true);
         
         // TODO?: make it so user can control speed / control with timing?
-        const speed = Math.randomRange(60, 100);
-        ballOffsetMagnitude = Math.max((120 - speed) >> 1, 10);
+        const maxSpeed = football.hardMode() ? 120 : 80;
+        const speed = Math.randomRange(maxSpeed >> 1, maxSpeed);
+        ballOffsetMagnitude = Math.max(((maxSpeed * 1.4) - speed) >> 1, 10);
         const diffY = target.y - shadow.y;
         const diffX = target.x - shadow.x;
 

@@ -29,7 +29,7 @@ namespace player {
         // constrain player within field
         if (player.y < 16 || player.y > field.HEIGHT) {
             player.y = Math.clamp(16, field.HEIGHT, player.y);
-            if (isPlayerWithBall) {
+            if (football.hardMode() && isPlayerWithBall) {
                 currentGame.ballStopped("OUT OF BOUNDS!");
             }
         }

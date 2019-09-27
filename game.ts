@@ -4,6 +4,8 @@
  */
 //% weight=100 color="#003399" icon="\uf091"
 namespace football {
+    let _hardMode: boolean;
+
     export class Game {
         public clock: GameClock;
 
@@ -25,6 +27,7 @@ namespace football {
             this.lineOfScrimmage = field.START_OFFSET;
             this.teamWithPossession = this.teamA;
             this.clock = new GameClock(quarterLength);
+            _hardMode = _hardMode || false;
 
             this.indicator = ui.player.createIndicator(this);
             this.scoreboard = ui.scoreboard.create(this, teamA, teamB);
@@ -45,7 +48,24 @@ namespace football {
         }
 
         set playerWhoHasBall(s: Sprite) {
+            if (s === undefined) {
+                this.playerEnergy = undefined;
+                this.playerWithPossession = undefined;
+                return;
+            }
             this.playerEnergy = 6;
+            if (!hardMode() && !this.offense.isPlayerControlled()) {
+                this.playerEnergy = 3;
+            }
+            
+            if (this.offense.isPlayerControlled() && this.offense.activePlayer() !== s) {
+                // shuffle control to player with ball
+                while (this.offense.activePlayer() !== s) {
+                    this.offense.controlNextPlayer();
+                }
+                s.vx = 60 * this.offenseDirection();
+                s.vy = 0;
+            }
             this.playerWithPossession = s;
         }
 
@@ -308,5 +328,22 @@ namespace football {
         } else {
             game.splash("You need to set teams first!");
         }
+    }
+
+    /**
+     * Set hard mode on or off!
+     * In hardmode, some game features change:
+     * 
+     * * Going over the sidelines ends the play
+     * 
+     */
+    //% blockId=footballHardMode block="set hard mode %on=toggleOnOff"
+    //% weight=40
+    export function setHardMode(on: boolean) {
+        _hardMode = on;
+    }
+
+    export function hardMode() {
+        return _hardMode;
     }
 }
