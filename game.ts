@@ -20,7 +20,7 @@ namespace football {
             protected teamB: Team,
             quarterLength: number = 20
         ) {
-            this.lineOfScrimmage = 80;
+            this.lineOfScrimmage = field.START_OFFSET;
             this.teamWithPossession = this.teamA;
             this.clock = new GameClock(quarterLength);
 
@@ -65,6 +65,11 @@ namespace football {
 
         turnOver() {
             this.teamWithPossession = this.defense;
+            if (this.offenseDirection() === MovementDirection.Right) {
+                this.lineOfScrimmage = field.START_OFFSET;
+            } else {
+                this.lineOfScrimmage = field.WIDTH - field.START_OFFSET;
+            }
         }
 
         playIsActive() {
@@ -86,8 +91,17 @@ namespace football {
         startPlay() {
             if (this.clock.quarterOver()) {
                 this.clock.nextQuarter();
+                this.turnOver();
             }
+            this.resetPlayerPositions();
+            // scene.centerCameraAt(this.lineOfScrimmage, 0);
             ball.toss();
+        }
+
+        ballStopped() {
+            if (this.playerWhoHasBall) {
+                this.lineOfScrimmage = this.playerWhoHasBall.x;
+            }
         }
 
         // if the offense is moving to the left, returns -1
@@ -114,8 +128,6 @@ namespace football {
             control.runInParallel(() => {
                 effects.confetti.startScreenEffect(1000);
                 pause(2500);
-                currentGame.resetPlayerPositions();
-                pause(500)
                 this.startPlay();
             });
         }
@@ -128,11 +140,11 @@ namespace football {
                     // / follow ball ball when possible / close enough --
                     // maybe when halfway across field?
                     if (!this.aiOn) return undefined;
-                    const b = ball.getActiveBall()
-                    if (b && p.x > this.lineOfScrimmage) {
+                    const t = ball.getActiveTarget()
+                    if (t && p.x > this.lineOfScrimmage) {
                         if (!p.data[datakey.IS_CHASING_BALL]) {
                             p.data[datakey.IS_CHASING_BALL] = true;
-                            p.follow(b, 100, 3);
+                            p.follow(t, 100, 3);
                         }
                     } else if (p != this.offense.activePlayer && Math.percentChance(3)) {
                         p.vy = -p.vy * Math.randomRange(50, 150) / 100;
@@ -237,7 +249,7 @@ namespace football {
             // disable menu button
             controller.menu.onEvent(ControllerButtonEvent.Pressed, undefined);
             text.util.introInstruction("Move with arrows and   throw with A! Click on the screen to start.");
-            ball.toss();
+            currentGame.startPlay();
         } else {
             game.splash("You need to set teams first!");
         }

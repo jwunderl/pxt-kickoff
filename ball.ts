@@ -10,7 +10,6 @@ namespace ball {
         const currentGame = football.activeGame();
         const offenseDirection = currentGame.offenseDirection();
         text.util.showInstruction("THROW!", 500);
-        currentGame.resetPlayerPositions();
         target = sprites.create(img`
             a a . . . . . . . . a a
             a a a . . . . . . a a a
@@ -46,7 +45,7 @@ namespace ball {
         );
         // todo: create qb on top of shadow
 
-        pause(250);
+        pause(400);
         pauseUntil(() => {
             if (!controller.A.isPressed())
                 return false;
@@ -127,8 +126,8 @@ namespace ball {
         ], 30, true);
         
         // make it so user can control speed / control with timing
-        const speed = Math.randomRange(60, 120);
-        ballOffsetMagnitude = Math.max((140 - speed) >> 1, 10);
+        const speed = Math.randomRange(60, 100);
+        ballOffsetMagnitude = Math.max((120 - speed) >> 1, 10);
         const diffY = target.y - shadow.y;
         const diffX = target.x - shadow.x;
         const angleToTarget = Math.atan2(diffY, diffX);
@@ -179,6 +178,10 @@ namespace ball {
                     const los = currentGame.lineOfScrimmage;
                     if (offenseDirection === MovementDirection.Right ? target.x < los : target.x > los) {
                         target.x = los + offenseDirection;
+                    }
+                    // don't let center go out of field;
+                    if (target.y < 16) {
+                        target.y = 16;
                     }
                 }
             }
@@ -248,8 +251,8 @@ namespace ball {
         // });
     }
 
-    export function getActiveBall() {
-        return fball;
+    export function getActiveTarget() {
+        return target;
     }
 
     // a quick calculation for a position on a parabola containing the points

@@ -17,13 +17,22 @@ namespace player {
         return player;
     }
 
-    function updatePlayerAnimation(player: Sprite) {
+    function updatePlayerState(player: Sprite) {
         const currentGame = football.activeGame();
-        const offset = player === currentGame.playerWhoHasBall ? 1 : 0;
+        const isPlayerWithBall = player === currentGame.playerWhoHasBall;
+        const offset = isPlayerWithBall ? 1 : 0;
         if (player.vx < 0)
             animation.setAction(player, PlayerAnimation.Left + offset);
         else if (player.vx > 0)
             animation.setAction(player, PlayerAnimation.Right + offset);
+
+        // constrain player within field
+        if (player.y < 16 || player.y > field.HEIGHT) {
+            player.y = Math.clamp(16, field.HEIGHT, player.y);
+            if (isPlayerWithBall) {
+                currentGame.ballStopped();
+            }
+        }
     }
 
     export function initializeEvents() {
@@ -32,11 +41,11 @@ namespace player {
             currentGame
                 .offense
                 .players
-                .forEach(updatePlayerAnimation);
+                .forEach(updatePlayerState);
             currentGame
                 .defense
                 .players
-                .forEach(updatePlayerAnimation);
+                .forEach(updatePlayerState);
         });
         sprites.onOverlap(
             SpriteKind.PlayerTeam,

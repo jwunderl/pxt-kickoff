@@ -80,7 +80,7 @@ namespace field {
             a 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5
             6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6
             1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
-        `, true);
+        `, false);
         scene.setTile(6, img`
             f f f f a a a a f f f f f f f a
             d d e f a a a f f b c c b f a a
@@ -98,7 +98,7 @@ namespace field {
             5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 a
             6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6
             1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
-        `, true);
+        `, false);
         scene.setTile(7, img`
             a f f f f f f f f f f f a 6 6 a
             a a f f f f f f f f f a 6 6 6 6
@@ -116,7 +116,7 @@ namespace field {
             a 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5
             6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6
             1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
-        `, true);
+        `, false);
         scene.setTile(8, img`
             f f f a 9 9 9 9 a a f f f f f f
             a f f 9 a 9 9 a 9 c b b c f f f
@@ -134,7 +134,7 @@ namespace field {
             5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 a
             6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6
             1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
-        `, true);
+        `, false);
         scene.setTile(9, img`
             f a a a a f f f f f f f a a a a
             f a a a a a f a b b a f a a a f
@@ -152,7 +152,7 @@ namespace field {
             a 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5
             6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6
             1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
-        `, true);
+        `, false);
         scene.setTile(10, img`
             f f f f f f f a a f f f f f f f
             f a 9 9 a f a a a a f f f f f f
@@ -170,7 +170,7 @@ namespace field {
             5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 a
             6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6
             1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
-        `, true);
+        `, false);
         scene.setTile(11, img`
             f f f f a e e a f f f a 9 9 9 9
             f f f a e e e e a f f 9 a 9 9 a
@@ -188,7 +188,7 @@ namespace field {
             a 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5
             6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6
             1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
-        `, true);
+        `, false);
         scene.setTile(12, img`
             a a f f f f f f f a a a a f f f
             9 a 5 5 a f f f f a a a a a f a
@@ -206,7 +206,7 @@ namespace field {
             5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 a
             6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6
             1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
-        `, true);
+        `, false);
         scene.setTile(13, img`
             f f f f a a a a f f f f f f f a
             8 8 a f a a a f f a e e a f a a
@@ -224,7 +224,7 @@ namespace field {
             a 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5
             6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6
             1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
-        `, true);
+        `, false);
         scene.setTile(14, img`
             a f f f f f f f f f f f a 6 6 a
             a a f f f f f f f f f a 6 6 6 6
@@ -242,7 +242,7 @@ namespace field {
             5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 a
             6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6
             1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
-        `, true);
+        `, false);
         createLogo();
     }
 
@@ -295,7 +295,7 @@ namespace field {
             . . . . . . . . . . 1 1 1 1 1 1 1 . . . . . . . . . . . . . . . . . . . . . . . 1 1 1 1 1 1 1 . . . . . . . . . .
         `, SpriteKind.Logo);
         output.setFlag(SpriteFlag.Ghost, true);
-        output.setPosition(10 * 16, 4 * 16);
+        output.setPosition(field.WIDTH >> 1, 4 * 16);
         output.z = zindex.BACKGROUND;
         return output;
     }

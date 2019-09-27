@@ -36,3 +36,10 @@ namespace zindex {
     export const PLAYER_INDICATOR = 20;
     export const HUD = 100; // scene.HUD_Z
 }
+
+namespace field {
+    export const WIDTH = 20 * 16;
+    export const HEIGHT = 7 * 16;
+
+    export const START_OFFSET = 55;
+}
