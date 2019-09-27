@@ -9,6 +9,7 @@ namespace football {
 
         protected teamWithPossession: Team;
         protected playerWithPossession: Sprite;
+        protected playerEnergy: number;
         public lineOfScrimmage: number;
         public downs: number;
         protected indicator: scene.Renderable;
@@ -44,6 +45,7 @@ namespace football {
         }
 
         set playerWhoHasBall(s: Sprite) {
+            this.playerEnergy = 5;
             this.playerWithPossession = s;
         }
 
@@ -160,8 +162,11 @@ namespace football {
                     this.defense.players
                         .filter(p => p.overlapsWith(this.playerWhoHasBall))
                         .forEach(() => {
-                            // ... after a certain number of ticks make it so player drops ball / this.ballStopped();
-                        })
+                            --this.playerEnergy;
+                        });
+                    if (this.playerEnergy < 0) {
+                        this.ballStopped()
+                    }
                 }
             });
 
