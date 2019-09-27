@@ -322,7 +322,14 @@ namespace football {
         if (currentGame) {
             // disable menu button
             controller.menu.onEvent(ControllerButtonEvent.Pressed, undefined);
-            text.util.introInstruction("Move with arrows and   throw with A! Click on the screen to start.");
+            const isHardware = (() => {
+                if (control.ramSize() <= 1024 * 200) {
+                    return true;
+                } else {
+                    return false;
+                }
+            })();
+            text.util.introInstruction(`Move with arrows and   throw with A! ${isHardware ? "Press A" : "Click on the screen"} to start.`);
             currentGame.startPlay();
         } else {
             game.splash("You need to set teams first!");
