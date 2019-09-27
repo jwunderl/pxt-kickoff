@@ -9,6 +9,7 @@ namespace ball {
         clear();
         const currentGame = football.activeGame();
         const offenseDirection = currentGame.offenseDirection();
+        const playerIsOffense = currentGame.offense.isPlayerControlled();
         text.util.showInstruction("THROW!", 500);
         target = sprites.create(img`
             a a . . . . . . . . a a
@@ -24,7 +25,6 @@ namespace ball {
             a a 1 1 . . . . 1 1 a a
             1 1 1 . . . . . . 1 1 1
         `, SpriteKind.ThrowTarget);
-        controller.moveSprite(target, 150, 150);
         target.z = zindex.HUD - 1;
         target.x = currentGame.lineOfScrimmage + (40 * offenseDirection),
         util.focusCamera(target);
@@ -43,18 +43,32 @@ namespace ball {
             currentGame.lineOfScrimmage - (40 * offenseDirection),
             Math.randomRange(30, 100)
         );
+        lastXPos = shadow.x;
         // todo: create qb on top of shadow
 
+        if (playerIsOffense) {
+            controller.moveSprite(target, 150, 150);
+        }
+
         pause(400);
-        pauseUntil(() => {
-            if (!controller.A.isPressed())
-                return false;
-            if (offenseDirection === MovementDirection.Right) {
-                return target.x > currentGame.lineOfScrimmage;
-            } else {
-                return target.x < currentGame.lineOfScrimmage
-            }
-        });
+        if (playerIsOffense) {
+            pauseUntil(() => {
+                if (!controller.A.isPressed())
+                    return false;
+                if (offenseDirection === MovementDirection.Right) {
+                    return target.x > currentGame.lineOfScrimmage;
+                } else {
+                    return target.x < currentGame.lineOfScrimmage
+                }
+            });
+        } else {
+            target.vx = offenseDirection * Math.randomRange(0, 100);
+            target.vy = Math.randomRange(-40, 40);
+            pause(Math.randomRange(500, 1000));
+            target.vx = 0;
+            target.vy = 0;
+        }
+
         shadow.setFlag(SpriteFlag.Ghost, false);
         target.z = zindex.THROW_TARGET;
         controller.moveSprite(target, 0, 0);
@@ -125,17 +139,17 @@ namespace ball {
             `
         ], 30, true);
         
-        // make it so user can control speed / control with timing
+        // TODO: make it so user can control speed / control with timing?
         const speed = Math.randomRange(60, 100);
         ballOffsetMagnitude = Math.max((120 - speed) >> 1, 10);
         const diffY = target.y - shadow.y;
         const diffX = target.x - shadow.x;
+
         const angleToTarget = Math.atan2(diffY, diffX);
         shadow.setVelocity(
             Math.cos(angleToTarget) * speed,
             Math.sin(angleToTarget) * speed
         );
-        lastXPos = shadow.x;
 
         currentGame.startClock();
         text.util.showInstruction("CATCH!", 1000);
