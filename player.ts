@@ -53,9 +53,6 @@ namespace player {
                     s.x--;
                     os.x--;
                 }
-                // TODO: remove this temp debug check
-                if (s === ball.shadow || os === ball.shadow) 
-                    console.log(`hi s${s.kind()} os${os.kind()} shad${ball.shadow.kind()} sk${SpriteKind.PlayerTeam} sk${SpriteKind.OpposingTeam}`)
             }
         );
     }

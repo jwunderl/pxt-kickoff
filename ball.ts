@@ -1,6 +1,6 @@
 namespace ball {
     let fball: Sprite;
-    export let shadow: Sprite;
+    let shadow: Sprite;
     let target: Sprite;
     let lastXPos: number;
     let ballOffsetMagnitude: number;
@@ -25,7 +25,7 @@ namespace ball {
             a a 1 1 . . . . 1 1 a a
             1 1 1 . . . . . . 1 1 1
         `, SpriteKind.ThrowTarget);
-        controller.moveSprite(target)
+        controller.moveSprite(target, 150, 150);
         target.z = zindex.HUD - 1;
         target.x = currentGame.lineOfScrimmage + (40 * offenseDirection),
         scene.cameraFollowSprite(target);
@@ -171,14 +171,27 @@ namespace ball {
             }
         );
 
+        game.onUpdate(
+            () => {
+                if (target) {
+                    const currentGame = football.activeGame();
+                    const offenseDirection = currentGame.offenseDirection();
+                    const los = currentGame.lineOfScrimmage;
+                    if (offenseDirection === MovementDirection.Right ? target.x < los : target.x > los) {
+                        target.x = los + offenseDirection;
+                    }
+                }
+            }
+        )
+
         sprites.onOverlap(
             SpriteKind.Shadow,
             SpriteKind.ThrowTarget,
             (s, os) => {
-                // past the center line and no catch; make ball bounce once and move on
-                const currentGame = football.activeGame()
+                const currentGame = football.activeGame();
                 const offenseDirection = currentGame.offenseDirection();
                 const pastTarget = offenseDirection === MovementDirection.Right ? s.x >= os.x : s.x <= os.x;
+                // past the center line and no catch; make ball bounce once and move on
                 if (pastTarget) {
                     // move target a bit to the right to give somewhere to bounce to
                     os.setFlag(SpriteFlag.Ghost, true);
