@@ -108,6 +108,7 @@ namespace football {
             if (this.downs >= 4) {
                 text.util.showInstruction("TURN OVER!", 1500);
                 this.turnOver();
+                pause(1500);
             }
 
             this.playerWhoHasBall = undefined;
@@ -115,9 +116,22 @@ namespace football {
                 this.clock.nextQuarter();
                 this.turnOver();
             }
+
             ++this.downs;
+            this.resetPlayerPositions();
+
+            let downText = "";
+            switch (this.downs) {
+                case 1: downText = "1ST"; break;
+                case 2: downText = "2ND"; break;
+                case 3: downText = "3RD"; break;
+                case 4: downText = "4TH"; break;
+            }
 
             this.resetPlayerPositions();
+
+            text.util.showInstruction(`${downText} DOWN`, 500);
+            pause(700);
             ball.toss();
         }
 
