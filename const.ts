@@ -19,7 +19,9 @@ enum PlayerAnimation {
     LeftWithBall = 1,
     Right = 2,
     RightWithBall = 3,
-    Celebrate = 4
+    Celebrate = 4,
+    ThrowLeft = 5,
+    ThrowRight = 6
 }
 
 enum MovementDirection {
