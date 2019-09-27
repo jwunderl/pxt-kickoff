@@ -33,6 +33,7 @@ namespace football {
             field.initialize();
             player.initializeEvents();
             ball.initializeEvents();
+            util.initCamera();
             this.resetPlayerPositions();
         }
 
@@ -89,18 +90,27 @@ namespace football {
         }
 
         startPlay() {
+            this.playerWhoHasBall = undefined;
             if (this.clock.quarterOver()) {
                 this.clock.nextQuarter();
                 this.turnOver();
             }
             this.resetPlayerPositions();
-            // scene.centerCameraAt(this.lineOfScrimmage, 0);
             ball.toss();
         }
 
         ballStopped() {
             if (this.playerWhoHasBall) {
-                this.lineOfScrimmage = this.playerWhoHasBall.x;
+                this.lineOfScrimmage = Math.clamp(
+                    field.START_OFFSET - 20,
+                    screen.width - field.START_OFFSET + 20,
+                    this.playerWhoHasBall.x
+                );
+                this.stopClock();
+                control.runInParallel(() => {
+                    pause(400);
+                    this.startPlay()
+                });
             }
         }
 
@@ -145,8 +155,10 @@ namespace football {
                             p.data[datakey.IS_CHASING_BALL] = true;
                             p.follow(t, 100, 3);
                         }
-                    } else if (p != this.offense.activePlayer && Math.percentChance(4)) {
-                        p.vy = -p.vy * Math.randomRange(50, 150) / 100;
+                    } else if (p != this.offense.activePlayer) {
+                        if (Math.percentChance(4)) {
+                            p.vy = -p.vy * Math.randomRange(50, 150) / 100;
+                        } 
                     }
                 });
             });
@@ -159,7 +171,7 @@ namespace football {
                 this.offense.players
                     .filter(p => p != this.offense.activePlayer)
                     .forEach(p => {
-                        p.vx = 90 * this.offenseDirection();
+                        p.vx = 80 * this.offenseDirection();
                         p.vy = Math.randomRange(40, 60) * (Math.percentChance(50) ? -1 : 1);
                     });
                 this.defense.players

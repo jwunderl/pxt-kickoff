@@ -27,7 +27,7 @@ namespace ball {
         controller.moveSprite(target, 150, 150);
         target.z = zindex.HUD - 1;
         target.x = currentGame.lineOfScrimmage + (40 * offenseDirection),
-        scene.cameraFollowSprite(target);
+        util.focusCamera(target);
 
         shadow = sprites.create(img`
             . . a a a a . .
@@ -60,7 +60,7 @@ namespace ball {
         controller.moveSprite(target, 0, 0);
 
         // TODO: qb animation here
-        scene.cameraFollowSprite(shadow);
+        util.focusCamera(shadow);
         pause(500);
 
         fball = sprites.create(img`
@@ -193,25 +193,37 @@ namespace ball {
             (s, os) => {
                 const currentGame = football.activeGame();
                 const offenseDirection = currentGame.offenseDirection();
+                const heldBy = currentGame.offense.players.find(player => s.overlapsWith(player));
                 const pastTarget = offenseDirection === MovementDirection.Right ? s.x >= os.x : s.x <= os.x;
-                // past the center line and no catch; make ball bounce once and move on
-                if (pastTarget) {
+                if (heldBy) {
+                    fball.destroy();
+                    currentGame.playerWhoHasBall = heldBy;
+                    s.destroy();
+                    os.destroy();
+                    text.util.showInstruction("RUN!", 1000);
+                    util.focusCamera(heldBy);
+                    currentGame.setAI(true);
+                    // TODO: touchdown checking in game.ts
+                    // pauseUntil(() => !heldBy || heldBy.right > 19 * 16);
+                    // currentGame.touchDown();
+                
+                } else if (pastTarget) {
+                    // past the center line and no catch; make ball bounce once and move on
                     // move target a bit to the right to give somewhere to bounce to
                     os.setFlag(SpriteFlag.Ghost, true);
                     os.setFlag(SpriteFlag.Invisible, true);
-                    s.setFlag(SpriteFlag.Ghost, true);
                     os.x += 30 * offenseDirection;
-                    ballOffsetMagnitude /= 3;
+                    s.setFlag(SpriteFlag.Ghost, true);
                     s.vx *= .6;
                     s.vy *= .6;
                     lastXPos = s.x;
+                    ballOffsetMagnitude /= 3;
                     text.util.showInstruction("MISS!", 1500);
 
                     const stopPosition = os.bottom;
-                    pauseUntil(() => {
-                        const fballEnd = offenseDirection === MovementDirection.Right ? fball.x > os.x - 2 : fball.x < os.x + 2;
-                        return fballEnd;
-                    });
+                    pauseUntil(() =>
+                        offenseDirection === MovementDirection.Right ? fball.x > os.x - 2 : fball.x < os.x + 2
+                    );
                     currentGame.stopClock();
                     football
                     s.destroy();

@@ -18,7 +18,8 @@
         "ball.ts",
         "clock.ts",
         "game.ts",
-        "teamdata.ts"
+        "teamdata.ts",
+        "util.ts"
     ],
     "testFiles": [
         "test.ts"

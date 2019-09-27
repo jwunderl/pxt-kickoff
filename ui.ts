@@ -161,7 +161,9 @@ namespace ui.field {
     export function createLineOfScrimmage(currentGame: football.Game) {
         return scene.createRenderable(zindex.BACKGROUND, (target, camera) => {
             const los = currentGame.lineOfScrimmage - camera.offsetX;
-            target.drawLine(los, 16, los, screen.height, 0x3);
+            if (los > 0 && los < screen.width) {
+                target.drawLine(los, 16, los, screen.height, 0x3);
+            }
         });
     }
 }
