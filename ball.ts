@@ -26,7 +26,7 @@ namespace ball {
             1 1 1 . . . . . . 1 1 1
         `, SpriteKind.ThrowTarget);
         target.z = zindex.HUD - 1;
-        target.x = currentGame.lineOfScrimmage + (40 * offenseDirection),
+        target.x = Math.clamp(8, field.WIDTH - 8, currentGame.lineOfScrimmage + (40 * offenseDirection));
         util.focusCamera(target);
 
         shadow = sprites.create(img`
@@ -258,32 +258,6 @@ namespace ball {
                 }
             }
         )
-        // sprites.onOverlap(SpriteKind.Ball, SpriteKind.Shadow, (sprite, otherSprite) => {
-        //     if (target) target.destroy();
-        //     otherSprite.setFlag(SpriteFlag.Ghost, true);
-        //     const currentGame = football.activeGame();
-
-        //     const heldBy = currentGame.offense.players.find(player => sprite.overlapsWith(player));
-        //     if (heldBy) {
-        //         currentGame.playerWhoHasBall = heldBy;
-        //         sprite.destroy();
-        //         otherSprite.destroy();
-        //         scene.cameraFollowSprite(heldBy);
-        //         pauseUntil(() => !heldBy || heldBy.right > 19 * 16);
-        //         currentGame.touchDown();
-        //     } else {
-        //         bounceBall();
-        //         text.util.showInstruction("MISS!", 1500);
-        //         const stopPosition = otherSprite.bottom;
-        //         pauseUntil(() => sprite && sprite.bottom >= stopPosition);
-        //         currentGame.clock.stop();
-        //         otherSprite.destroy();
-        //         animation.stopAnimation(animation.AnimationTypes.ImageAnimation, sprite);
-        //         sprite.ay = 0;
-        //         sprite.vy = 0;
-        //         sprite.vx = 0;
-        //     }
-        // });
     }
 
     export function getActiveTarget() {
