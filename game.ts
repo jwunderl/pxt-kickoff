@@ -278,6 +278,7 @@ namespace football {
                 teams.create(aiTeam, false),
                 quarterLength
             );
+            control.runInParallel(startGame);
         }
     }
 
@@ -288,8 +289,6 @@ namespace football {
     /**
      * Prompt the player and start the game!
      */
-    //% blockId=startGame block="start game"
-    //% weight=90
     export function startGame() {
         // initialize recolored a button prompt and a frame
         game.setDialogCursor(img`
