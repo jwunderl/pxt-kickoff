@@ -47,8 +47,8 @@ namespace football {
 
         refreshColors() {
             if (_alternateColors) {
-                this.teamA.setTeamColors(_alternateColors[TeamId.One]);
-                this.teamB.setTeamColors(_alternateColors[TeamId.Two]);
+                this.teamA.setTeamColors(_alternateColors[TeamId.Player]);
+                this.teamB.setTeamColors(_alternateColors[TeamId.Computer]);
             }
         }
 
@@ -364,7 +364,7 @@ namespace football {
      * Set whether the given team should use their normal colors
      * or their alternate (inverted) colors.
      */
-    //% blockId=footballInvertColors block="set team %id to use alternate colors %on=toggleOnOff"
+    //% blockId=footballInvertColors block="set %id team alternate colors %on=toggleOnOff"
     //% on.defl="true"
     //% weight=60
     export function setTeamAlternateColors(id: TeamId, on: boolean) {

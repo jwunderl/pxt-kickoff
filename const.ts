@@ -30,8 +30,10 @@ enum MovementDirection {
 }
 
 enum TeamId {
-    One = 0,
-    Two = 1
+    //% block="player"
+    Player = 0,
+    //% block="computer"
+    Computer = 1
 }
 
 namespace zindex {
