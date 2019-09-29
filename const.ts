@@ -29,6 +29,11 @@ enum MovementDirection {
     Right = 1
 }
 
+enum TeamId {
+    One = 0,
+    Two = 1
+}
+
 namespace zindex {
     export const BACKGROUND = 0;
     export const SHADOW = 1;

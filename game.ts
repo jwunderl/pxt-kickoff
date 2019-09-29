@@ -5,7 +5,7 @@
 //% weight=100 color="#003399" icon="\uf091"
 namespace football {
     let _hardMode: boolean;
-
+    let _alternateColors: boolean[];
     export class Game {
         public clock: GameClock;
 
@@ -41,6 +41,15 @@ namespace football {
             util.initCamera();
             this.resetPlayerPositions();
             this.downs = 0;
+
+            this.refreshColors();
+        }
+
+        refreshColors() {
+            if (_alternateColors) {
+                this.teamA.setTeamColors(_alternateColors[TeamId.One]);
+                this.teamB.setTeamColors(_alternateColors[TeamId.Two]);
+            }
         }
 
         get playerWhoHasBall() {
@@ -352,13 +361,33 @@ namespace football {
     }
 
     /**
+     * Set whether the given team should use their normal colors
+     * or their alternate (inverted) colors.
+     */
+    //% blockId=footballInvertColors block="set team %id to use alternate colors %on=toggleOnOff"
+    //% on.defl="true"
+    //% weight=60
+    export function setTeamAlternateColors(id: TeamId, on: boolean) {
+        if (!_alternateColors) {
+            _alternateColors = [false, false];
+        }
+        _alternateColors[id] = on;
+
+        if (currentGame) {
+            currentGame.refreshColors();
+        }
+    }
+
+    /**
      * Set hard mode on or off!
      * In hardmode, some game features change:
      * 
      * * Going over the sidelines ends the play
-     * 
+     * * The opposing team has more endurance while holding the ball
+     * * The football flies faster
      */
     //% blockId=footballHardMode block="set hard mode %on=toggleOnOff"
+    //% on.defl="true"
     //% weight=40
     export function setHardMode(on: boolean) {
         _hardMode = on;

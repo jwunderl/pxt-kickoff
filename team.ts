@@ -29,10 +29,14 @@ class Team {
             this.players[i] = player.create(this);
         }
 
+        this.setTeamColors(false);
+    }
+
+    setTeamColors(alternate: boolean) {
         // set color to team colors on creation
         const teamPalette = new color.Palette(2);
-        teamPalette.setColor(0, teamData.colorOne);
-        teamPalette.setColor(1, teamData.colorTwo);
+        teamPalette.setColor(alternate ? 1 : 0, this.teamData.colorOne);
+        teamPalette.setColor(alternate ? 0 : 1, this.teamData.colorTwo);
         color.setPalette(teamPalette, this.primaryColor, 2);
     }
 
