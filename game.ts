@@ -282,6 +282,7 @@ namespace football {
     //% blockId=createGame block="play as %playerTeam against %aiTeam || quarter length %quarterLength seconds"
     //% playerTeam.defl="league.clevelandBrowns"
     //% aiTeam.defl="league.pittsburghSteelers"
+    //% quarterLength.defl="20"
     //% weight=100
     export function createGame(playerTeam: TeamData, aiTeam: TeamData, quarterLength = 20) {
         if (currentGame) {
