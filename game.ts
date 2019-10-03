@@ -190,7 +190,14 @@ namespace football {
             text.util.showInstruction("TOUCHDOWN!", 1500);
             this.stopClock();
             this.offense.score += 7;
-            this.offense.players.forEach(p => animation.setAction(p, PlayerAnimation.Celebrate));
+            this.offense.players.forEach(p => {
+                const celebration = Math.pickRandom([
+                    PlayerAnimation.Celebrate1,
+                    PlayerAnimation.Celebrate2,
+                    PlayerAnimation.Celebrate3
+                ]);
+                animation.setAction(p, celebration);
+            });
 
             control.runInParallel(() => {
                 effects.confetti.startScreenEffect(1000);
