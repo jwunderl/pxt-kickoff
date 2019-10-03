@@ -1143,9 +1143,9 @@ class Team {
         this.animations[PlayerAnimation.LeftWithBall] = animation.createAnimation(PlayerAnimation.LeftWithBall, 150);
         this.animations[PlayerAnimation.Right] = animation.createAnimation(PlayerAnimation.Right, 150);
         this.animations[PlayerAnimation.RightWithBall] = animation.createAnimation(PlayerAnimation.RightWithBall, 150);
-        this.animations[PlayerAnimation.Celebrate1] = animation.createAnimation(PlayerAnimation.Celebrate1, 150);
-        this.animations[PlayerAnimation.Celebrate2] = animation.createAnimation(PlayerAnimation.Celebrate2, 150);
-        this.animations[PlayerAnimation.Celebrate3] = animation.createAnimation(PlayerAnimation.Celebrate3, 150);
+        this.animations[PlayerAnimation.Celebrate1] = animation.createAnimation(PlayerAnimation.Celebrate1, 100);
+        this.animations[PlayerAnimation.Celebrate2] = animation.createAnimation(PlayerAnimation.Celebrate2, 100);
+        this.animations[PlayerAnimation.Celebrate3] = animation.createAnimation(PlayerAnimation.Celebrate3, 100);
         this.animations[PlayerAnimation.ThrowLeft] = animation.createAnimation(PlayerAnimation.ThrowLeft, 200);
         this.animations[PlayerAnimation.ThrowRight] = animation.createAnimation(PlayerAnimation.ThrowRight, 200);
 
