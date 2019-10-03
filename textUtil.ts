@@ -1,16 +1,20 @@
 namespace text.util {
     let renderable: scene.Renderable;
-    export function showInstruction(text: string, duration: number): void {
+    export function showInstruction(text: string, duration?: number): void {
         if (renderable) {
             renderable.destroy();
         }
+
         renderable = showText(text);
-        control.runInParallel(() => {
-            pause(duration);
-            if (renderable) {
-                renderable.destroy();
-            }
-        });
+
+        if (duration) {
+            control.runInParallel(() => {
+                pause(duration);
+                if (renderable) {
+                    renderable.destroy();
+                }
+            });
+        }
     }
 
     function showText(text: string): scene.Renderable {

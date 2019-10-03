@@ -40,13 +40,16 @@ class GameClock {
         return this.secondsRemaining <= 0;
     }
 
+    // returns whether the game is completed or not.
     nextQuarter() {
         ++this.quarter;
         if (!this.finished()) {
             game.splash("Next Quarter!");
             this.secondsRemaining = this.secondsPerQuarter;
+            return false;
         } else {
             game.over();
+            return true;
         }
     }
 

@@ -360,6 +360,8 @@ namespace football {
                     return false;
                 }
             })();
+
+
             text.util.introInstruction(`Move with arrows and   throw with A! ${isHardware ? "Press A" : "Click on the screen"} to start.`);
             currentGame.startPlay();
         } else {
