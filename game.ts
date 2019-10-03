@@ -122,7 +122,10 @@ namespace football {
 
             this.playerWhoHasBall = undefined;
             if (this.clock.quarterOver()) {
-                this.clock.nextQuarter();
+                const finished = this.clock.nextQuarter();
+                if (finished) {
+                    return;
+                }
                 this.turnOver();
             }
 
@@ -190,14 +193,7 @@ namespace football {
             text.util.showInstruction("TOUCHDOWN!", 1500);
             this.stopClock();
             this.offense.score += 7;
-            this.offense.players.forEach(p => {
-                const celebration = Math.pickRandom([
-                    PlayerAnimation.Celebrate1,
-                    PlayerAnimation.Celebrate2,
-                    PlayerAnimation.Celebrate3
-                ]);
-                animation.setAction(p, celebration);
-            });
+            this.offense.celebrate()
 
             control.runInParallel(() => {
                 effects.confetti.startScreenEffect(1000);
@@ -361,6 +357,13 @@ namespace football {
                 }
             })();
 
+            game.onGameOver(win => {
+                const currGame = football.activeGame();
+                currGame.resetPlayerPositions();
+                currGame.offense.celebrate();
+                currGame.defense.celebrate();
+                text.util.showInstruction("GAME OVER!")
+            });
 
             text.util.introInstruction(`Move with arrows and   throw with A! ${isHardware ? "Press A" : "Click on the screen"} to start.`);
             currentGame.startPlay();

@@ -86,6 +86,17 @@ class Team {
         });
     }
 
+    celebrate() {
+        this.players.forEach(p => {
+            const celebration = Math.pickRandom([
+                PlayerAnimation.Celebrate1,
+                PlayerAnimation.Celebrate2,
+                PlayerAnimation.Celebrate3
+            ]);
+            animation.setAction(p, celebration);
+        });
+    }
+
     isPlayerControlled() {
         return this.controlled;
     }
