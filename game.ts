@@ -228,7 +228,7 @@ namespace football {
                     if (t && p.x > this.lineOfScrimmage) {
                         if (!p.data[datakey.IS_CHASING_BALL]) {
                             p.data[datakey.IS_CHASING_BALL] = true;
-                            p.follow(t, 100, 3);
+                            p.follow(t, 100);
                         }
                     } else if (p != this.offense.activePlayer) {
                         if (Math.percentChance(4)) {
@@ -267,7 +267,7 @@ namespace football {
                 this.defense.players
                     .filter(p => p != this.defense.activePlayer)
                     .forEach((player, ind) => {
-                        player.follow(this.offense.players[ind], 100, 2);
+                        player.follow(this.offense.players[ind], 100);
                     });
             } else {
                 // clear any follows
